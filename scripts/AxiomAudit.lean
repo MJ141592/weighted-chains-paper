@@ -1,0 +1,155 @@
+import WeightedChains
+import WeightedChains.LargeK
+import Lean.Util.CollectAxioms
+import Lean.Elab.Command
+
+/-!
+Kernel-dependency audit for headline declarations.  Mathlib proofs commonly
+inherit Lean's standard quotient, propositional extensionality, and classical
+choice axioms; this command rejects every other axiom dependency.
+-/
+
+open Lean Elab Command
+
+elab "assert_only_standard_axioms " n:ident : command => do
+  let declaration ← liftCoreM <| Lean.Elab.realizeGlobalConstNoOverloadWithInfo n
+  let axioms ← Lean.collectAxioms declaration
+  let allowed : NameSet :=
+    NameSet.empty |>.insert ``propext |>.insert ``Classical.choice |>.insert ``Quot.sound
+  for axiomName in axioms do
+    unless allowed.contains axiomName do
+      throwError "{n} depends on nonstandard axiom {axiomName}"
+
+/-- Audit every theorem below a namespace prefix.  The explicit checks below
+serve as a readable headline inventory; this exhaustive pass prevents a new
+supporting theorem from escaping the same kernel-dependency policy. -/
+elab "assert_namespace_only_standard_axioms " ns:ident : command => do
+  let namespacePrefix := ns.getId
+  let env ← getEnv
+  let allowed : NameSet :=
+    NameSet.empty |>.insert ``propext |>.insert ``Classical.choice |>.insert ``Quot.sound
+  for (name, info) in env.constants do
+    let userName := privateToUserName name
+    if namespacePrefix.isPrefixOf userName && info.isTheorem then
+      let axioms ← liftCoreM <| Lean.collectAxioms name
+      for axiomName in axioms do
+        unless allowed.contains axiomName do
+          throwError "{userName} depends on nonstandard axiom {axiomName}"
+
+/-- Reject forbidden declarations originating in any project module.  Module
+provenance, rather than the user-facing declaration name, also catches unused,
+private, or accidentally root-namespaced declarations. -/
+elab "assert_no_project_forbidden_declarations" : command => do
+  let env ← getEnv
+  for (name, info) in env.constants do
+    if info.isAxiom || info matches .opaqueInfo _ then
+      let fromProject :=
+        match env.getModuleIdxFor? name with
+        | some moduleIdx =>
+            let moduleName := env.header.moduleNames[moduleIdx.toNat]!
+            (`WeightedChains).isPrefixOf moduleName
+        | none => false
+      if fromProject then
+        let userName := privateToUserName name
+        if info.isAxiom then
+          throwError "project axiom declaration {userName} is forbidden"
+        if info matches .opaqueInfo _ then
+          throwError "opaque project declaration {userName} is forbidden"
+
+assert_only_standard_axioms WeightedChains.Cube.residueFamily_kSeparated
+assert_only_standard_axioms WeightedChains.Chain.Good.card_lowerResidueFinset_inter_vertices
+assert_only_standard_axioms WeightedChains.Cube.card_lowerResidueFinset_eq_card_upperResidueFinset
+assert_only_standard_axioms WeightedChains.Cube.lowerResidueFinset_eq_upperResidueFinset_of_even
+assert_only_standard_axioms WeightedChains.Cube.kSeparated_reflectFinset
+assert_only_standard_axioms WeightedChains.Cube.reflectFinset_lowerResidueFinset
+assert_only_standard_axioms WeightedChains.Chain.kSeparated_card_le_lowerResidueFinset
+assert_only_standard_axioms WeightedChains.Chain.kSeparated_inter_vertices_card_eq_one_of_card_eq_lower
+assert_only_standard_axioms WeightedChains.UniquenessPropagation.finset_eq_of_positive_weight_outward_induction
+assert_only_standard_axioms WeightedChains.DOneMiddleUniqueness.inter_adjacentLayers_eq_lower_or_upper
+assert_only_standard_axioms WeightedChains.Chain.width_eq_steps_of_saturated
+assert_only_standard_axioms WeightedChains.DOne.lowerStartingWeight_pos
+assert_only_standard_axioms WeightedChains.DOne.layerWeightTotal_eq_choose
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.card_goodChainsStartingAtLayerThrough_eq_of_rank_eq
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.reflect_reflect
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.good_reflect_iff
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.exists_good_containing
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.chainWeight_reflect
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.inducedWeight_eq_one
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.indexedInducedWeight_eq_one
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.indexedWeight_pos
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.kSeparated_card_le_lowerResidueFinset
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.inter_goodChain_card_eq_one_of_card_eq
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.middleLayer_subset_candidate_of_even
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.inter_middleLayers_eq_lower_or_upper_of_odd
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.eq_lowerResidueFinset_of_card_eq_of_middle_agreement
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.eq_upperResidueFinset_of_card_eq_of_middle_agreement
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.eq_lowerResidueFinset_or_eq_upperResidueFinset_of_card_eq
+assert_only_standard_axioms WeightedChains.DOne.BooleanChain.cardinality_and_uniqueness
+assert_only_standard_axioms WeightedChains.Ternary.extendedTrinomial_succ
+assert_only_standard_axioms WeightedChains.Ternary.card_typeFiber
+assert_only_standard_axioms WeightedChains.Ternary.exists_coordinatePermutation_of_same_type
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.toChain_saturated
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.toChain_good_iff
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.exists_good_starting_at_of_rank_le
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.type_vertexAt_eq_of_same_start_type
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.card_goodChainsStartingAtTypeThrough_eq_of_same_type
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.middleSingleton_good
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.exists_good_containing
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.exists_good_containing_avoiding_middle
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.exists_good_with_endpoint_avoiding_middle_of_lowerResidue
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.exists_closer_lowerResidue
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.distributedChainWeight_reindex
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.sum_distributedChainWeight_startGroup
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.width_eq_of_mem_startGroup
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.type_vertexAt_eq_of_mem_startGroup
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.inducedWeight_eq_one_of_total_eq_trinomial
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.card_typeFiber_inter_vertices_le_one
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.totalInducedWeightOnType_eq_sum_if_visits
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.visitsType_iff_of_mem_startGroup
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.totalInducedWeightOnType_distributed_eq_sum_startTypes
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.mem_occupiedStartTypes_iff_arithmetic
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.visitsType_iff_traceCoordinates
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.startGroupVisitsType_iff_canonicalTypeVisits
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.totalInducedWeightOnType_startTypeTotal_eq_arithmetic_sum
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.occupiedStartTypes_eq_filter_arithmetic
+assert_only_standard_axioms WeightedChains.Ternary.auxiliaryIncidenceSum_eq_extendedTrinomial
+assert_only_standard_axioms WeightedChains.Ternary.canonicalStartWeightIncidenceSum_eq_auxiliaryIncidenceSum
+assert_only_standard_axioms WeightedChains.Ternary.auxiliaryWeight_recursion
+assert_only_standard_axioms WeightedChains.Ternary.auxiliaryWeight_zero_right_pos
+assert_only_standard_axioms WeightedChains.Ternary.auxiliaryWeightPascal_of_above_triangle
+assert_only_standard_axioms WeightedChains.Ternary.auxiliaryWeightPascal_at_dimension_zero
+assert_only_standard_axioms WeightedChains.Ternary.auxiliaryWeightPascal_of_valid_lower
+assert_only_standard_axioms WeightedChains.Ternary.auxiliaryWeight_pos_of_valid_lower
+assert_only_standard_axioms WeightedChains.Ternary.innerStartingWeight_succ_of_valid_inner
+assert_only_standard_axioms WeightedChains.Ternary.innerStartingWeight_pos_of_valid_lower_inner_nat
+assert_only_standard_axioms WeightedChains.Ternary.innerStartingWeight_pos_of_valid_lower_inner
+assert_only_standard_axioms WeightedChains.Ternary.startTypeWeight_reflect
+assert_only_standard_axioms WeightedChains.Ternary.startTypeWeight_pos
+assert_only_standard_axioms WeightedChains.Ternary.extendedStartTypeWeight_ofNat
+assert_only_standard_axioms WeightedChains.Ternary.startTypeWeight_recurrence_lower_outer
+assert_only_standard_axioms WeightedChains.Ternary.startTypeWeight_recurrence_lowest_lower_inner
+assert_only_standard_axioms WeightedChains.Ternary.startTypeWeight_recurrence_lower_inner
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.distributedStartTypeWeight_pos
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.totalInducedWeightOnType_startTypeTotal_eq_trinomial_of_lower
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.distributedStartTypeWeight_reflect
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.inducedWeight_startTypeTotal_eq_one
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.indexedWeight_nonneg
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.kSeparated_card_le_lowerResidueFinset
+assert_only_standard_axioms WeightedChains.UniquenessPropagation.finset_eq_of_active_exact_one_outward_induction_except
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.eq_lowerResidueFinset_of_card_eq
+assert_only_standard_axioms WeightedChains.Ternary.BasicChain.cardinality_and_uniqueness
+assert_only_standard_axioms WeightedChains.main_cardinality_and_uniqueness
+assert_only_standard_axioms WeightedChains.SpernerAppendix.SymmetricChain.weight_eq_choose_sub_previous_div_card
+assert_only_standard_axioms WeightedChains.SpernerAppendix.SymmetricChain.inducedWeight_eq_one
+assert_only_standard_axioms WeightedChains.SpernerAppendix.SymmetricChain.weight_le_one
+assert_only_standard_axioms WeightedChains.SpernerAppendix.SymmetricChain.inter_card_eq_one_of_extremal
+assert_only_standard_axioms WeightedChains.SpernerAppendix.cardinality_and_uniqueness
+assert_only_standard_axioms WeightedChains.LargeK.lowerResidueFinset_eq_middleLayer
+assert_only_standard_axioms WeightedChains.LargeK.kSeparated_card_le_lowerResidueFinset
+assert_only_standard_axioms WeightedChains.LargeK.lowerResidueFinset_kSeparated
+assert_only_standard_axioms WeightedChains.LargeK.lowerResidueFinset_isMaximum
+assert_only_standard_axioms WeightedChains.LargeK.upperResidueFinset_kSeparated
+assert_only_standard_axioms WeightedChains.LargeK.upperResidueFinset_isMaximum
+
+assert_no_project_forbidden_declarations
+assert_namespace_only_standard_axioms WeightedChains

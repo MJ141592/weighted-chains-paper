@@ -12,3 +12,4 @@
 *.xdv
 _minted-*/
 auto/
+.lake/
