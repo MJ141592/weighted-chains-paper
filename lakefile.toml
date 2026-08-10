@@ -1,0 +1,11 @@
+name = "weighted-chains"
+version = "0.1.0"
+defaultTargets = ["WeightedChains"]
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+
+[[lean_lib]]
+name = "WeightedChains"
+moreLeanArgs = ["-DwarningAsError=true"]

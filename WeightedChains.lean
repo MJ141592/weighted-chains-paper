@@ -1,0 +1,64 @@
+import WeightedChains.Preliminaries
+import WeightedChains.GoodChainResidues
+import WeightedChains.ResidueSymmetry
+import WeightedChains.ResidueParity
+import WeightedChains.ReflectedFinsets
+import WeightedChains.WeightedStrategy
+import WeightedChains.WeightedUniqueness
+import WeightedChains.UniquenessPropagation
+import WeightedChains.MainBound
+import WeightedChains.MiddleLayerUniqueness
+import WeightedChains.DOneMiddleUniqueness
+import WeightedChains.DOneLayers
+import WeightedChains.DOne
+import WeightedChains.DOneLayerWeights
+import WeightedChains.DOneLayerTotals
+import WeightedChains.DOneChains
+import WeightedChains.DOneCanonicalChain
+import WeightedChains.DOneIncidence
+import WeightedChains.DOneChainReflection
+import WeightedChains.DOneChainExistence
+import WeightedChains.DOneWeights
+import WeightedChains.DOneMiddleChainWitnesses
+import WeightedChains.DOneMain
+import WeightedChains.DOneEqualityMiddle
+import WeightedChains.DOneEqualityPropagation
+import WeightedChains.DOneUniqueness
+import WeightedChains.DTwo
+import WeightedChains.DTwoOrbits
+import WeightedChains.DTwoChains
+import WeightedChains.DTwoChainExistence
+import WeightedChains.DTwoMetachains
+import WeightedChains.DTwoChainReflection
+import WeightedChains.DTwoBasicSufficiency
+import WeightedChains.DTwoStartGroups
+import WeightedChains.DTwoStartGroupTraces
+import WeightedChains.DTwoTypeWeights
+import WeightedChains.DTwoTypeIncidence
+import WeightedChains.DTwoGroupedIncidence
+import WeightedChains.DTwoOccupiedStartTypes
+import WeightedChains.DTwoTraceCoordinates
+import WeightedChains.DTwoFiniteTypes
+import WeightedChains.DTwoAuxiliaryIncidenceSum
+import WeightedChains.DTwoCanonicalIncidenceSum
+import WeightedChains.DTwoWeights
+import WeightedChains.DTwoWeightPascal
+import WeightedChains.DTwoWeightPascalLower
+import WeightedChains.DTwoWeightPositivity
+import WeightedChains.DTwoInnerWeights
+import WeightedChains.DTwoInnerWeightPositivity
+import WeightedChains.DTwoStartingWeights
+import WeightedChains.DTwoStartingWeightRecurrences
+import WeightedChains.DTwoWeightReflection
+import WeightedChains.DTwoMain
+import WeightedChains.DTwoUniqueness
+import WeightedChains.MainTheorem
+import WeightedChains.SpernerAppendix
+import WeightedChains.LargeK
+
+/-!
+# Weighted chains
+
+The root import for the Lean formalisation of *A generalisation of Sperner's
+theorem using weighted chain decomposition*.
+-/
