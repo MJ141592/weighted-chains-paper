@@ -16,6 +16,14 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 75
     steps:
+      # The root formalisation and the Blueprint use separate Lake environments.
+      # Reclaim SDKs that this Lean-only job never uses so both fit on the
+      # hosted runner without weakening either build or audit.
+      - name: Reclaim disk space from unused runner SDKs
+        run: |
+          sudo rm -rf -- /usr/local/lib/android /usr/share/dotnet /opt/ghc
+          df -h /
+
       - name: Check out the tagged revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
