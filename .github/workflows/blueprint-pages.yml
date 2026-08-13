@@ -1,0 +1,73 @@
+name: Blueprint site
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+# Site construction needs only source read access. The deployment job receives
+# its two additional permissions only when it is explicitly enabled.
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Check out the exact revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install the pinned Lean toolchain and build the formalisation
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        with:
+          use-mathlib-cache: true
+          use-github-cache: false
+          build: true
+
+      - name: Audit completeness and kernel assumptions
+        run: ./scripts/audit.sh
+
+      - name: Build and validate the blueprint site
+        run: ./blueprint/scripts/build-site.sh
+
+      - name: Check the site entry point
+        run: test -f blueprint/_out/site/html-multi/index.html
+
+      # This upload is safe when the repository is private or Pages is not
+      # configured: it creates a workflow artifact but performs no deployment.
+      - name: Package the validated site
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: blueprint/_out/site/html-multi
+          retention-days: 14
+
+  deploy:
+    if: >-
+      github.event_name != 'pull_request' &&
+      github.ref == 'refs/heads/main' &&
+      vars.ENABLE_PAGES == 'true'
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    steps:
+      - name: Read the Pages configuration
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - name: Deploy the validated site
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0

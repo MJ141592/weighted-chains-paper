@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "routePrefix": "/theorems/",
+  "reviewState": "semantic-review-pending",
+  "repository": "https://github.com/MJ141592/weighted-chains-shared",
+  "entries": [
+    {
+      "slug": "main-theorem",
+      "label": "wc:thm:main-theorem",
+      "kind": "theorem",
+      "numbered": true,
+      "paperRef": "Theorem 1.1",
+      "source": { "path": "main.tex", "startLine": 109, "endLine": 125 },
+      "correspondence": ["corrected", "encoding"]
+    },
+    {
+      "slug": "chain",
+      "label": "wc:def:chain",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 2.1",
+      "source": { "path": "main.tex", "startLine": 184, "endLine": 188 },
+      "correspondence": ["direct", "encoding"]
+    },
+    {
+      "slug": "chain-width",
+      "label": "wc:def:chain-width",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 2.2",
+      "source": { "path": "main.tex", "startLine": 190, "endLine": 192 },
+      "correspondence": ["direct", "encoding"]
+    },
+    {
+      "slug": "saturated-chain",
+      "label": "wc:def:saturated-chain",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 2.3",
+      "source": { "path": "main.tex", "startLine": 202, "endLine": 205 },
+      "correspondence": ["direct", "encoding"]
+    },
+    {
+      "slug": "symmetric-chain",
+      "label": "wc:def:symmetric-chain",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 2.4",
+      "source": { "path": "main.tex", "startLine": 207, "endLine": 209 },
+      "correspondence": ["direct", "encoding"]
+    },
+    {
+      "slug": "layer",
+      "label": "wc:def:layer",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 2.5",
+      "source": { "path": "main.tex", "startLine": 217, "endLine": 222 },
+      "correspondence": ["direct"]
+    },
+    {
+      "slug": "good-chain",
+      "label": "wc:def:good-chain",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 2.6",
+      "source": { "path": "main.tex", "startLine": 228, "endLine": 231 },
+      "correspondence": ["direct", "encoding"]
+    },
+    {
+      "slug": "chain-start",
+      "label": "wc:def:chain-start",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 2.7",
+      "source": { "path": "main.tex", "startLine": 246, "endLine": 254 },
+      "correspondence": ["corrected", "encoding"]
+    },
+    {
+      "slug": "cube-sides",
+      "label": "wc:def:cube-sides",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 2.8",
+      "source": { "path": "main.tex", "startLine": 258, "endLine": 260 },
+      "correspondence": ["direct"]
+    },
+    {
+      "slug": "inner-outer-layers",
+      "label": "wc:def:inner-outer-layers",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 2.9",
+      "source": { "path": "main.tex", "startLine": 263, "endLine": 265 },
+      "correspondence": ["corrected", "encoding"]
+    },
+    {
+      "slug": "type",
+      "label": "wc:def:type",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 2.10",
+      "source": { "path": "main.tex", "startLine": 277, "endLine": 283 },
+      "correspondence": ["corrected", "encoding"]
+    },
+    {
+      "slug": "good-chain-weighting",
+      "label": "wc:prop:good-chain-weighting",
+      "kind": "proposition",
+      "numbered": true,
+      "paperRef": "Proposition 3.1",
+      "source": { "path": "main.tex", "startLine": 309, "endLine": 326 },
+      "correspondence": ["corrected", "factored", "encoding"]
+    },
+    {
+      "slug": "weighted-cover-implies-main",
+      "label": "wc:lem:weighted-cover-implies-main",
+      "kind": "lemma",
+      "numbered": true,
+      "paperRef": "Lemma 3.2",
+      "source": { "path": "main.tex", "startLine": 340, "endLine": 345 },
+      "correspondence": ["corrected", "factored", "encoding"]
+    },
+    {
+      "slug": "boolean-inner-weight",
+      "label": "wc:lem:boolean-inner-weight",
+      "kind": "lemma",
+      "numbered": true,
+      "paperRef": "Lemma 4.1",
+      "source": { "path": "main.tex", "startLine": 490, "endLine": 495 },
+      "correspondence": ["direct", "factored"]
+    },
+    {
+      "slug": "basic-chain",
+      "label": "wc:def:basic-chain",
+      "kind": "definition",
+      "numbered": true,
+      "paperRef": "Definition 5.1",
+      "source": { "path": "main.tex", "startLine": 578, "endLine": 580 },
+      "correspondence": ["corrected", "factored", "encoding"]
+    },
+    {
+      "slug": "basic-chains-suffice",
+      "label": "wc:lem:basic-chains-suffice",
+      "kind": "lemma",
+      "numbered": true,
+      "paperRef": "Lemma 5.2",
+      "source": { "path": "main.tex", "startLine": 633, "endLine": 642 },
+      "correspondence": ["corrected", "factored", "encoding"]
+    },
+    {
+      "slug": "ternary-auxiliary-positive",
+      "label": "wc:lem:ternary-auxiliary-positive",
+      "kind": "lemma",
+      "numbered": true,
+      "paperRef": "Lemma 5.3",
+      "source": { "path": "main.tex", "startLine": 729, "endLine": 731 },
+      "correspondence": ["corrected"]
+    },
+    {
+      "slug": "ternary-inner-weight",
+      "label": "wc:lem:ternary-inner-weight",
+      "kind": "lemma",
+      "numbered": true,
+      "paperRef": "Lemma 5.4",
+      "source": { "path": "main.tex", "startLine": 787, "endLine": 792 },
+      "correspondence": ["direct", "factored"]
+    },
+    {
+      "slug": "k-separated",
+      "label": "wc:def:k-separated",
+      "kind": "definition",
+      "numbered": false,
+      "paperRef": "Introduction, definition of k-separation",
+      "source": { "path": "main.tex", "startLine": 93, "endLine": 99 },
+      "correspondence": ["corrected"]
+    },
+    {
+      "slug": "residue-families-separated",
+      "label": "wc:lem:residue-families-separated",
+      "kind": "lemma",
+      "numbered": false,
+      "paperRef": "Remark after Theorem 1.1",
+      "source": { "path": "main.tex", "startLine": 127, "endLine": 137 },
+      "correspondence": ["direct"]
+    },
+    {
+      "slug": "good-chain-residue-intersection",
+      "label": "wc:lem:good-chain-residue-intersection",
+      "kind": "lemma",
+      "numbered": false,
+      "paperRef": "Good-chain residue intersection",
+      "source": { "path": "main.tex", "startLine": 233, "endLine": 244 },
+      "correspondence": ["direct"]
+    },
+    {
+      "slug": "sperner-appendix",
+      "label": "wc:thm:sperner-appendix",
+      "kind": "theorem",
+      "numbered": false,
+      "paperRef": "Appendix: weighted Sperner theorem",
+      "source": { "path": "main.tex", "startLine": 916, "endLine": 994 },
+      "correspondence": ["corrected", "factored"]
+    },
+    {
+      "slug": "large-k-appendix",
+      "label": "wc:thm:large-k-appendix",
+      "kind": "theorem",
+      "numbered": false,
+      "paperRef": "Appendix: arbitrary d and large k",
+      "source": { "path": "main.tex", "startLine": 996, "endLine": 1013 },
+      "correspondence": ["direct", "factored"]
+    }
+  ]
+}

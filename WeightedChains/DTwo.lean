@@ -89,10 +89,10 @@ theorem rank_add_le_dimension_iff {n : ℕ} (x : Cube n 2) (k : ℕ) :
 /-- A dimension-indexed triple `(a,b,c)` recording a ternary type. -/
 @[ext]
 structure TypeCounts (n : ℕ) where
-  zeros : ℕ
-  ones : ℕ
-  twos : ℕ
-  sum_eq : zeros + ones + twos = n
+  /-- Number of coordinates equal to zero. -/ zeros : ℕ
+  /-- Number of coordinates equal to one. -/ ones : ℕ
+  /-- Number of coordinates equal to two. -/ twos : ℕ
+  /-- The three coordinate counts exhaust the dimension. -/ sum_eq : zeros + ones + twos = n
 
 namespace TypeCounts
 

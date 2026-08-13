@@ -1,4 +1,5 @@
 import WeightedChains.Preliminaries
+import WeightedChains.PaperDefinitions
 import WeightedChains.GoodChainResidues
 import WeightedChains.ResidueSymmetry
 import WeightedChains.ResidueParity
