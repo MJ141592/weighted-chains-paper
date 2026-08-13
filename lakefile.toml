@@ -5,6 +5,7 @@ defaultTargets = ["WeightedChains"]
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
+rev = "v4.33.0"
 
 [[lean_lib]]
 name = "WeightedChains"

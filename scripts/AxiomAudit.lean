@@ -20,17 +20,23 @@ elab "assert_only_standard_axioms " n:ident : command => do
     unless allowed.contains axiomName do
       throwError "{n} depends on nonstandard axiom {axiomName}"
 
-/-- Audit every theorem below a namespace prefix.  The explicit checks below
-serve as a readable headline inventory; this exhaustive pass prevents a new
-supporting theorem from escaping the same kernel-dependency policy. -/
-elab "assert_namespace_only_standard_axioms " ns:ident : command => do
-  let namespacePrefix := ns.getId
+/-- Audit every theorem originating in a project module. The explicit checks
+below serve as a readable headline inventory; module provenance ensures that a
+new private or accidentally root-namespaced theorem cannot escape the same
+kernel-dependency policy. -/
+elab "assert_project_only_standard_axioms" : command => do
   let env ← getEnv
   let allowed : NameSet :=
     NameSet.empty |>.insert ``propext |>.insert ``Classical.choice |>.insert ``Quot.sound
   for (name, info) in env.constants do
     let userName := privateToUserName name
-    if namespacePrefix.isPrefixOf userName && info.isTheorem then
+    let fromProject :=
+      match env.getModuleIdxFor? name with
+      | some moduleIdx =>
+          let moduleName := env.header.moduleNames[moduleIdx.toNat]!
+          (`WeightedChains).isPrefixOf moduleName
+      | none => false
+    if fromProject && info.isTheorem then
       let axioms ← liftCoreM <| Lean.collectAxioms name
       for axiomName in axioms do
         unless allowed.contains axiomName do
@@ -152,4 +158,4 @@ assert_only_standard_axioms WeightedChains.LargeK.upperResidueFinset_kSeparated
 assert_only_standard_axioms WeightedChains.LargeK.upperResidueFinset_isMaximum
 
 assert_no_project_forbidden_declarations
-assert_namespace_only_standard_axioms WeightedChains
+assert_project_only_standard_axioms

@@ -20,10 +20,10 @@ namespace Ternary
 `width` coordinates are changed, in the order given by `coordinate`. -/
 @[ext]
 structure BasicChain (n : ℕ) where
-  width : Fin (n + 1)
-  start : Cube n 2
-  coordinate : Fin width ↪ Fin n
-  start_coordinate : ∀ i, start (coordinate i) = 0
+  /-- Number of coordinates changed by the chain. -/ width : Fin (n + 1)
+  /-- The lower endpoint of the oriented chain. -/ start : Cube n 2
+  /-- Changed coordinates, in traversal order. -/ coordinate : Fin width ↪ Fin n
+  /-- Every changed coordinate starts at zero. -/ start_coordinate : ∀ i, start (coordinate i) = 0
 
 private def BasicChain.finiteCode (n : ℕ) (B : BasicChain n) :
     Σ w : Fin (n + 1), Cube n 2 × (Fin w ↪ Fin n) :=

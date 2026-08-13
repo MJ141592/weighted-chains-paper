@@ -25,8 +25,16 @@ library.
 - `#print axioms` on the current declarations reports only Lean's standard
   `propext`, `Classical.choice`, and `Quot.sound`, inherited through mathlib.
   `scripts/AxiomAudit.lean` checks this allowlist automatically for every
-  theorem in the project namespace, while retaining named checks as a readable
-  headline inventory. There are no axioms declared by this project.
+  theorem originating in a project module, while retaining named checks as a
+  readable headline inventory. Module provenance also covers private or
+  accidentally root-namespaced declarations. There are no axioms declared by
+  this project.
+
+The interactive companion under `blueprint/` presents the 18 numbered paper
+items and the main unnumbered results with kernel-checked signatures and
+commit-pinned source links. `SEMANTIC_REVIEW.md` is the authoritative human
+sign-off record for paper-to-Lean correspondence; proof completion and semantic
+review are intentionally reported as distinct facts.
 
 ## Paper-to-Lean map
 
@@ -40,6 +48,7 @@ library.
 | Every good chain meets `A₁`, `A₂` exactly once | `Chain.Good.card_lowerResidueFinset_inter_vertices`, `Chain.Good.card_upperResidueFinset_inter_vertices` | proved for every `d` |
 | `|A₁| = |A₂|` by reflection | `Cube.card_lowerResidueFinset_eq_card_upperResidueFinset` | proved |
 | Chains, width, saturation, symmetry, good chains | namespace `Chain` | defined |
+| Lower/upper sides and corrected inner/outer layers | `Cube.lowerSide`, `Cube.upperSide`, `Cube.InnerLayer`, `Cube.OuterLayer` | defined as paper-facing correspondence targets; later proofs use equivalent arithmetic forms |
 | Saturated-chain rank and length facts | `Chain.rank_vertex_eq`, `Chain.length_le_width_mul_add_one`, `Chain.symmetric_iff_endpoint` | proved |
 | Corrected Boolean width/length equivalence | `Chain.width_eq_steps_of_saturated`, `Chain.length_eq_width_add_one_of_saturated` | proved |
 | A separated family meets a good chain at most once | `Chain.card_inter_vertices_le_one` | proved (from the width condition) |

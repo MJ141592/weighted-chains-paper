@@ -191,9 +191,9 @@ end Cube
 /-- A nonempty finite chain, represented in its monotone order. `steps + 1`
 is the paper's chain length. -/
 structure Chain (n d : ℕ) where
-  steps : ℕ
-  vertex : Fin (steps + 1) → Cube n d
-  monotone_vertex : Monotone vertex
+  /-- One less than the number of vertices. -/ steps : ℕ
+  /-- The vertices, indexed in chain order. -/ vertex : Fin (steps + 1) → Cube n d
+  /-- Vertices increase in the coordinatewise cube order. -/ monotone_vertex : Monotone vertex
 
 namespace Chain
 

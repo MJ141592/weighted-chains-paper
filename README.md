@@ -1,11 +1,23 @@
-# Weighted chains (shared)
+# Weighted chains
 
-LaTeX source exported from the Overleaf project shared by `ijontichy1024@gmail.com`.
+This repository contains the paper source and Lean 4 formalisation of *A
+generalisation of Sperner's theorem using weighted chain decomposition*. The
+formalisation is a standalone project built on mathlib; it is not intended for
+direct inclusion in mathlib.
 
-This repository also contains a Lean 4 formalisation of *A generalisation of
-Sperner's theorem using weighted chain decomposition*. The formalisation is a
-standalone downstream project built on mathlib; it is not intended for direct
-inclusion in mathlib.
+The publication has four complementary views:
+
+- `main.tex` is the authoritative journal manuscript;
+- `blueprint/` builds an interactive, theorem-level paper-to-Lean companion;
+- `FORMALIZATION.md` records the detailed declaration map and corrections
+  exposed by formalisation;
+- `SEMANTIC_REVIEW.md` records human review of the correspondence between each
+  numbered paper statement and its Lean encoding.
+
+The Lean kernel verifies the declarations linked by the Blueprint. That fact
+is deliberately kept separate from semantic correspondence review: a green
+proof status says that Lean accepted the displayed declaration, while the
+review record says whether that declaration faithfully represents the paper.
 
 ## Lean formalisation
 
@@ -17,12 +29,13 @@ lake build
 ./scripts/audit.sh
 ```
 
-The project pins the exact mathlib dependency graph in `lake-manifest.json` and
-uses mathlib's matching toolchain from `lean-toolchain`. Compiler warnings are
-errors. The audit rejects `sorry`, `admit`, and project declarations introduced
-with `axiom`, `constant`, `opaque`, `unsafe`, or `partial`; it also compiles every source
-module so an unimported draft cannot bypass CI.  Every imported theorem in the
-project namespace is additionally checked for nonstandard axiom dependencies.
+The project pins Lean 4.33.0 and the matching mathlib release, including the
+exact transitive dependency graph in `lake-manifest.json`. Compiler warnings
+are errors. The audit rejects incomplete or trust-expanding project
+declarations, compiles every source module so an unimported draft cannot bypass
+CI, requires every source module to belong to the root import closure, and
+checks every theorem originating in a project module for nonstandard kernel
+dependencies.
 
 The source is arranged in the order of the paper:
 
@@ -50,19 +63,33 @@ The source is arranged in the order of the paper:
   internally proved symmetric-chain decomposition rather than assuming the
   cited external existence theorem.
 
-See `FORMALIZATION.md` for the theorem map, design decisions, and current
-status.
+See `REPRODUCIBILITY.md` for the trust model and clean-room build instructions,
+and `FORMALIZATION.md` for the full theorem map and design decisions.
+
+## Interactive paper companion
+
+Build the Blueprint and its stable per-result links with:
+
+```sh
+./blueprint/scripts/build-site.sh
+```
+
+The generated multi-page site is under `blueprint/_out/site/html-multi/`.
+Publication links use `/theorems/<slug>/`, a stable redirect layer generated
+from Verso's manifest rather than its internal page layout. See
+`LATEX_INTEGRATION.md` for the ready-to-use PDF link macro and insertion map.
+
+GitHub Pages deployment is intentionally gated by the repository variable
+`ENABLE_PAGES=true`; the site can therefore be checked in CI before a canonical
+public repository and Pages deployment are approved.
 
 ## LaTeX build
 
-This workspace has TinyTeX installed at:
+With a current TeX Live installation and `latexmk` on `PATH`, run:
 
 ```sh
-../TinyTeX/bin/universal-darwin/latexmk -pdf main.tex
+latexmk -pdf main.tex
 ```
 
-From this repository directory, use:
-
-```sh
-PATH="../TinyTeX/bin/universal-darwin:$PATH" latexmk -pdf main.tex
-```
+The Blueprint does not rewrite or preprocess the manuscript. Adding its small
+link markers to a submission copy remains an ordinary LaTeX edit.

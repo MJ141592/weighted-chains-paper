@@ -1,0 +1,134 @@
+name: Publication artifact
+
+on:
+  push:
+    tags:
+      - "v[0-9]*.[0-9]*.[0-9]*"
+
+# This workflow deliberately does not create or modify a GitHub release. It
+# produces reviewable files from an intentional version tag; a human publishes
+# them only after following RELEASING.md.
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    steps:
+      # The root formalisation and the Blueprint use separate Lake environments.
+      # Reclaim SDKs that this Lean-only job never uses so both fit on the
+      # hosted runner without weakening either build or audit.
+      - name: Reclaim disk space from unused runner SDKs
+        run: |
+          sudo rm -rf -- /usr/local/lib/android /usr/share/dotnet /opt/ghc
+          df -h /
+
+      - name: Check out the tagged revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Install the pinned Lean toolchain and build the formalisation
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        with:
+          use-mathlib-cache: true
+          use-github-cache: false
+          build: true
+
+      - name: Audit completeness and kernel assumptions
+        run: ./scripts/audit.sh
+
+      - name: Build and validate the blueprint site
+        run: ./blueprint/scripts/build-site.sh
+
+      - name: Create normalized archives and provenance
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          REPOSITORY: ${{ github.repository }}
+          SERVER_URL: ${{ github.server_url }}
+          WORKFLOW_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          export LC_ALL=C
+          export TZ=UTC
+
+          if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Release tag is not a supported semantic version: $RELEASE_TAG" >&2
+            exit 1
+          fi
+
+          site_dir="blueprint/_out/site/html-multi"
+          test -f "$site_dir/index.html"
+
+          release_commit="$(git rev-parse "${GITHUB_SHA}^{commit}")"
+          source_date_epoch="$(git show -s --format=%ct "$release_commit")"
+          commit_timestamp="$(date --utc --date="@${source_date_epoch}" +'%Y-%m-%dT%H:%M:%SZ')"
+          repository_name="${REPOSITORY#*/}"
+          artifact_stem="${repository_name}-${RELEASE_TAG}"
+          source_file="${artifact_stem}-source.tar.gz"
+          site_file="${artifact_stem}-blueprint.tar.gz"
+
+          mkdir -p dist
+          git archive --format=tar --prefix="${artifact_stem}/" "$release_commit" \
+            | gzip -n -9 > "dist/$source_file"
+          tar --sort=name --mtime="@${source_date_epoch}" \
+            --owner=0 --group=0 --numeric-owner \
+            -C "$site_dir" -cf - . \
+            | gzip -n -9 > "dist/$site_file"
+
+          lean_toolchain="$(tr -d '\r\n' < lean-toolchain)"
+          mathlib_revision="$(jq -r '.packages[] | select(.name == "mathlib") | .rev' lake-manifest.json)"
+          if [[ ! "$mathlib_revision" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "Could not resolve the pinned mathlib revision." >&2
+            exit 1
+          fi
+
+          source_sha256="$(sha256sum "dist/$source_file" | cut -d ' ' -f 1)"
+          site_sha256="$(sha256sum "dist/$site_file" | cut -d ' ' -f 1)"
+          jq -n \
+            --arg repositoryUrl "${SERVER_URL}/${REPOSITORY}" \
+            --arg tag "$RELEASE_TAG" \
+            --arg commit "$release_commit" \
+            --arg sourceDateEpoch "$source_date_epoch" \
+            --arg commitTimestamp "$commit_timestamp" \
+            --arg leanToolchain "$lean_toolchain" \
+            --arg mathlibRevision "$mathlib_revision" \
+            --arg workflowRun "$WORKFLOW_RUN_URL" \
+            --arg sourceFile "$source_file" \
+            --arg sourceSha256 "$source_sha256" \
+            --arg siteFile "$site_file" \
+            --arg siteSha256 "$site_sha256" \
+            '{
+              schemaVersion: 1,
+              repository: $repositoryUrl,
+              tag: $tag,
+              commit: $commit,
+              sourceDateEpoch: ($sourceDateEpoch | tonumber),
+              commitTimestamp: $commitTimestamp,
+              leanToolchain: $leanToolchain,
+              mathlibRevision: $mathlibRevision,
+              workflowRun: $workflowRun,
+              successfulChecks: [
+                "lake build",
+                "./scripts/audit.sh",
+                "./blueprint/scripts/build-site.sh"
+              ],
+              sourceArchive: {file: $sourceFile, sha256: $sourceSha256},
+              blueprintArchive: {file: $siteFile, sha256: $siteSha256}
+            }' > dist/provenance.json
+
+          (
+            cd dist
+            sha256sum "$source_file" "$site_file" provenance.json > SHA256SUMS
+            sha256sum --check SHA256SUMS
+          )
+
+      - name: Upload publication-candidate files
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: publication-artifacts-${{ github.ref_name }}
+          path: dist
+          if-no-files-found: error
+          retention-days: 30
