@@ -964,19 +964,19 @@ Another interesting line of investigation would be trying different methods for 
 \section{A new proof of Sperner's theorem}
 \label{appendix_sperner}
 
-Below we present a new proof of Sperner's theorem that we arrived at while working on this paper. It is the special case with $d=1$ and $k=n$. This section is self-contained and doesn't refer to the rest of the paper, so that it may be read independently.
+Below we present a new proof of Sperner's theorem that we arrived at while working on this paper. It is the special case with $d=1$ and $k=n$. This section is self-contained and doesn't refer to the rest of the paper, allowing it to be read independently.
 
 In what follows, we will use letters $X, Y, \ldots$ to refer to subsets of $[n]$ and $A, B, C, \ldots$ to refer to families of subsets. $\mathcal{A}, \mathcal{B}, \mathcal{C}, \ldots$ will denote collections of such families.
 
 Let us call a family of subsets of $[n]$ an antichain if it contains no two elements $X \neq Y$ with $X \subseteq Y$.
 
-Hence, we will show that for any $n$, the unique largest antichains in $[n]$ are
+Hence, we will show that for any $n$, the unique largest antichains in $\mathbb{P}([n])$ are
 \begin{equation*}
-    A_1 := \big\{X \subseteq [n]: \vert X\vert  = \frac{n-1}{2}\big\}
+    A_1 := \big\{X \subseteq [n]: \vert X\vert  = \lfloor\frac{n}{2}\rfloor\big\}
     \ \text{and} \
-    A_2 := \big\{X \subseteq [n]: \vert X\vert  = \frac{n+1}{2}\big\}
+    A_2 := \big\{X \subseteq [n]: \vert X\vert  = \lceil\frac{n}{2}\rceil\big\}
 \end{equation*}
-(where if $2 \nmid n$, we have $A_1=A_2$).
+(where if $2 \mid n$, we have $A_1=A_2$).
 
 Let us call a family of subsets $C = \{X_1, \ldots, X_l\}$ of $[n]$ a `symmetric chain' if:
 \begin{itemize}
@@ -984,11 +984,11 @@ Let us call a family of subsets $C = \{X_1, \ldots, X_l\}$ of $[n]$ a `symmetric
     \item $\vert X_{i+1}\vert =\vert X_i\vert +1$ for any $1 \leqslant i \leqslant l-1$.
     \item $\vert X_1\vert +\vert X_l\vert =n$.
 \end{itemize}
-These condition imply $\vert X_i\vert +\vert X_{l+1-i}\vert =n$ for any $1 \leqslant i \leqslant l$.
+These conditions imply $\vert X_i\vert +\vert X_{l+1-i}\vert =n$ for any $1 \leqslant i \leqslant l$.
 
 Of course, for any symmetric chain $C$ and any antichain $A$ we must have $\vert A \cap C \vert \leqslant 1$.
 
-Let $\mathcal{C}$ denote the collection of all symmetric chains, and for $0 \leqslant i \leqslant \frac{n}{2}$ let $\mathcal{C}_i$ denote the collection of all symmetric chains, whose smallest element has size $i$. Hence, if $C \in \mathcal{C}_i$, then $C = (X_1, \ldots, X_{n-2i+1})$ where $\vert X_j\vert =i+j-1$ and $X_j \subseteq X_{j+1}$ for any $j$.
+Let $\mathcal{C}$ denote the collection of all symmetric chains, and for $0 \leqslant i \leqslant \frac{n}{2}$ let $\mathcal{C}_i$ denote the collection of all symmetric chains with smallest element of size $i$. Hence, if $C \in \mathcal{C}_i$, then $C = (X_1, \ldots, X_{n-2i+1})$ where $\vert X_j\vert =i+j-1$ and $X_j \subseteq X_{j+1}$ for any $j$.
 
 For $2 \mid n$ we have
 \begin{equation}
@@ -1001,7 +1001,7 @@ and for $2 \nmid n$ we have
     \mathcal{C}_{\lfloor \frac{n}{2} \rfloor} = \big\{ \{X, Y\} : \ \vert X\vert  = \frac{n-1}{2}, \ \vert Y\vert =\frac{n+1}{2}, \ X \subseteq Y \big\}.
 \end{equation}
 
-Let us notice that for any $i$, $\{X \subseteq [n]: \vert X\vert =i\}$ is an orbit under the action of permuting $[n]$. Similarly, so is $\mathcal{C}_i$ for any $i$. It follows that for any $X, Y \subseteq [n]$ with $\vert X\vert =\vert Y\vert $ and any $i$ exactly the same number of symmetric chains from $\mathcal{C}_i$ contain $X$ and $Y$.
+Let us notice that for any $i$, $\{X \subseteq [n]: \vert X\vert =i\}$ is an orbit under the group action of permuting $[n]$. Similarly, so is $\mathcal{C}_i$ for any $i$. It follows that for any $X, Y \subseteq [n]$ with $\vert X\vert =\vert Y\vert $ and any $i$ exactly the same number of symmetric chains from $\mathcal{C}_i$ contain $X$ and $Y$.
 
 Now let us assign weights to the symmetric chains. Let $w: \mathcal{C} \rightarrow (0, 1]$ be a weight function such that for $C \in \mathcal{C}_i$
 \begin{equation}
@@ -1023,23 +1023,23 @@ Since $0 \leqslant i \leqslant \frac{n}{2}$, $w(C)$ is positive for any $C \in \
     From the symmetry of the chains under the permutation of $[n]$, the total weight of symmetric chains passing through any element of $L_i$ is the same and equals $\frac{\binom{n}{i}}{\vert L_i\vert }=\frac{\binom{n}{i}}{\binom{n}{i}}=1$.
 \end{proof}
 
-Let $A \subseteq \mathcal{P}([n])$ be the largest antichain. We have
+Let $A \subseteq \mathcal{P}([n])$ be an antichain of maximal size. We have
 \begin{equation}
     \vert A\vert  = \sum_{X \in A} 1 = \sum_{X \in A} \sum_{C \in \mathcal{C}: X \in C} w(C) = \sum_{C \in \mathcal{C}} w(C) \sum_{X \in A} 1_{X \in C} = \sum_{C \in \mathcal{C}} w(C) \cdot \vert C \cap A\vert  \leqslant \sum_{C \in \mathcal{C}} w(C),
 \end{equation}
-where an equality can hold only if $A$ contains an element of each chain from $\mathcal{C}$. Similarly, since $A_1$ and $A_2$ satisfy this condition, we get
+where equality holds iff $A$ contains an element of every chain from $\mathcal{C}$. Similarly, since $A_1$ and $A_2$ satisfy this condition, we get
 \begin{equation}
     \vert A_1\vert =\sum_{C \in \mathcal{C}} w(C) = \vert A_2\vert ,
 \end{equation}
 and so $\vert A\vert  \leqslant \vert A_1\vert  = \vert A_2\vert $, with an equality only if $A$ contains an element of each symmetric chain.
 
-For $2 \mid n$, it immediately follows from Equation \ref{n_even_cn2_equation} that $\{X \subseteq [n]: \vert X\vert  = \frac{n}{2}\} \subseteq A$ and so $A=A_1=A_2$.
+For $2 \mid n$, it immediately follows from \ref{n_even_cn2_equation} that $\{X \subseteq [n]: \vert X\vert  = \frac{n}{2}\} \subseteq A$ and so $A=A_1=A_2$.
 
-For $2 \nmid n$, it follows from Equation \ref{n_odd_cn2_equation} that for any $X \subseteq Y$, $\vert X\vert =\frac{n-1}{2}$, $\vert Y\vert =\frac{n+1}{2}$ $A$ must contain either $X$ or $Y$. Considering a bipartite graph of subsets of $[n]$ of size $\frac{n-1}{2}$ and $\frac{n+1}{2}$, we may easily see that we either have $\{X \subseteq [n]: \vert X\vert  = \frac{n-1}{2}\} \subseteq A$ (and so $A=A_1$) or $\{X \subseteq [n]: \vert X\vert  = \frac{n+1}{2}\} \subseteq A$ (and so $A=A_2$).
+For $2 \nmid n$, it follows from \ref{n_odd_cn2_equation} that for any $X \subseteq Y$, $\vert X\vert =\frac{n-1}{2}$, $\vert Y\vert =\frac{n+1}{2}$, $A$ must contain either $X$ or $Y$. Considering the bipartite graph of subsets of $[n]$ of size $\frac{n-1}{2}$ and $\frac{n+1}{2}$, we may easily see that we either have $\{X \subseteq [n]: \vert X\vert  = \frac{n-1}{2}\} \subseteq A$ (and so $A=A_1$) or $\{X \subseteq [n]: \vert X\vert  = \frac{n+1}{2}\} \subseteq A$ (and so $A=A_2$).
 
 This finishes the proof.
 
-We note that interesting differences between this approach and the standard chain decomposition proof is that this one is symmetric, and also that the focus is shifted from constructing a decomposition to proving its properties.
+We note that sn interesting difference between this approach and the standard chain decomposition proof is that this one is symmetric, shifting the focus from constructing a decomposition to proving its properties.
 
 \section{A proof of Theorem \ref{the_main_theorem} for any \texorpdfstring{$d$}{d} and \texorpdfstring{$\frac{n}{2} \leqslant k$}{n/2 <= k}}
 \label{appendix_large_k}
@@ -1052,7 +1052,7 @@ Let $A'$ be any largest possible $k$-separated subset of the hypercube. Let $X=\
 
 Let us decompose $X$ and $Y$ into symmetric chains:
 \begin{equation*}
-    X = C_1 \cup \ldots \cup C_p, \ Y = D_1 \cup \ldots \cup D_q.
+    X = C_1 \sqcup \ldots \sqcup C_p, \ Y = D_1 \sqcup \ldots \sqcup D_q.
 \end{equation*}
 We cannot have more than $\min(\vert C_i\vert , \vert D_j\vert )$ elements $(x, y) \in A'$ with $x \in C_i, y \in D_j$. On the other hand, $A_1$ has exactly this number of such elements. Hence, we have
 \begin{equation}
