@@ -214,15 +214,12 @@ removed from this list.
 These source-level issues were introduced by the current proof-reading changes;
 they do not alter the kernel-checked Lean statements.
 
-1. The AI usage note at `main.tex:160` uses the ungrammatical phrase “proofs are
-   legitimate and following”.  More substantively, “legitimate” does not
-   distinguish kernel acceptance from semantic correspondence, while
-   “following the structure of the paper” is too literal for proofs that are
-   sometimes factored, corrected, or reorganised for Lean.  The note also says
-   that the correspondence has been checked manually while all author sign-off
-   records in `SEMANTIC_REVIEW.md` remain pending.  Until that review is
-   complete, it should distinguish the completed kernel checks from the ongoing
-   author review of correspondence.
+1. The AI usage note at `main.tex:160` says that the Lean code has been checked
+   manually as a faithful translation while all author sign-off records in
+   `SEMANTIC_REVIEW.md` remain pending.  The word “legitimate” also does not
+   distinguish kernel acceptance from semantic correspondence.  Until the
+   author review is complete, the note should distinguish the completed kernel
+   checks from the ongoing review of correspondence.
 
 ## Sources for the setup
 
