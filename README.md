@@ -12,7 +12,7 @@ The publication has four complementary views:
 - `FORMALIZATION.md` records the detailed declaration map and corrections
   exposed by formalisation;
 - `SEMANTIC_REVIEW.md` records human review of the correspondence between each
-  numbered paper statement and its Lean encoding.
+  PDF-linked paper result and its Lean encoding.
 
 The Lean kernel verifies the declarations linked by the Blueprint. That fact
 is deliberately kept separate from semantic correspondence review: a green
@@ -57,6 +57,8 @@ The source is arranged in the order of the paper:
   cardinality and uniqueness theorem;
 - `MainTheorem`: the paper's unified extremal cardinality and equality
   classification theorem for `d = 1` or `d = 2`;
+- `Asymptotics`: the conclusion's arbitrary-`d` limit theorem for the maximum
+  density of a `k`-separated family;
 - `Appendices/` (umbrella import `WeightedChains.Appendices`): the independent
   weighted proof of Sperner's theorem and the arbitrary-`d`, `n/2 ≤ k ≤ n`
   result, including the internally proved symmetric-chain decomposition and

@@ -187,6 +187,46 @@ def validate_numbered_paper_environments(entries: list[dict], links_path: Path) 
             )
 
 
+def validate_pdf_link_badges(entries: list[dict], links_path: Path) -> None:
+    """Require one correctly placed LaTeX badge for every reviewed PDF result."""
+    repository_root = links_path.parent.parent
+    source_path = repository_root / "main.tex"
+    lines = source_path.read_text(encoding="utf-8").splitlines()
+    badge_pattern = re.compile(r"^\\leanblueprint[{]([a-z0-9]+(?:-[a-z0-9]+)*)[}]$")
+    actual: dict[str, list[int]] = {}
+    for line_number, line in enumerate(lines, start=1):
+        if match := badge_pattern.fullmatch(line.strip()):
+            actual.setdefault(match.group(1), []).append(line_number)
+
+    linked = [
+        entry
+        for entry in entries
+        if entry.get("numbered") is True or entry.get("pdfLinked") is True
+    ]
+    expected = {entry.get("slug") for entry in linked}
+    if set(actual) != expected:
+        raise ValueError(
+            "PDF badge coverage drift: "
+            f"missing {sorted(expected - set(actual))}, "
+            f"stale {sorted(set(actual) - expected)}"
+        )
+    for entry in linked:
+        slug = entry["slug"]
+        badge_lines = actual[slug]
+        if len(badge_lines) != 1:
+            raise ValueError(f"PDF badge {slug!r} occurs {len(badge_lines)} times")
+        source = entry.get("source", {})
+        start_line = source.get("startLine")
+        end_line = source.get("endLine")
+        if not isinstance(start_line, int) or not isinstance(end_line, int):
+            raise ValueError(f"invalid source span for PDF badge {slug!r}")
+        if not start_line <= badge_lines[0] <= end_line:
+            raise ValueError(
+                f"PDF badge {slug!r} is on line {badge_lines[0]}, outside "
+                f"its source span {start_line}-{end_line}"
+            )
+
+
 def validated_declarations(
     preview: dict, declaration_previews: dict[str, dict], repository: str
 ) -> tuple[list[dict], set[str]]:
@@ -253,15 +293,18 @@ def main() -> None:
     if not isinstance(entries, list) or not entries:
         raise ValueError(f"{args.links} does not contain a nonempty entries array")
     validate_numbered_paper_environments(entries, args.links)
+    validate_pdf_link_badges(entries, args.links)
     review_records = semantic_review_records(args.semantic_review)
-    numbered_labels = {
-        entry.get("label") for entry in entries if entry.get("numbered") is True
+    reviewed_labels = {
+        entry.get("label")
+        for entry in entries
+        if entry.get("numbered") is True or entry.get("pdfLinked") is True
     }
-    if set(review_records) != numbered_labels:
+    if set(review_records) != reviewed_labels:
         raise ValueError(
             "semantic-review coverage drift: "
-            f"missing {sorted(numbered_labels - set(review_records))}, "
-            f"stale {sorted(set(review_records) - numbered_labels)}"
+            f"missing {sorted(reviewed_labels - set(review_records))}, "
+            f"stale {sorted(set(review_records) - reviewed_labels)}"
         )
 
     previews = load_previews(args.manifest)
@@ -314,7 +357,7 @@ def main() -> None:
                 f"{label!r} has invalid correspondence categories: "
                 f"{sorted(expected_correspondence)}"
             )
-        if entry.get("numbered") is True:
+        if entry.get("numbered") is True or entry.get("pdfLinked") is True:
             review_record = review_records[label]
             if review_record["categories"] != expected_correspondence:
                 raise ValueError(

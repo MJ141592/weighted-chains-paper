@@ -401,7 +401,7 @@ private def punitSCD : RankedSCD PUnit.{1} (fun _ ↦ 0) 0 where
 
 /-- The constructive de Bruijn--Tengbergen--Kruyswijk decomposition of a
 power of a finite chain. -/
-private noncomputable def cubeSCD (n d : ℕ) :
+noncomputable def cubeSCD (n d : ℕ) :
     RankedSCD (Cube n d) Cube.rank (n * d) := by
   induction n with
   | zero =>
@@ -755,7 +755,7 @@ private def RankedSCD.middlePosition
     have hsym := S.symmetric i
     omega⟩
 
-private theorem RankedSCD.rank_symm_mk
+theorem RankedSCD.rank_symm_mk
     {P : Type*} [LE P] {rankP : P → ℕ} {N : ℕ}
     (S : RankedSCD P rankP N) (i : S.Index) (p : Fin (S.steps i + 1)) :
     rankP (S.encode.symm ⟨i, p⟩) = S.startRank i + p := by
@@ -869,7 +869,7 @@ private theorem candidate_card_le_middleLayer
     _ = (middleLayerFinset (fun z : P × Q ↦ rankP z.1 + rankQ z.2)
         (NP + NQ)).card := (card_middleLayerFinset_eq_index (productSCD S T)).symm
 
-private theorem RankedSCD.comparable_of_same_chain
+theorem RankedSCD.comparable_of_same_chain
     {P : Type*} [LE P] {rankP : P → ℕ} {N : ℕ}
     (S : RankedSCD P rankP N) {x y : P}
     (hchain : (S.encode x).1 = (S.encode y).1) : x ≤ y ∨ y ≤ x := by
@@ -887,22 +887,22 @@ private theorem RankedSCD.comparable_of_same_chain
 
 /-- Reindex a cube on `p+q` coordinates as a pair of cubes on `p` and `q`
 coordinates. -/
-private def splitCubeEquiv (p q d : ℕ) :
+def splitCubeEquiv (p q d : ℕ) :
     Cube (p + q) d ≃ Cube p d × Cube q d :=
   (Equiv.piCongrLeft (fun _ : Fin (p + q) ↦ Fin (d + 1)) finSumFinEquiv).symm.trans
     (Equiv.sumArrowEquivProdArrow (Fin p) (Fin q) (Fin (d + 1)))
 
 @[simp]
-private theorem splitCubeEquiv_apply_left (p q d : ℕ) (x : Cube (p + q) d)
+theorem splitCubeEquiv_apply_left (p q d : ℕ) (x : Cube (p + q) d)
     (i : Fin p) : (splitCubeEquiv p q d x).1 i = x (Fin.castAdd q i) := by
   rfl
 
 @[simp]
-private theorem splitCubeEquiv_apply_right (p q d : ℕ) (x : Cube (p + q) d)
+theorem splitCubeEquiv_apply_right (p q d : ℕ) (x : Cube (p + q) d)
     (i : Fin q) : (splitCubeEquiv p q d x).2 i = x (Fin.natAdd p i) := by
   rfl
 
-private theorem rank_splitCubeEquiv (p q d : ℕ) (x : Cube (p + q) d) :
+theorem rank_splitCubeEquiv (p q d : ℕ) (x : Cube (p + q) d) :
     Cube.rank x = Cube.rank (splitCubeEquiv p q d x).1 +
       Cube.rank (splitCubeEquiv p q d x).2 := by
   unfold Cube.rank
@@ -911,7 +911,7 @@ private theorem rank_splitCubeEquiv (p q d : ℕ) (x : Cube (p + q) d) :
     splitCubeEquiv_apply_right, finSumFinEquiv_apply_left,
     finSumFinEquiv_apply_right]
 
-private theorem splitCubeEquiv_le_iff (p q d : ℕ) (x y : Cube (p + q) d) :
+theorem splitCubeEquiv_le_iff (p q d : ℕ) (x y : Cube (p + q) d) :
     splitCubeEquiv p q d x ≤ splitCubeEquiv p q d y ↔ x ≤ y := by
   constructor
   · intro h i
@@ -941,7 +941,55 @@ private theorem splitCubeEquiv_le_iff (p q d : ℕ) (x y : Cube (p + q) d) :
 
 /-- If the first blocks agree, every differing coordinate belongs to the
 second block. -/
-private theorem hammingDistance_le_right_of_left_eq (p q d : ℕ)
+theorem hammingDistance_eq_right_of_left_eq (p q d : ℕ)
+    {x y : Cube (p + q) d} (hleft : (splitCubeEquiv p q d x).1 =
+      (splitCubeEquiv p q d y).1) :
+    Cube.hammingDistance x y =
+      Cube.hammingDistance (splitCubeEquiv p q d x).2
+        (splitCubeEquiv p q d y).2 := by
+  unfold Cube.hammingDistance
+  have hdiff : Cube.differingCoordinates x y =
+      (Cube.differingCoordinates (splitCubeEquiv p q d x).2
+        (splitCubeEquiv p q d y).2).map (Fin.natAddEmb p) := by
+    ext i
+    simp only [Cube.differingCoordinates, Finset.mem_filter, Finset.mem_univ,
+      true_and, Finset.mem_map]
+    constructor
+    · intro hi
+      rcases h : finSumFinEquiv.symm i with j | j
+      · have hcoord : i = Fin.castAdd q j := by
+          calc
+            i = finSumFinEquiv (finSumFinEquiv.symm i) :=
+              (finSumFinEquiv.apply_symm_apply i).symm
+            _ = finSumFinEquiv (Sum.inl j) := congrArg finSumFinEquiv h
+            _ = Fin.castAdd q j := finSumFinEquiv_apply_left j
+        rw [hcoord] at hi
+        exact False.elim (hi (congrFun hleft j))
+      · refine ⟨j, ?_, ?_⟩
+        · have hcoord : i = Fin.natAdd p j := by
+            calc
+              i = finSumFinEquiv (finSumFinEquiv.symm i) :=
+                (finSumFinEquiv.apply_symm_apply i).symm
+              _ = finSumFinEquiv (Sum.inr j) := congrArg finSumFinEquiv h
+              _ = Fin.natAdd p j := finSumFinEquiv_apply_right j
+          rw [hcoord] at hi
+          simpa only [splitCubeEquiv_apply_right] using hi
+        · apply Fin.ext
+          have hcoord : i = Fin.natAdd p j := by
+            calc
+              i = finSumFinEquiv (finSumFinEquiv.symm i) :=
+                (finSumFinEquiv.apply_symm_apply i).symm
+              _ = finSumFinEquiv (Sum.inr j) := congrArg finSumFinEquiv h
+              _ = Fin.natAdd p j := finSumFinEquiv_apply_right j
+          exact congrArg Fin.val hcoord.symm
+    · rintro ⟨j, hj, rfl⟩
+      change x (Fin.natAdd p j) ≠ y (Fin.natAdd p j)
+      simpa only [splitCubeEquiv_apply_right] using hj
+  rw [hdiff, Finset.card_map]
+
+/-- If the first blocks agree, every differing coordinate belongs to the
+second block. -/
+theorem hammingDistance_le_right_of_left_eq (p q d : ℕ)
     {x y : Cube (p + q) d} (hleft : (splitCubeEquiv p q d x).1 =
       (splitCubeEquiv p q d y).1) : Cube.hammingDistance x y ≤ q := by
   unfold Cube.hammingDistance Cube.differingCoordinates
@@ -988,7 +1036,7 @@ private theorem hammingDistance_le_right_of_left_eq (p q d : ℕ)
 
 /-- If the second blocks agree, every differing coordinate belongs to the
 first block. -/
-private theorem hammingDistance_le_left_of_right_eq (p q d : ℕ)
+theorem hammingDistance_le_left_of_right_eq (p q d : ℕ)
     {x y : Cube (p + q) d} (hright : (splitCubeEquiv p q d x).2 =
       (splitCubeEquiv p q d y).2) : Cube.hammingDistance x y ≤ p := by
   unfold Cube.hammingDistance Cube.differingCoordinates

@@ -167,6 +167,16 @@
       "correspondence": ["direct", "factored"]
     },
     {
+      "slug": "asymptotic-density",
+      "label": "wc:thm:asymptotic-density",
+      "kind": "theorem",
+      "numbered": false,
+      "pdfLinked": true,
+      "paperRef": "Conclusion: asymptotic maximum density",
+      "source": { "path": "main.tex", "startLine": 949, "endLine": 953 },
+      "correspondence": ["direct", "factored", "encoding"]
+    },
+    {
       "slug": "k-separated",
       "label": "wc:def:k-separated",
       "kind": "definition",
@@ -198,8 +208,9 @@
       "label": "wc:thm:sperner-appendix",
       "kind": "theorem",
       "numbered": false,
+      "pdfLinked": true,
       "paperRef": "Appendix: weighted Sperner theorem",
-      "source": { "path": "main.tex", "startLine": 964, "endLine": 1042 },
+      "source": { "path": "main.tex", "startLine": 965, "endLine": 1044 },
       "correspondence": ["corrected", "factored"]
     },
     {
@@ -207,8 +218,9 @@
       "label": "wc:thm:large-k-appendix",
       "kind": "theorem",
       "numbered": false,
+      "pdfLinked": true,
       "paperRef": "Appendix: arbitrary d and large k",
-      "source": { "path": "main.tex", "startLine": 1044, "endLine": 1061 },
+      "source": { "path": "main.tex", "startLine": 1046, "endLine": 1064 },
       "correspondence": ["direct", "factored"]
     }
   ]

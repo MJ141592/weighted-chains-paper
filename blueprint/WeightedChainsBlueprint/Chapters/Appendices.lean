@@ -19,7 +19,7 @@ The two appendix results, stated in prose rather than numbered environments.
 
 :::theorem "wc:thm:sperner-appendix" (parent := "paper-appendices") (lean := "WeightedChains.SpernerAppendix.cardinality_and_uniqueness, WeightedChains.SpernerAppendix.SymmetricChain.inducedWeight_eq_one, WeightedChains.SpernerAppendix.SymmetricChain.weight_le_one") (autoDeps := true) (tags := "semantic-review-pending, corrected, factored, unnumbered")
 %%%
-source := paperSource "Appendix: weighted Sperner theorem" 964 1042
+source := paperSource "Appendix: weighted Sperner theorem" 965 1044
 %%%
 
 For every $`n`, the largest Boolean antichains are precisely the lower and upper
@@ -41,7 +41,7 @@ layers gives the two extremal choices.
 
 :::theorem "wc:thm:large-k-appendix" (parent := "paper-appendices") (lean := "WeightedChains.LargeK.lowerResidueFinset_isMaximum, WeightedChains.LargeK.upperResidueFinset_isMaximum, WeightedChains.LargeK.kSeparated_card_le_lowerResidueFinset, WeightedChains.LargeK.deBruijnTengbergenKruyswijk, WeightedChains.LargeK.cuboid_lowerMiddleLayer_isMaximum, WeightedChains.LargeK.cuboid_upperMiddleLayer_isMaximum") (autoDeps := true) (tags := "semantic-review-pending, direct, factored, unnumbered")
 %%%
-source := paperSource "Appendix: arbitrary d and large k" 1044 1061
+source := paperSource "Appendix: arbitrary d and large k" 1046 1064
 %%%
 
 For arbitrary $`d` in the exact large-separation range $`n\leq 2k`, the lower

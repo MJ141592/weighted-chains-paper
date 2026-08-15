@@ -8,6 +8,7 @@ import WeightedChainsBlueprint.Chapters.Preliminaries
 import WeightedChainsBlueprint.Chapters.Strategy
 import WeightedChainsBlueprint.Chapters.DOne
 import WeightedChainsBlueprint.Chapters.DTwo
+import WeightedChainsBlueprint.Chapters.Conclusions
 import WeightedChainsBlueprint.Chapters.Appendices
 
 open Verso.Genre
@@ -33,6 +34,7 @@ shape of that correspondence and do not replace that review.
 {include 0 WeightedChainsBlueprint.Chapters.Strategy}
 {include 0 WeightedChainsBlueprint.Chapters.DOne}
 {include 0 WeightedChainsBlueprint.Chapters.DTwo}
+{include 0 WeightedChainsBlueprint.Chapters.Conclusions}
 {include 0 WeightedChainsBlueprint.Chapters.Appendices}
 
 {blueprint_graph (direction := LR) (preview := pinned)}

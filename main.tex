@@ -950,6 +950,7 @@ It is easy to show by induction on $n$ (with the base case $n=k$ and inductive s
 \begin{equation*}
     \frac{A_{k, d}(n)}{(1+d)^n} = \frac{1}{dk+1} + o(1).
 \end{equation*}
+\leanblueprint{asymptotic-density}
 An interesting additional question to ask (for $d=2$) would be what makes the family of basic good chains sufficient for an assignment of non-negative weights to them being possible? For example, a similar family of `anti-basic chains', i.e. chains that, if starting at type $(a, b, c)$, go through types
 \begin{multline*}
     (a, b, c), \ (a-1, b+1, c), \ (a-2, b+2, c), \ \ldots, \\
@@ -977,6 +978,7 @@ Hence, we will show that for any $n$, the unique largest antichains in $\mathbb{
     A_2 := \big\{X \subseteq [n]: \vert X\vert  = \lceil\frac{n}{2}\rceil\big\}
 \end{equation*}
 (where if $2 \mid n$, we have $A_1=A_2$).
+\leanblueprint{sperner-appendix}
 
 Let us call a family of subsets $C = \{X_1, \ldots, X_l\}$ of $[n]$ a `symmetric chain' if:
 \begin{itemize}
@@ -1039,12 +1041,13 @@ For $2 \nmid n$, it follows from \ref{n_odd_cn2_equation} that for any $X \subse
 
 This finishes the proof.
 
-We note that sn interesting difference between this approach and the standard chain decomposition proof is that this one is symmetric, shifting the focus from constructing a decomposition to proving its properties.
+We note that an interesting difference between this approach and the standard chain decomposition proof is that this one is symmetric, shifting the focus from constructing a decomposition to proving its properties.
 
 \section{A proof of Theorem \ref{the_main_theorem} for any \texorpdfstring{$d$}{d} and \texorpdfstring{$\frac{n}{2} \leqslant k$}{n/2 <= k}}
 \label{appendix_large_k}
 
 Below we present a simple proof that the sets $A_1, A_2$ from Theorem \ref{the_main_theorem} are optimal (but which doesn't show their uniqueness) for any $d$ and $\frac{n}{2} \leqslant k$ with an alternative method. This result also follows from \cite[Theorem 5.1]{tour_m_part_p_sperner_families}. We provide a proof at which we arrived independently. We note that the same proof would also work for cuboids $\{0, 1, \ldots, d_1\} \times \ldots \times \{0, 1, \ldots, d_n\}$.
+\leanblueprint{large-k-appendix}
 
 The proof uses the decomposition of the hypercube into symmetric chains $S_1, S_2, \ldots, S_m$, i.e. sets $S_i=(x_i^1, \ldots, x_i^{l_i})$ such that $x_i^1 \leqslant \ldots \leqslant x_i^{l_i}$ and $\vert x_i^j\vert +\vert x_i^{l_i+1-j}\vert =dn$ for any $1 \leqslant j \leqslant l_i$. Its existence was shown by de Bruijn, Tengbergen and Kruyswijk in \cite{symmetric_chain_decomposition}.
 

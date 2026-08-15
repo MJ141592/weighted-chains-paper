@@ -1,14 +1,15 @@
 # Semantic correspondence review
 
-This document is the sign-off surface for the correspondence between the 18
-numbered mathematical environments in `main.tex` and the Lean formalisation.
-It deliberately excludes unnumbered claims, remarks, displayed equations, and
-appendix conclusions that are not currently theorem environments.
+This document is the sign-off surface for the correspondence between the 21
+results linked from `main.tex` and the Lean formalisation: all 18 numbered
+mathematical environments, the general asymptotic conclusion, and the two
+appendix results. It deliberately excludes unnumbered claims and remarks that
+do not carry a PDF link.
 
-The manuscript source locations below were audited against `main.tex` at
-repository commit `9f5366b555e2a51348afbcb4a3b31ba1c64c9e52`. Line numbers are
-navigation aids; the canonical IDs and declaration names are the stable
-identifiers, and the final reviewed artifact commit belongs in the ledger.
+The manuscript source locations below were audited against `main.tex` in the
+current source tree. Line numbers are navigation aids; the canonical IDs and
+declaration names are the stable identifiers, and the final reviewed artifact
+commit belongs in the ledger.
 
 ## What a sign-off means
 
@@ -420,6 +421,65 @@ removed.
   diagonal calculation in the manuscript reverses these arguments, but the
   numbered lemma itself and Lean use the stated order.
 
+### 19. Conclusion — asymptotic maximum density
+
+- **Canonical ID:** `wc:thm:asymptotic-density`
+- **Stable route:** `/theorems/asymptotic-density/`
+- **LaTeX source:** `main.tex:949-953`
+- **Existing label alias:** none
+- **Category:** direct, factored, encoding
+- **Status:** pending semantic review
+- **Primary Lean declarations:** `WeightedChains.Asymptotics.maxKSeparatedCard`
+  and `WeightedChains.Asymptotics.maxKSeparatedCard_density_tendsto`
+  (`WeightedChains/Asymptotics.lean:34-35`, `471-496`).
+- **Reviewer focus:** Lean makes the implicit problem-domain assumptions
+  `0 < d` and `0 < k` explicit, defines the extremal number as a maximum over
+  finite candidate families, casts the normalized cardinality to the reals,
+  and interprets the displayed `o(1)` assertion as convergence along all
+  natural dimensions. The manuscript's stated base `n=k` plus step size `k`
+  reaches only multiples of `k`; the Lean proof retains every remainder class
+  modulo `k` and so proves the full displayed limit. Confirm that this
+  reconstructed block-chain argument is the authors' intended proof.
+
+### 20. Appendix A — weighted proof of Sperner's theorem
+
+- **Canonical ID:** `wc:thm:sperner-appendix`
+- **Stable route:** `/theorems/sperner-appendix/`
+- **LaTeX source:** `main.tex:965-1044`
+- **Existing label alias:** `appendix_sperner`
+- **Category:** corrected, factored
+- **Status:** pending semantic review
+- **Primary Lean declarations:**
+  `WeightedChains.SpernerAppendix.cardinality_and_uniqueness`,
+  `WeightedChains.SpernerAppendix.SymmetricChain.inducedWeight_eq_one`, and
+  `WeightedChains.SpernerAppendix.SymmetricChain.weight_le_one`
+  (`WeightedChains/Appendices/Sperner.lean`).
+- **Reviewer focus:** confirm the small-dimension handling and the final
+  equality classification. Lean corrects the incidence sentence at
+  `main.tex:1021`: the chain strata capable of meeting a layer form a union,
+  not the displayed intersection.
+
+### 21. Appendix B — arbitrary `d` and large `k`
+
+- **Canonical ID:** `wc:thm:large-k-appendix`
+- **Stable route:** `/theorems/large-k-appendix/`
+- **LaTeX source:** `main.tex:1046-1064`
+- **Existing label alias:** `appendix_large_k`
+- **Category:** direct, factored
+- **Status:** pending semantic review
+- **Primary Lean declarations:**
+  `WeightedChains.LargeK.lowerResidueFinset_isMaximum`,
+  `WeightedChains.LargeK.upperResidueFinset_isMaximum`,
+  `WeightedChains.LargeK.kSeparated_card_le_lowerResidueFinset`,
+  `WeightedChains.LargeK.deBruijnTengbergenKruyswijk`,
+  `WeightedChains.LargeK.cuboid_lowerMiddleLayer_isMaximum`, and
+  `WeightedChains.LargeK.cuboid_upperMiddleLayer_isMaximum`
+  (`WeightedChains/Appendices/LargeK.lean`).
+- **Reviewer focus:** confirm that the natural-number hypothesis `n ≤ 2*k`
+  exactly represents the paper's rational `n/2 ≤ k`, together with `k ≤ n`;
+  that the result makes no uniqueness claim; and that the cuboid declarations
+  faithfully capture the stated coordinate-dependent extension.
+
 ## Per-item sign-off ledger
 
 Use a commit hash identifying the exact manuscript/formalisation revision that
@@ -447,13 +507,16 @@ means no semantic sign-off is recorded in this repository yet.
 | 16 | `wc:lem:basic-chains-suffice` | Pending | — | — | — | — |
 | 17 | `wc:lem:ternary-auxiliary-positive` | Pending | — | — | — | — |
 | 18 | `wc:lem:ternary-inner-weight` | Pending | — | — | — | — |
+| 19 | `wc:thm:asymptotic-density` | Pending | — | — | — | — |
+| 20 | `wc:thm:sperner-appendix` | Pending | — | — | — | — |
+| 21 | `wc:thm:large-k-appendix` | Pending | — | — | — | — |
 
 ## Reviewer checklist
 
 For each item before changing `Pending` to `Approved` or
 `Approved with recorded correction`:
 
-- [ ] Read the complete numbered LaTeX environment at the reviewed commit.
+- [ ] Read the complete linked LaTeX statement or result at the reviewed commit.
 - [ ] Resolve every cited fully qualified Lean declaration at that commit.
 - [ ] Compare domains, hypotheses, quantifier order, equality/inequality
       direction, indexing, and boundary cases.

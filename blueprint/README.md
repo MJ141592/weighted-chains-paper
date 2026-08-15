@@ -22,8 +22,10 @@ The multi-page site is written to `blueprint/_out/site/html-multi`. The build
 also validates every entry in `links.json` against Verso's preview manifest and
 generates stable `/theorems/<slug>/` routes. Validation covers exact paper
 numbering and source spans, coverage of every numbered LaTeX environment,
-agreement with the semantic-review ledger, informal-block targets, and
-commit-pinned GitHub line links for every associated Lean declaration. A local
+exact presence, uniqueness, and placement of every PDF badge, semantic-review
+coverage of every PDF-linked result (including the asymptotic conclusion and
+appendices), informal-block targets, and commit-pinned GitHub line links for
+every associated Lean declaration. A local
 build from a dirty worktree is useful for previewing, but its source URLs target
 `HEAD`; only publish a clean committed CI or release build. The LaTeX helper in
 `latex/lean-links.tex` is loaded by `../main.tex` and enables the theorem links

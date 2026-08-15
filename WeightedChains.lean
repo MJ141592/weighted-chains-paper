@@ -60,6 +60,7 @@ import WeightedChains.Appendices.Sperner
 import WeightedChains.Appendices.Cuboid
 import WeightedChains.Appendices.LargeK
 import WeightedChains.Appendices
+import WeightedChains.Asymptotics
 
 /-!
 # Weighted chains

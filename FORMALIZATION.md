@@ -32,9 +32,10 @@ library.
 
 The interactive companion under `blueprint/` presents the 18 numbered paper
 items and the main unnumbered results with kernel-checked signatures and
-commit-pinned source links. `SEMANTIC_REVIEW.md` is the authoritative human
-sign-off record for paper-to-Lean correspondence; proof completion and semantic
-review are intentionally reported as distinct facts.
+commit-pinned source links. All 21 results linked directly from the PDF are in
+`SEMANTIC_REVIEW.md`, the authoritative human sign-off record for paper-to-Lean
+correspondence; proof completion and semantic review are intentionally reported
+as distinct facts.
 
 ## Paper-to-Lean map
 
@@ -103,6 +104,7 @@ review are intentionally reported as distinct facts.
 | Main theorem, `d = 2` exceptional-point-aware outward uniqueness | `Ternary.BasicChain.eq_lowerResidueFinset_of_card_eq` | proved |
 | Main theorem, complete `d = 2` bound and equality classification | `Ternary.BasicChain.cardinality_and_uniqueness` | proved |
 | Main theorem, unified statement for `d \in {1,2}` | `main_cardinality_and_uniqueness` | proved |
+| Conclusion: arbitrary-`d` asymptotic maximum density | `Asymptotics.maxKSeparatedCard`, `Asymptotics.maxKSeparatedCard_density_tendsto` | proved for fixed positive `d,k`, along all natural dimensions |
 | Appendix: weighted proof of Sperner, including exact chain collection, local telescoping incidence, `(0,1]` weight range, and equality classification | `SpernerAppendix.SymmetricChain.indexEquivSymmetricChains`, `SpernerAppendix.SymmetricChain.weight_eq_choose_sub_previous_div_card`, `SpernerAppendix.SymmetricChain.inducedWeight_eq_one`, `SpernerAppendix.SymmetricChain.weight_le_one`, `SpernerAppendix.cardinality_and_uniqueness` | final bound/classification proved for every `n`; intermediate positive-weight statements carry their mathematically necessary small-`n` hypotheses |
 | Appendix: arbitrary `d`, `n/2 ≤ k ≤ n` optimality of both `A₁` and `A₂` | `LargeK.lowerResidueFinset_eq_middleLayer`, `LargeK.kSeparated_card_le_lowerResidueFinset`, `LargeK.lowerResidueFinset_isMaximum`, `LargeK.upperResidueFinset_isMaximum` | proved internally, including the required symmetric-chain decomposition rather than assuming its existence |
 
@@ -188,6 +190,11 @@ removed from this list.
     this misses, for example, `d=1` with even `n`.  The exact condition in the
     main theorem is `2 ∣ nd`, and this is the condition formalised by
     `Cube.lowerResidueFinset_eq_upperResidueFinset_of_even`.
+24. The asymptotic proof sketch specifies only the base `n=k` and an induction
+    step of size `k`. This reaches dimensions divisible by `k`, not all natural
+    dimensions in the displayed limit. The Lean proof handles every remainder
+    class modulo `k` (equivalently, one may supply a base interval of length
+    `k`) and proves convergence along the full sequence.
 
 ## Current manuscript proof-reading follow-ups
 
@@ -202,11 +209,9 @@ they do not alter the kernel-checked Lean statements.
    been checked manually while all records in `SEMANTIC_REVIEW.md` remain
    pending, and should clarify the intended distinction between model-generated
    formalisation code and model-generated mathematical content.
-3. The Sperner appendix switches to `\mathbb{P}([n])` at `main.tex:973`, while
+3. The Sperner appendix switches to `\mathbb{P}([n])` at `main.tex:974`, while
    the rest of the manuscript uses `\mathcal{P}([n])` for the power set.
-4. The Appendix A conclusion at `main.tex:1042` says “sn interesting
-   difference”; this should be “an interesting difference”.
-5. The Appendix B conclusion at `main.tex:1061` says “similary”; this should be
+4. The Appendix B conclusion at `main.tex:1064` says “similary”; this should be
    “similarly”.
 
 ## Sources for the setup
