@@ -18,6 +18,13 @@ if [[ -n "$dirty_sources" ]]; then
   echo "Warning: local source links target HEAD; commit changes before publishing this build." >&2
 fi
 
+if malformed_math="$(grep -RFn --include='*.lean' '`$' \
+  "$blueprint_root/WeightedChainsBlueprint/Chapters")"; then
+  printf '%s\n' "$malformed_math" >&2
+  echo 'Malformed Verso inline math: use $`…`, not $`…`$.' >&2
+  exit 1
+fi
+
 lake exe cache get
 lake env lake build WeightedChainsBlueprint
 lake env lake exe vbp build

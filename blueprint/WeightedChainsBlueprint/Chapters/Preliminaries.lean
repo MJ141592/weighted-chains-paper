@@ -59,7 +59,7 @@ source := paperSource "Definition 2.4" 218 222
 %%%
 
 A chain is symmetric when paired vertices from opposite ends have ranks
-summing to $`nd`$. For saturated chains this is equivalent to the corresponding
+summing to $`nd`. For saturated chains this is equivalent to the corresponding
 endpoint equation.
 
 *Semantic review:* pending. *Correspondence:* direct and encoding. Lean's
@@ -134,7 +134,7 @@ uses the equivalent doubled-rank distance condition for $`nd-r`.
 source := paperSource "Definition 2.10" 300 308
 %%%
 
-The type of a point records, for each symbol $`j \in \{0,\ldots,d\}`$, the
+The type of a point records, for each symbol $`j \in \{0,\ldots,d\}`, the
 number of coordinates equal to $`j`; these $`d+1` counts sum to $`n`.
 
 *Semantic review:* pending. *Correspondence:* corrected and encoding. The

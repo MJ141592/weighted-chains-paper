@@ -29,8 +29,8 @@ Definitions and results stated in the introduction of the paper.
 source := paperSource "Theorem 1.1" 112 130
 %%%
 
-For $`1 < k \leq n` and $`d \in \{1,2\}`$, every $`k`-separated family in
-$`\{0,\ldots,d\}^n`$ has cardinality at most the lower middle rank-residue
+For $`1 < k \leq n` and $`d \in \{1,2\}`, every $`k`-separated family in
+$`\{0,\ldots,d\}^n` has cardinality at most the lower middle rank-residue
 family. Equality holds exactly for the lower or upper middle rank-residue
 family; when $`nd` is even these two families agree.
 
@@ -74,6 +74,6 @@ corrected distinct-point definition of k-separation.
 
 :::proof "wc:lem:residue-families-separated"
 For distinct comparable points, the positive rank difference is at most
-$`dk`$ when at most $`k` coordinates change, so it cannot vanish modulo
-$`dk+1`$.
+$`dk` when at most $`k` coordinates change, so it cannot vanish modulo
+$`dk+1`.
 :::

@@ -22,7 +22,7 @@ The weighted-cover reduction and the concrete Boolean and ternary witnesses.
 source := paperSource "Proposition 3.1" 334 353
 %%%
 
-For $`1<k\leq n` and $`d\in\{1,2\}`$, the formalisation constructs a
+For $`1<k\leq n` and $`d\in\{1,2\}`, the formalisation constructs a
 nonnegative weighted family of good chains whose induced weight at every cube
 vertex is one, together with the positivity required for the equality case.
 
