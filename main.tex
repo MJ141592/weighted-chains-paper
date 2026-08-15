@@ -67,6 +67,15 @@
 
 \title{A generalisation of Sperner's theorem using weighted chain decomposition}
 
+\author{Ya\"el Dillies}
+\thanks{Department of Mathematics, Stockholm University. Email: yael.dillies@math.su.se}
+
+\author{Matthew Johnson}
+\thanks{Independent researcher, London, UK. Email: mjohnson31415926@gmail.com}
+
+\author{Aleksandra Kowalska}
+\thanks{Mathematical Institute, University of Oxford. Email: aleksandra.kowalska@seh.ox.ac.uk}
+
 \begin{document}
 
 \begin{abstract}
@@ -81,7 +90,7 @@
 
 \section{Introduction}
 
-Sperner's theorem \cite{sperner} says that the largest family $A$ of subsets of $[n]$ without two subsets where one contains the other is of size $\binom{n}{\lfloor \frac{n}{2} \rfloor}$, and the families
+Sperner's theorem \cite{sperner} says that the largest family $A$ of subsets of $[n]$, without two subsets where one contains the other, is of size $\binom{n}{\lfloor \frac{n}{2} \rfloor}$, and the families
 \begin{equation*}
     \{X \subseteq [n]: \vert X\vert = \lfloor \frac{n}{2} \rfloor\} \ \text{and} \ \{X \subseteq [n]: \vert X\vert = \lceil \frac{n}{2} \rceil\}
 \end{equation*}
@@ -91,11 +100,11 @@ There are a couple of intuitive ways to generalise this result. The first one is
 
 Another possible way of generalising Sperner's result is to work on multisets instead of sets. In this case, we wish to find the largest family of multisubsets of a multiset $\{1^{d_1}, \ldots, n^{d_n}\}$ such that for no two $X, Y \in A$ we may have $X \subset Y$ (i.e., $Y$ containing at least as many copies of each number as $X$). This problem (under an equivalent formulation) was studied and solved by de Bruijn, Tengbergen and Kruyswijk \cite{symmetric_chain_decomposition}.
 
-In this paper, we consider a generalisation of Sperner's theorem which pursues both these directions at once. Before we state it, let us note that Sperner's theorem may be reformulated in a more geometric language as follows: what is the largest subset of $\{0, 1\}^n$ which has no elements $x, y$ with $x \leqslant y$ coordinatewise (let us call such a subset of $\{0, 1\}^n$ or $\thehypercube$ an antichain)?
+In this paper, we consider a generalisation of Sperner's theorem which pursues both these directions at once. Before we state it, let us note that Sperner's theorem may be reformulated in a more geometric language as follows: what is the largest subset of $\{0, 1\}^n$ which has no elements $x, y$ with $x \leqslant y$ coordinatewise? (Let us call such a subset of $\{0, 1\}^n$ or $\thehypercube$ an antichain)
 
 We may formulate a generalisation of Sperner's theorem which explores both of the mentioned notions at once as follows:
 
-Let us call a subset $A \subseteq \thehypercube$ `$k$-separated' if for any $x, y \in A$ with $x \leqslant y$, $x$ and $y$ differ on more than $k$ coordinates. What is the largest $k$-separated subset of the hypercube $\thehypercube$?
+Let us call a subset $A \subseteq \thehypercube$ `$k$-separated' if for any $x, y \in A$ with $x \leqslant y$, $x$ and $y$ differ on strictly more than $k$ coordinates. What is the largest $k$-separated subset of the hypercube $\thehypercube$?
 
 We now note in passing that the notion of $k$-separation is based on the $L_0$ metric (the number of coordinates which differ) rather than the $L_1$ metric (the sum of coordinate differences). It follows from Katona's proof in \cite{katona} (and in fact from many other techniques used to prove Sperner's theorem, for example a generalisation of Lubell's technique \cite{lubell} as presented in \cite{nagys}). On the other hand, the $L_0$ formulation resisted attempts at generalisations of existing proofs and seemed to require new ideas, and hence it drew our interest.
 
@@ -147,8 +156,8 @@ The case $d=1, k=n$ is simply Sperner's theorem. Our proof simplifies in this sp
 
 Finally, we note that for any $d$ and $\frac{n}{2} \leqslant k \leqslant n$ there exists a simple proof that the sets $A_1, A_2$ in Theorem \ref{the_main_theorem} are largest possible, presented in Appendix \ref{appendix_large_k} (as it is rather unrelated to the rest of the paper and doesn't show their uniqueness). This case also follows from \cite[Theorem 5.1]{tour_m_part_p_sperner_families}.
 
-\subsection{AI usage declaration}
-While working on the paper and writing it we only used Large Language Models for spellchecking, grammar proofreading, Latex querries, searching the literature and searching for binomial coefficient identities. We also used it to generate Latex code for the figures (that would correspond exactly to our description of a figure). No part of this note was written or rewritten by an AI model.
+\subsection{AI usage note}
+In working on and writing this paper, we used Large Language Models for spelling and typo checking, grammar proofreading, Latex queries, searching literature, searching for binomial coefficient identities, generating Latex code for the figures (corresponding to our detailed descriptions) and making the Lean formalisation code and the corresponding blueprint. We have checked manually that the Lean code is a faithful translation of the paper, and that the proofs are legitimate and following the structure of the paper. No part of the the mathematical content or the paper write-up was generated by a model.
 
 \subsection{The structure of the paper}
 In the rest of this section we discuss related research. Then, in Section \ref{section_strategy}, we discuss our main proof strategy: decomposing the hypercube into weighted chains. Proposition \ref{the_weights_assigning_proposition} from that section implies Theorem \ref{the_main_theorem} if only an appropriate assignment of weights to chains may be found, which is done in the rest of the paper.
@@ -161,7 +170,7 @@ Appendix \ref{appendix_sperner} contains a new proof of Sperner's theorem which 
 
 \subsection{Another generalisation of Sperner's Theorem}
 
-We briefly discuss another related problem, which was our initial motivation for coming up with the notion of $k$-separated sets.
+We briefly discuss another related problem, which was our initial motivation for the notion of $k$-separated sets.
 
 Let $X_1, \ldots, X_n$ be disjoint sets. What is the size of the largest family of subsets $\mathcal{F} \subseteq \mathcal{P}(X_1 \cup \ldots \cup X_n)$ such that there are no $U, V \in \mathcal{F}$ s.t. $U \subset V$ and $U \cap X_i = V \cap X_i$ for some $1 \leqslant i \leqslant n$?
 
@@ -175,7 +184,7 @@ The problem we are studying can be reformulated as follows in the language of co
 
 Error detection in asymmetric channels was studied by Ahlswede and Aydinian in \cite{asymmetric_channels}. They studied the problem above for binary codes over the alphabet $\{0, 1\}$, and arrived at the case $d=1$ of Theorem \ref{the_main_theorem}.
 
-For larger alphabets they generalised this problem in a bit different direction: they studied asymmetric channels where all numbers from the alphabet $\{0, \dots, d-1\}$ are transmitted as their binary expansions and the only errors that can occur are transmitting bit $1$ instead of bit $0$, so $x$ can be swapped for $y$ if and only if on all positions in the binary expansions where they differ $y$ has a $1$ and $x$ has a $0$. We note that this is a stronger condition than $x < y$. In \cite[Proposition 6]{asymmetric_channels} they observe that the set $A_1$ (as defined in Theorem \ref{the_main_theorem}) is error-detecting for codes of length $n$ where at most $k$ errors can occur, and note that larger such sets exist.
+For larger alphabets they generalised this problem in a different direction: they studied asymmetric channels where all numbers from the alphabet $\{0, \dots, d-1\}$ are transmitted as their binary expansions and the only errors that can occur are transmitting bit $1$ instead of bit $0$, so $x$ can be swapped for $y$ if and only if on all positions in the binary expansions where they differ $y$ has a $1$ and $x$ has a $0$. We note that this is a stronger condition than $x < y$. In \cite[Proposition 6]{asymmetric_channels} they observe that the set $A_1$ (as defined in Theorem \ref{the_main_theorem}) is error-detecting for codes of length $n$ where at most $k$ errors can occur, and note that larger such sets exist.
 
 Another paper that studied problems related to Sperner's theorem and somewhat reminiscent of its generalisation explored here from the perspective of coding theory is Gunby's, He's, Narayanan's and Spiro's \cite{more_coding_theory}. There they look for the largest antichain $A$ in $\{0, 1\}^n$ satisfying a further condition than any $x, y \in A$ have Hamming distance at least $k$ (i.e., differ on at least $k$ indices) and show that $\vert A\vert=O_k(2^nn^{-k/2})$ for odd $k$.
 
@@ -236,7 +245,7 @@ It is often convenient to think of the points in the cube as grouped into diagon
 \leanblueprint{layer}
 \end{definition}
 
-We note that the size of layers is the larger, the closer they are to the middle of the hypercube: $1=\vert L_0\vert  \leqslant \vert L_1\vert  \leqslant \ldots \leqslant \vert L_{\fclass}\vert =\vert L_{\cclass}\vert  \geqslant \ldots \geqslant \vert L_{nd-1}\vert  \geqslant \vert L_{nd}\vert =1$.
+We note that the size of layers is larger the closer they are to the middle of the hypercube: $1=\vert L_0\vert  \leqslant \vert L_1\vert  \leqslant \ldots \leqslant \vert L_{\fclass}\vert =\vert L_{\cclass}\vert  \geqslant \ldots \geqslant \vert L_{nd-1}\vert  \geqslant \vert L_{nd}\vert =1$.
 
 Let us call the layer $L_{\frac{nd}{2}}$ (if $2 \mid nd$) or the layers $L_{\fclass}$ and $L_{\cclass}$ (if $2 \nmid nd$) the middle layers or `the middle of the cube'.
 
@@ -299,17 +308,17 @@ We note that when $k=n$, the only outer layers are $L_0=\{(0, \ldots, 0)\}$ and 
 
 \begin{definition}[Type]
 \label{wc:def:type}
-    For $x \in \thehypercube$, we say that $x$ is of type $(t_0 \ldots, t_n)$ if for any $0 \leqslant i \leqslant n$ exactly $t_i$ of $x\text{'s}$ coordinates equal $i$.
+    For $x \in \thehypercube$, we say that $x$ is of type $(t_0 \ldots, t_d)$ if for any $0 \leqslant i \leqslant d$ exactly $t_i$ of $x\text{'s}$ coordinates equal $i$.
 
-    We will also often treat a type tuple $(t_0, \ldots, t_n)$ (for $t_0+\ldots+t_n=d$) as the set of vertices of the hypercube of such type.
+    We will also often treat a type tuple $(t_0, \ldots, t_d)$ (for $t_0+\ldots+t_d=n$) as the set of vertices of the hypercube of such type.
 
-    According to this convention, a type tuple $(t_0, \ldots, t_n)$ with $t_i < 0$ for some $i$ is just an empty set.
+    According to this convention, a type tuple $(t_0, \ldots, t_d)$ with $t_i < 0$ for some $i$ is just an empty set.
 \leanblueprint{type}
 \end{definition}
 
-Two vertices are of the same type if and only if their coordinates are a permutation of each other (i.e., types are orbits of the group of the coordinate permutation group).
+Two vertices are of the same type if and only if their coordinates are a permutation of each other (i.e., types are orbits of the coordinate permutation group).
 
-There are $\binom{n}{t_0, \ldots, t_{n-1}}$ vertices of type $(t_0, \ldots, t_{n-1})$, where we define the multinomial symbol as:
+There are $\binom{n}{t_0, \ldots, t_{d-1}}$ vertices of type $(t_0, \ldots, t_{d})$, where we define the multinomial symbol as:
 \begin{equation*}
     \binom{n}{a_1, \ldots, a_k}:=\frac{n!}{a_1! \cdot \ldots \cdot a_k! \cdot (n-a_1-\ldots-a_k)!},
 \end{equation*}
