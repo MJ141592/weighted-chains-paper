@@ -19,7 +19,7 @@ Basic ternary chains and their starting weights.
 
 :::definition "wc:def:basic-chain" (parent := "paper-ternary") (lean := "WeightedChains.Ternary.BasicChain, WeightedChains.Ternary.BasicChain.toChain, WeightedChains.Ternary.BasicChain.toChain_saturated, WeightedChains.Ternary.BasicChain.toChain_length, WeightedChains.Ternary.BasicChain.toChain_width") (autoDeps := true) (tags := "semantic-review-pending, corrected, factored, encoding, numbered")
 %%%
-source := paperSource "Definition 5.1" 609 613
+source := paperSource "Definition 5.1" 618 622
 %%%
 
 A ternary basic chain changes one coordinate completely from zero to two before
@@ -34,7 +34,7 @@ $`d=2` encoding rather than an iff characterization of arbitrary chains.
 
 :::lemma_ "wc:lem:basic-chains-suffice" (parent := "paper-ternary") (lean := "WeightedChains.Ternary.BasicChain.exists_singleton_good_of_rank_eq_dimension, WeightedChains.Ternary.BasicChain.exists_good_with_endpoint_avoiding_middle_of_lowerResidue, WeightedChains.Ternary.BasicChain.exists_closer_lowerResidue") (autoDeps := true) (tags := "semantic-review-pending, corrected, factored, encoding, numbered")
 %%%
-source := paperSource "Lemma 5.2" 666 677
+source := paperSource "Lemma 5.2" 675 686
 %%%
 
 Middle-layer singleton chains are basic. Every noncentral reference-family
@@ -57,7 +57,7 @@ witnesses needed by the weighted uniqueness argument.
 
 :::lemma_ "wc:lem:ternary-auxiliary-positive" (parent := "paper-ternary") (lean := "WeightedChains.Ternary.auxiliaryWeight_pos_of_valid_lower, WeightedChains.Ternary.auxiliaryWeight_zero_zero") (autoDeps := true) (tags := "semantic-review-pending, corrected, numbered")
 %%%
-source := paperSource "Lemma 5.3" 764 768
+source := paperSource "Lemma 5.3" 773 777
 %%%
 
 For a valid lower ternary type other than $`(a,c)=(0,0)`, the auxiliary weight
@@ -75,7 +75,7 @@ separate boundary arguments. The origin is the unique zero exception.
 
 :::lemma_ "wc:lem:ternary-inner-weight" (parent := "paper-ternary") (lean := "WeightedChains.Ternary.innerStartingWeight, WeightedChains.Ternary.extendedStartTypeWeight_eq_inner_of_lower_inner") (autoDeps := true) (tags := "semantic-review-pending, direct, factored, numbered")
 %%%
-source := paperSource "Lemma 5.4" 824 831
+source := paperSource "Lemma 5.4" 833 840
 %%%
 
 For a lower inner type $`(a,n-a-c,c)`, its starting weight is

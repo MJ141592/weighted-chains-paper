@@ -19,7 +19,7 @@ The weighted-cover reduction and the concrete Boolean and ternary witnesses.
 
 :::proposition "wc:prop:good-chain-weighting" (parent := "paper-strategy") (lean := "WeightedChains.DOne.BooleanChain.indexedWeight, WeightedChains.DOne.BooleanChain.indexedWeight_pos, WeightedChains.DOne.BooleanChain.indexedInducedWeight_eq_one, WeightedChains.Ternary.BasicChain.indexedWeight, WeightedChains.Ternary.BasicChain.indexedWeight_nonneg, WeightedChains.Ternary.BasicChain.indexedInducedWeight_eq_one") (autoDeps := true) (tags := "semantic-review-pending, corrected, factored, encoding, numbered")
 %%%
-source := paperSource "Proposition 3.1" 334 353
+source := paperSource "Proposition 3.1" 343 362
 %%%
 
 For $`1<k\leq n` and $`d\in\{1,2\}`, the formalisation constructs a
@@ -41,7 +41,7 @@ over basic good chains, with zero extension to the remaining good chains.
 
 :::lemma_ "wc:lem:weighted-cover-implies-main" (parent := "paper-strategy") (lean := "WeightedChains.Chain.kSeparated_card_le_lowerResidueFinset, WeightedChains.Chain.kSeparated_inter_vertices_card_eq_one_of_card_eq_lower, WeightedChains.UniquenessPropagation.finset_eq_of_positive_weight_outward_induction, WeightedChains.UniquenessPropagation.finset_eq_of_active_exact_one_outward_induction_except") (autoDeps := true) (tags := "semantic-review-pending, corrected, factored, encoding, numbered")
 %%%
-source := paperSource "Lemma 3.2" 367 374
+source := paperSource "Lemma 3.2" 376 383
 %%%
 
 A nonnegative unit weighted cover by good chains bounds every $`k`-separated

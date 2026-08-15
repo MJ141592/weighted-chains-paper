@@ -47,7 +47,7 @@ removed.
 
 - **Canonical ID:** `wc:thm:main-theorem`
 - **Stable route:** `/theorems/main-theorem/`
-- **LaTeX source:** `main.tex:112-130`
+- **LaTeX source:** `main.tex:121-139`
 - **Existing label alias:** `the_main_theorem`
 - **Category:** corrected, encoding
 - **Status:** pending semantic review
@@ -71,7 +71,7 @@ removed.
 
 - **Canonical ID:** `wc:def:chain`
 - **Stable route:** `/theorems/chain/`
-- **LaTeX source:** `main.tex:189-195`
+- **LaTeX source:** `main.tex:198-204`
 - **Existing label alias:** none
 - **Category:** direct, encoding
 - **Status:** pending semantic review
@@ -88,7 +88,7 @@ removed.
 
 - **Canonical ID:** `wc:def:chain-width`
 - **Stable route:** `/theorems/chain-width/`
-- **LaTeX source:** `main.tex:197-201`
+- **LaTeX source:** `main.tex:206-210`
 - **Existing label alias:** none
 - **Category:** direct, encoding
 - **Status:** pending semantic review
@@ -104,7 +104,7 @@ removed.
 
 - **Canonical ID:** `wc:def:saturated-chain`
 - **Stable route:** `/theorems/saturated-chain/`
-- **LaTeX source:** `main.tex:211-216`
+- **LaTeX source:** `main.tex:220-225`
 - **Existing label alias:** `saturated_definition`
 - **Category:** direct, encoding
 - **Status:** pending semantic review
@@ -118,7 +118,7 @@ removed.
 
 - **Canonical ID:** `wc:def:symmetric-chain`
 - **Stable route:** `/theorems/symmetric-chain/`
-- **LaTeX source:** `main.tex:218-222`
+- **LaTeX source:** `main.tex:227-231`
 - **Existing label alias:** none
 - **Category:** direct, encoding
 - **Status:** pending semantic review
@@ -133,7 +133,7 @@ removed.
 
 - **Canonical ID:** `wc:def:layer`
 - **Stable route:** `/theorems/layer/`
-- **LaTeX source:** `main.tex:230-237`
+- **LaTeX source:** `main.tex:239-246`
 - **Existing label alias:** none
 - **Category:** direct
 - **Status:** pending semantic review
@@ -149,7 +149,7 @@ removed.
 
 - **Canonical ID:** `wc:def:good-chain`
 - **Stable route:** `/theorems/good-chain/`
-- **LaTeX source:** `main.tex:243-248`
+- **LaTeX source:** `main.tex:252-257`
 - **Existing label alias:** `good_chain_definition`
 - **Category:** direct, encoding
 - **Status:** pending semantic review
@@ -168,7 +168,7 @@ removed.
 
 - **Canonical ID:** `wc:def:chain-start`
 - **Stable route:** `/theorems/chain-start/`
-- **LaTeX source:** `main.tex:263-273`
+- **LaTeX source:** `main.tex:272-282`
 - **Existing label alias:** none
 - **Category:** corrected, encoding
 - **Status:** pending semantic review
@@ -186,7 +186,7 @@ removed.
 
 - **Canonical ID:** `wc:def:cube-sides`
 - **Stable route:** `/theorems/cube-sides/`
-- **LaTeX source:** `main.tex:277-281`
+- **LaTeX source:** `main.tex:286-290`
 - **Existing label alias:** none
 - **Category:** direct
 - **Status:** pending semantic review
@@ -204,7 +204,7 @@ removed.
 
 - **Canonical ID:** `wc:def:inner-outer-layers`
 - **Stable route:** `/theorems/inner-outer-layers/`
-- **LaTeX source:** `main.tex:284-288`
+- **LaTeX source:** `main.tex:293-297`
 - **Existing label alias:** none
 - **Category:** corrected, encoding
 - **Status:** pending semantic review
@@ -232,7 +232,7 @@ removed.
 
 - **Canonical ID:** `wc:def:type`
 - **Stable route:** `/theorems/type/`
-- **LaTeX source:** `main.tex:300-308`
+- **LaTeX source:** `main.tex:309-317`
 - **Existing label alias:** none
 - **Category:** corrected, encoding
 - **Status:** pending semantic review
@@ -252,7 +252,7 @@ removed.
 
 - **Canonical ID:** `wc:prop:good-chain-weighting`
 - **Stable route:** `/theorems/good-chain-weighting/`
-- **LaTeX source:** `main.tex:334-353`
+- **LaTeX source:** `main.tex:343-362`
 - **Existing label alias:** `the_weights_assigning_proposition`
 - **Category:** corrected, factored, encoding
 - **Status:** pending semantic review
@@ -295,7 +295,7 @@ removed.
 
 - **Canonical ID:** `wc:lem:weighted-cover-implies-main`
 - **Stable route:** `/theorems/weighted-cover-implies-main/`
-- **LaTeX source:** `main.tex:367-374`
+- **LaTeX source:** `main.tex:376-383`
 - **Existing label alias:** `weights_imply_theorem_lemma`
 - **Category:** corrected, factored, encoding
 - **Status:** pending semantic review
@@ -322,7 +322,7 @@ removed.
 
 - **Canonical ID:** `wc:lem:boolean-inner-weight`
 - **Stable route:** `/theorems/boolean-inner-weight/`
-- **LaTeX source:** `main.tex:519-526`
+- **LaTeX source:** `main.tex:528-535`
 - **Existing label alias:** none
 - **Category:** direct, factored
 - **Status:** pending semantic review
@@ -339,7 +339,7 @@ removed.
 
 - **Canonical ID:** `wc:def:basic-chain`
 - **Stable route:** `/theorems/basic-chain/`
-- **LaTeX source:** `main.tex:609-613`
+- **LaTeX source:** `main.tex:618-622`
 - **Existing label alias:** none
 - **Category:** corrected, factored, encoding
 - **Status:** pending semantic review
@@ -363,7 +363,7 @@ removed.
 
 - **Canonical ID:** `wc:lem:basic-chains-suffice`
 - **Stable route:** `/theorems/basic-chains-suffice/`
-- **LaTeX source:** `main.tex:666-677`
+- **LaTeX source:** `main.tex:675-686`
 - **Existing label alias:** `positive_basic_enough_lemma`
 - **Category:** corrected, factored, encoding
 - **Status:** pending semantic review
@@ -388,7 +388,7 @@ removed.
 
 - **Canonical ID:** `wc:lem:ternary-auxiliary-positive`
 - **Stable route:** `/theorems/ternary-auxiliary-positive/`
-- **LaTeX source:** `main.tex:764-768`
+- **LaTeX source:** `main.tex:773-777`
 - **Existing label alias:** none
 - **Category:** corrected
 - **Status:** pending semantic review
@@ -408,7 +408,7 @@ removed.
 
 - **Canonical ID:** `wc:lem:ternary-inner-weight`
 - **Stable route:** `/theorems/ternary-inner-weight/`
-- **LaTeX source:** `main.tex:824-831`
+- **LaTeX source:** `main.tex:833-840`
 - **Existing label alias:** none
 - **Category:** direct, factored
 - **Status:** pending semantic review

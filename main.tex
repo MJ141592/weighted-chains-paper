@@ -326,12 +326,12 @@ There are $\binom{n}{t_0, \ldots, t_{d-1}}$ vertices of type $(t_0, \ldots, t_{d
 
 Analogously to the binomial coefficient, we have the following recursive formula (which may be easily proven using the combinatorial interpretation of the multinomial coefficient):
 \begin{equation*}
-    \binom{n}{a_1, \ldots, a_k} = \binom{n-1}{a_1, \ldots, a_k} + \binom{n-1}{a_1-1, \ldots, a_k} + \ldots + \binom{n-1}{a_1-1, \ldots, a_k-1}.
+    \binom{n}{a_1, \ldots, a_k} = \binom{n-1}{a_1, \ldots, a_k} + \binom{n-1}{a_1-1, \ldots, a_k} + \ldots + \binom{n-1}{a_1, \ldots, a_k-1}.
 \end{equation*}
 
 Clearly, all vertices of the same type belong to the same layer. For $d=1$, the type of a vertex is determined by its layer (all elements of $L_i$ must have exactly $i$ ones and $n-i$ zeroes, so are of type $(i, n-i)$). For $d>1$, most layers contain multiple types.
 
-Similarly to calling layers lower/upper, outer/inner, we can call a type for example `lower' if it belongs to a lower type, etc. 
+Similarly to calling layers lower/upper, outer/inner, we can call a type `lower' if it belongs to a lower layer, etc.
 
 \section{The proof strategy - weighted chains}
 \label{section_assigning_preliminary}
@@ -353,9 +353,9 @@ We recall sets $A_1, A_2$ defined in Theorem \ref{the_main_theorem} (where $A_1=
         
         \item \label{positive_non_A_condition} For each $i \in \{1, 2\}$ and any $x \notin A_i$ there exists $y_i \in A_i \setminus \{\thespecialpoint\}$, $y_i$ closer to the middle of the cube than $x$ and a good chain of positive weight passing through $x$ and $y_i$. 
         
-        \item \label{positive_A_condition} For any $x \in (A_1 \cup A_2) \setminus \thespecialpoint$ there exists a good chain of positive weight starting at through $x$.
+        \item \label{positive_A_condition} For any $x \in (A_1 \cup A_2) \setminus \thespecialpoint$ there exists a good chain of positive weight starting at $x$.
     \end{enumerate}
-    In the last condition, $y_i$ is closer to the middle of the cube than $x$ if and only if $\vert |y_i| - \frac{nd}{2} \vert < \vert |x| - \frac{nd}{2} \vert$.
+    In the penultimate condition, $y_i$ is closer to the middle of the cube than $x$ if and only if $\vert |y_i| - \frac{nd}{2} \vert < \vert |x| - \frac{nd}{2} \vert$.
     
     The last three conditions are only needed for showing the uniqueness of $A_1$ and $A_2$.
 \leanblueprint{good-chain-weighting}
@@ -363,7 +363,7 @@ We recall sets $A_1, A_2$ defined in Theorem \ref{the_main_theorem} (where $A_1=
 
 We note that at this stage it is by no means clear why the point $\thespecialpoint$ (the centre of the cube - if it belongs to the integer lattice) is treated separately in the last three conditions. The reason for this is that the most intuitive weight assignment we later construct assigns weight $0$ to this point, and so it is simplest to allow for this exception in the Proposition.
 
-We also note that these conditions make sense also when $2 \nmid n$, in which case simply $A_i \setminus \{\thespecialpoint\} = A_i$.
+We also note that these conditions make sense also when $2 \nmid d$, in which case simply $A_i \setminus \{\thespecialpoint\} = A_i$.
 
 All the shortest chains (as specified in Equations \ref{singleton_chains_equation} and \ref{double_chains_equation}) are good chains. However, at first it is not clear whether for any $x \in A_1 \cup A_2$ there exists a good chain starting at $x$ and whether for any $x \notin A_i$ there exists a good chain passing through $x$ and through an element of $A_1$ closer to the middle of the cube than $x$.
 
@@ -410,9 +410,9 @@ Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 
     $2^{\circ} \ 2 \nmid nd.$ For any $x, y$ with $\vert x\vert =\fclass$, $\vert y\vert =\cclass$ and $x \leqslant y$ the chain $\{x, y\}$ has positive weight, so exactly one of $x$ and $y$ is in $A'$.
 
-    We may draw this condition on a bipartite graph, whose vertices are points from the layers $L_{\fclass}$ and $L_{\cclass}$ and where two vertices $x \in L_{\fclass},$ $y \in L_{\cclass}$ are connected by an edge if and only $x \leqslant y$. Since this bipartite graph is connected, the only subsets of vertices of this graph which contain exactly one vertex from each edge are $L_{\fclass}$ and $L_{\cclass}$.
+    We may draw this condition on a bipartite graph, whose vertices are points from the layers $L_{\fclass}$ and $L_{\cclass}$ and where two vertices $x \in L_{\fclass},$ $y \in L_{\cclass}$ are connected by an edge if and only $x \leqslant y$. Since this bipartite graph is easily seen to be connected, the only subsets of vertices of this graph which contain exactly one vertex from each edge are $L_{\fclass}$ and $L_{\cclass}$.
     
-    Hence, we need either $L_{\fclass} \subseteq A'$ or $L_{\cclass} \subseteq A'$. Without loosing on generality, let us assume that the former is the case (and then $L_{\cclass} \cap A'=\emptyset$).
+    Hence, we need either $L_{\fclass} \subseteq A'$ or $L_{\cclass} \subseteq A'$. Without loss of generality, let us assume that the former is the case (and then $L_{\cclass} \cap A'=\emptyset$).
     
     We will now show (simultaneously for both cases) that we must have $A'=A_1$.
 
@@ -420,7 +420,7 @@ Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 
     Let us suppose that $B_{i-1} \cap A' = B_{i-1} \cap A_1$. We'd like to show that the same holds for $i$.
 
-    First, let us consider the case when $i \not\equiv \lfloor \frac{nd}{2} \rfloor \ (\modd dk+1)$. But then for any $x \in L_i$, from condition (\ref{positive_non_A_condition}) there is a chain of positive weight passing through $x$ and through some $y \in A_1 \setminus \{\thespecialpoint\}$, $y$ closer to the middle of the hypercube than $x$ (that is, $y \in B_{i-1}$). But then by induction $y \in A'$, and so we must have $x \notin A'$.
+    First, let us consider the case when $i \not\equiv \lfloor \frac{nd}{2} \rfloor \ (\modd dk+1)$. But then for any $x \in L_i$, from condition (\ref{positive_non_A_condition}) there is a chain of positive weight passing through $x$ and through some $y \in A_1 \setminus \{\thespecialpoint\}$, $y$ closer to the middle of the hypercube than $x$ (that is, $y \in B_{i-1}$). But then by induction, $y \in A'$, and so we must have $x \notin A'$.
 
     Now, let us consider $i \equiv \lfloor \frac{nd}{2} \rfloor \ (\modd dk+1)$. For any $x \in L_i$, there exists a chain of positive weight starting at $x$. But this chain can only pass through elements not belonging to $A_1$ that are closer to the middle of the hypercube than $x$ (so are in $B_{i-1}$), and so by induction not belonging to $A'$. Hence, we must have $x \in A'$. 
 \end{proof}
@@ -465,7 +465,7 @@ The braces on the left-hand side of the dots represent the good chains of length
     \end{minipage}
 \end{figure}
 
-All good chains starting at the same layer have the same length (depending on how far from the middle of the cube that layer is) and pass through the same layers. Moreover, from the symmetry of permuting coordinates, the same number of good chains starts in each element of a given layer, and for any layers $L_i, L_j$ exactly the same number of good chains starting at an element of $L_i$ pass through each element of $L_j$.
+All good chains starting at the same layer have the same length (depending on how far from the middle of the cube that layer is) and pass through the same layers. Moreover, from the symmetry of permuting coordinates, the same number of good chains start in each element of a given layer, and for any layers $L_i, L_j$ exactly the same number of good chains starting at an element of $L_i$ pass through each element of $L_j$.
 
 Hence, if we assign equal weights to all good chains starting at the same layer, all vertices from the same layer will have the same induced weight.
 
@@ -473,13 +473,13 @@ For a given $n$, let $W_n(a)$ denote the total weight assigned to all good chain
 
 Starting at $a=0$ and proceeding through $a=1, \ldots, \lfloor \frac{n}{2} \rfloor$, we will recursively choose $W_n(a)=W_n(n-a)$ so that the total weight of all chains passing through $L_a$ (and $L_{n-a}$) is $\binom{n}{a}$ (so that the induced weight of each vertex is $1$). By symmetry, this will ensure that the weight of each vertex from the upper side of the cube is also $1$. This ensures condition (\ref{sum_1_condition}) of Proposition \ref{the_weights_assigning_proposition}.
 
-Then, we will verify that all weights $W_n(a)$ assigned this way are positive, i.e. that conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of the Proposition hold (as discussed after the Proposition's statement).
+Then, we will verify that all weights $W_n(a)$ assigned this way are positive, i.e. that conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of the Proposition hold.
 
 We must have $W_n(0)=1$ (as there is exactly one vertex in layer $0$, $(0, \ldots, 0)$). To assign weights to chains starting at further layers, we note that (for $a \leqslant \lfloor \frac{n}{2} \rfloor$, so $L_a$ in the lower side of the cube) the chains passing through $L_a$ are exactly the chains passing though $L_{a-1}$, except for:
 \begin{itemize}
     \item The chains starting at $L_a$.
     \item The chains starting at $L_{a-k-1}$ (as they finish exactly at $L_{a-1}$).
-    \item Moreover, if $L_a$ is an inner layer, the chains starting at $L_{a+k}$ pass through $L_a$ but not through $L_{a-1}$.
+    \item If $L_a$ is an inner layer, the chains starting at $L_{a+k}$ pass through $L_a$ but not through $L_{a-1}$.
 \end{itemize}
 Hence, for $a$ a lower outer layer the difference between the total weight of chains passing through $L_a$ and $L_{a-1}$ can be written in two ways as:
 \begin{equation*}
@@ -542,7 +542,7 @@ From the symmetry, for $a$ an upper outer layer we have $W_n(a)=W_n(n-a)=U_n(a)$
     as required.
 \end{proof}
 
-Now we are ready to show that for lower inner layers $W_n(a)>0.$ We need to show that for $n-k < 2i \leqslant n$ we have $U_n(a) - U_n(a+k) > 0.$ Somewhat surprisingly, we will fix $k$ and show this by induction on $n$. Since we are interested in $k \leqslant n$, the base case of the induction is $n=k$.
+Now we are ready to show that $W_n(a)>0$ for lower inner layers. We need to show that for $n-k < 2i \leqslant n$ we have $U_n(a) - U_n(a+k) > 0.$ Somewhat surprisingly, we will fix $k$ and show this by induction on $n$. Since we are interested in $k \leqslant n$, the base case of the induction is $n=k$.
 
 $1^{\circ}$ For $n=k$ and $0<2a \leqslant n$, we have $W_n(a)=U_n(a)-U_n(-a)$. Since $a>0$, $U_n(-a)=0$ and from the previous discussion we have $U_n(a)>0$, which finishes the proof in this case.
 
@@ -562,7 +562,7 @@ and
 \begin{equation*}
     (n-1)-k<2(a-1)\leqslant n-1,
 \end{equation*}
-then $a$ and $a-1$ are lower inner layers of $\{0,1,2\}^{n-1}$ and so
+then $a$ and $a-1$ are lower inner layers of $\{0,1\}^{n-1}$ and so
 \begin{equation*}
     \wno(a)=\uno(a)-\uno((n-1)-a-k)
 \end{equation*}
@@ -617,7 +617,7 @@ Hence, instead, we will do the same simple approach, but assign positive weights
 
 \begin{definition}[Basic chains]
 \label{wc:def:basic-chain}
-    Let $(x_1, \ldots, x_l)$ be a saturated chain of width $w$. We call this chain good if $l=dw+1$ and its subchains $(x_{id+1}, x_{id+2}, \ldots, x_{id+d+1})$ (for $0 \leqslant i \leqslant w-1$) are all of width $1$.
+    Let $(x_1, \ldots, x_l)$ be a saturated chain of width $w$. We call this chain basic if $l=dw+1$ and its subchains $(x_{id+1}, x_{id+2}, \ldots, x_{id+d+1})$ (for $0 \leqslant i \leqslant w-1$) are all of width $1$.
 \leanblueprint{basic-chain}
 \end{definition}
 

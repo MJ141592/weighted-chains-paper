@@ -10,7 +10,7 @@
       "kind": "theorem",
       "numbered": true,
       "paperRef": "Theorem 1.1",
-      "source": { "path": "main.tex", "startLine": 112, "endLine": 130 },
+      "source": { "path": "main.tex", "startLine": 121, "endLine": 139 },
       "correspondence": ["corrected", "encoding"]
     },
     {
@@ -19,7 +19,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 2.1",
-      "source": { "path": "main.tex", "startLine": 189, "endLine": 195 },
+      "source": { "path": "main.tex", "startLine": 198, "endLine": 204 },
       "correspondence": ["direct", "encoding"]
     },
     {
@@ -28,7 +28,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 2.2",
-      "source": { "path": "main.tex", "startLine": 197, "endLine": 201 },
+      "source": { "path": "main.tex", "startLine": 206, "endLine": 210 },
       "correspondence": ["direct", "encoding"]
     },
     {
@@ -37,7 +37,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 2.3",
-      "source": { "path": "main.tex", "startLine": 211, "endLine": 216 },
+      "source": { "path": "main.tex", "startLine": 220, "endLine": 225 },
       "correspondence": ["direct", "encoding"]
     },
     {
@@ -46,7 +46,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 2.4",
-      "source": { "path": "main.tex", "startLine": 218, "endLine": 222 },
+      "source": { "path": "main.tex", "startLine": 227, "endLine": 231 },
       "correspondence": ["direct", "encoding"]
     },
     {
@@ -55,7 +55,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 2.5",
-      "source": { "path": "main.tex", "startLine": 230, "endLine": 237 },
+      "source": { "path": "main.tex", "startLine": 239, "endLine": 246 },
       "correspondence": ["direct"]
     },
     {
@@ -64,7 +64,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 2.6",
-      "source": { "path": "main.tex", "startLine": 243, "endLine": 248 },
+      "source": { "path": "main.tex", "startLine": 252, "endLine": 257 },
       "correspondence": ["direct", "encoding"]
     },
     {
@@ -73,7 +73,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 2.7",
-      "source": { "path": "main.tex", "startLine": 263, "endLine": 273 },
+      "source": { "path": "main.tex", "startLine": 272, "endLine": 282 },
       "correspondence": ["corrected", "encoding"]
     },
     {
@@ -82,7 +82,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 2.8",
-      "source": { "path": "main.tex", "startLine": 277, "endLine": 281 },
+      "source": { "path": "main.tex", "startLine": 286, "endLine": 290 },
       "correspondence": ["direct"]
     },
     {
@@ -91,7 +91,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 2.9",
-      "source": { "path": "main.tex", "startLine": 284, "endLine": 288 },
+      "source": { "path": "main.tex", "startLine": 293, "endLine": 297 },
       "correspondence": ["corrected", "encoding"]
     },
     {
@@ -100,7 +100,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 2.10",
-      "source": { "path": "main.tex", "startLine": 300, "endLine": 308 },
+      "source": { "path": "main.tex", "startLine": 309, "endLine": 317 },
       "correspondence": ["corrected", "encoding"]
     },
     {
@@ -109,7 +109,7 @@
       "kind": "proposition",
       "numbered": true,
       "paperRef": "Proposition 3.1",
-      "source": { "path": "main.tex", "startLine": 334, "endLine": 353 },
+      "source": { "path": "main.tex", "startLine": 343, "endLine": 362 },
       "correspondence": ["corrected", "factored", "encoding"]
     },
     {
@@ -118,7 +118,7 @@
       "kind": "lemma",
       "numbered": true,
       "paperRef": "Lemma 3.2",
-      "source": { "path": "main.tex", "startLine": 367, "endLine": 374 },
+      "source": { "path": "main.tex", "startLine": 376, "endLine": 383 },
       "correspondence": ["corrected", "factored", "encoding"]
     },
     {
@@ -127,7 +127,7 @@
       "kind": "lemma",
       "numbered": true,
       "paperRef": "Lemma 4.1",
-      "source": { "path": "main.tex", "startLine": 519, "endLine": 526 },
+      "source": { "path": "main.tex", "startLine": 528, "endLine": 535 },
       "correspondence": ["direct", "factored"]
     },
     {
@@ -136,7 +136,7 @@
       "kind": "definition",
       "numbered": true,
       "paperRef": "Definition 5.1",
-      "source": { "path": "main.tex", "startLine": 609, "endLine": 613 },
+      "source": { "path": "main.tex", "startLine": 618, "endLine": 622 },
       "correspondence": ["corrected", "factored", "encoding"]
     },
     {
@@ -145,7 +145,7 @@
       "kind": "lemma",
       "numbered": true,
       "paperRef": "Lemma 5.2",
-      "source": { "path": "main.tex", "startLine": 666, "endLine": 677 },
+      "source": { "path": "main.tex", "startLine": 675, "endLine": 686 },
       "correspondence": ["corrected", "factored", "encoding"]
     },
     {
@@ -154,7 +154,7 @@
       "kind": "lemma",
       "numbered": true,
       "paperRef": "Lemma 5.3",
-      "source": { "path": "main.tex", "startLine": 764, "endLine": 768 },
+      "source": { "path": "main.tex", "startLine": 773, "endLine": 777 },
       "correspondence": ["corrected"]
     },
     {
@@ -163,7 +163,7 @@
       "kind": "lemma",
       "numbered": true,
       "paperRef": "Lemma 5.4",
-      "source": { "path": "main.tex", "startLine": 824, "endLine": 831 },
+      "source": { "path": "main.tex", "startLine": 833, "endLine": 840 },
       "correspondence": ["direct", "factored"]
     },
     {
@@ -172,7 +172,7 @@
       "kind": "definition",
       "numbered": false,
       "paperRef": "Introduction, definition of k-separation",
-      "source": { "path": "main.tex", "startLine": 96, "endLine": 102 },
+      "source": { "path": "main.tex", "startLine": 105, "endLine": 111 },
       "correspondence": ["corrected"]
     },
     {
@@ -181,7 +181,7 @@
       "kind": "lemma",
       "numbered": false,
       "paperRef": "Remark after Theorem 1.1",
-      "source": { "path": "main.tex", "startLine": 132, "endLine": 142 },
+      "source": { "path": "main.tex", "startLine": 141, "endLine": 151 },
       "correspondence": ["direct"]
     },
     {
@@ -190,7 +190,7 @@
       "kind": "lemma",
       "numbered": false,
       "paperRef": "Good-chain residue intersection",
-      "source": { "path": "main.tex", "startLine": 250, "endLine": 261 },
+      "source": { "path": "main.tex", "startLine": 259, "endLine": 270 },
       "correspondence": ["direct"]
     },
     {
@@ -199,7 +199,7 @@
       "kind": "theorem",
       "numbered": false,
       "paperRef": "Appendix: weighted Sperner theorem",
-      "source": { "path": "main.tex", "startLine": 955, "endLine": 1033 },
+      "source": { "path": "main.tex", "startLine": 964, "endLine": 1042 },
       "correspondence": ["corrected", "factored"]
     },
     {
@@ -208,7 +208,7 @@
       "kind": "theorem",
       "numbered": false,
       "paperRef": "Appendix: arbitrary d and large k",
-      "source": { "path": "main.tex", "startLine": 1035, "endLine": 1052 },
+      "source": { "path": "main.tex", "startLine": 1044, "endLine": 1061 },
       "correspondence": ["direct", "factored"]
     }
   ]

@@ -19,7 +19,7 @@ The Boolean (dimension-one) starting-weight construction.
 
 :::lemma_ "wc:lem:boolean-inner-weight" (parent := "paper-boolean") (lean := "WeightedChains.DOne.innerWeight, WeightedChains.DOne.lowerStartingWeight_eq_innerWeight") (autoDeps := true) (tags := "semantic-review-pending, direct, factored, numbered")
 %%%
-source := paperSource "Lemma 4.1" 519 526
+source := paperSource "Lemma 4.1" 528 535
 %%%
 
 For a lower inner Boolean layer $`a`, its starting weight is
