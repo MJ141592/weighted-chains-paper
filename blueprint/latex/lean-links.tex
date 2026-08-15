@@ -1,5 +1,5 @@
-% Optional paper-to-blueprint links. This file is deliberately not included by
-% main.tex; an author can opt in for the linked arXiv build.
+% Paper-to-blueprint links. main.tex sets the public base URL before loading
+% this helper. Set \leanlinksfalse after loading it for an unlinked build.
 %
 % Set the deployed HTTPS origin before inputting this file, for example:
 %   \newcommand{\leanblueprintbase}{https://example.org/weighted-chains}
@@ -16,8 +16,7 @@
     \ifx\leanblueprintbase\empty
       \PackageError{lean-links}{Set \string\leanblueprintbase\space before using links}{}
     \else
-      \par\nobreak\smallskip
-      \noindent\hfill
+      \leavevmode\unskip\penalty9999\hbox{}\nobreak\hfill\quad
       \href{\leanblueprintbase/theorems/#1/}{%
         \mbox{\normalfont\footnotesize\textcolor{blue}{[\textsf{Lean formalisation}]}}}%
       \par\nobreak

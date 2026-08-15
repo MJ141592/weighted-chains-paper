@@ -19,7 +19,7 @@ The discrete cube, its layers, and the chains used by the weighted-cover argumen
 
 :::definition "wc:def:chain" (parent := "paper-preliminaries") (lean := "WeightedChains.Chain, WeightedChains.Chain.length") (autoDeps := true) (tags := "semantic-review-pending, direct, encoding, numbered")
 %%%
-source := paperSource "Definition 2.1" 184 188
+source := paperSource "Definition 2.1" 189 195
 %%%
 
 A chain is a finite ordered sequence of cube vertices that is monotone in the
@@ -31,7 +31,7 @@ the ordered vertices as a nonempty `Fin`-indexed sequence.
 
 :::definition "wc:def:chain-width" (parent := "paper-preliminaries") (lean := "WeightedChains.Chain.width, WeightedChains.Cube.hammingDistance") (autoDeps := true) (tags := "semantic-review-pending, direct, encoding, numbered")
 %%%
-source := paperSource "Definition 2.2" 190 192
+source := paperSource "Definition 2.2" 197 201
 %%%
 
 The width of a chain is the number of coordinates on which its first and last
@@ -43,7 +43,7 @@ endpoint Hamming distance for the coordinate count.
 
 :::definition "wc:def:saturated-chain" (parent := "paper-preliminaries") (lean := "WeightedChains.Chain.Saturated") (autoDeps := true) (tags := "semantic-review-pending, direct, encoding, numbered")
 %%%
-source := paperSource "Definition 2.3" 202 205
+source := paperSource "Definition 2.3" 211 216
 %%%
 
 A chain is saturated when every consecutive step raises the rank by exactly
@@ -55,7 +55,7 @@ the equivalent rank-one condition at each adjacent step.
 
 :::definition "wc:def:symmetric-chain" (parent := "paper-preliminaries") (lean := "WeightedChains.Chain.Symmetric, WeightedChains.Chain.symmetric_iff_endpoint") (autoDeps := true) (tags := "semantic-review-pending, direct, encoding, numbered")
 %%%
-source := paperSource "Definition 2.4" 207 209
+source := paperSource "Definition 2.4" 218 222
 %%%
 
 A chain is symmetric when paired vertices from opposite ends have ranks
@@ -68,7 +68,7 @@ reverse finite-index convention implements the pairing from opposite ends.
 
 :::definition "wc:def:layer" (parent := "paper-preliminaries") (lean := "WeightedChains.Cube.rank, WeightedChains.Cube.layer") (autoDeps := true) (tags := "semantic-review-pending, direct, numbered")
 %%%
-source := paperSource "Definition 2.5" 217 222
+source := paperSource "Definition 2.5" 230 237
 %%%
 
 The $`r`th layer is the set of cube vertices of rank $`r`.
@@ -79,7 +79,7 @@ paper definition harmlessly by making out-of-range natural-number layers empty.
 
 :::definition "wc:def:good-chain" (parent := "paper-preliminaries") (lean := "WeightedChains.Chain.Good") (autoDeps := true) (tags := "semantic-review-pending, direct, encoding, numbered")
 %%%
-source := paperSource "Definition 2.6" 228 231
+source := paperSource "Definition 2.6" 243 248
 %%%
 
 A good chain is saturated, has width at most $`k`, and is either symmetric or
@@ -91,7 +91,7 @@ structure and length convention are the finite encodings reviewed here.
 
 :::definition "wc:def:chain-start" (parent := "paper-preliminaries") (lean := "WeightedChains.Chain.StartsAtFirst, WeightedChains.Chain.StartsAtLast") (autoDeps := true) (tags := "semantic-review-pending, corrected, encoding, numbered")
 %%%
-source := paperSource "Definition 2.7" 246 254
+source := paperSource "Definition 2.7" 263 273
 %%%
 
 A chain starts at an endpoint when that endpoint is at least as far from the
@@ -105,7 +105,7 @@ follow the intended farther-endpoint condition.
 
 :::definition "wc:def:cube-sides" (parent := "paper-preliminaries") (lean := "WeightedChains.Cube.lowerSide, WeightedChains.Cube.upperSide") (autoDeps := true) (tags := "semantic-review-pending, direct, numbered")
 %%%
-source := paperSource "Definition 2.8" 258 260
+source := paperSource "Definition 2.8" 277 281
 %%%
 
 The lower and upper sides consist respectively of vertices whose doubled rank
@@ -117,7 +117,7 @@ avoid division and express the paper's half-rank boundaries exactly.
 
 :::definition "wc:def:inner-outer-layers" (parent := "paper-preliminaries") (lean := "WeightedChains.Cube.InnerLayer, WeightedChains.Cube.OuterLayer") (autoDeps := true) (tags := "semantic-review-pending, corrected, encoding, numbered")
 %%%
-source := paperSource "Definition 2.9" 263 265
+source := paperSource "Definition 2.9" 284 288
 %%%
 
 A layer is inner when the saturated symmetric chain from rank $`r` to its
@@ -131,7 +131,7 @@ uses the equivalent doubled-rank distance condition for $`nd-r`.
 
 :::definition "wc:def:type" (parent := "paper-preliminaries") (lean := "WeightedChains.Cube.typeOf, WeightedChains.Cube.sum_typeOf, WeightedChains.Ternary.TypeCounts, WeightedChains.Ternary.TypeCounts.ofVertex") (autoDeps := true) (tags := "semantic-review-pending, corrected, encoding, numbered")
 %%%
-source := paperSource "Definition 2.10" 277 283
+source := paperSource "Definition 2.10" 300 308
 %%%
 
 The type of a point records, for each symbol $`j \in \{0,\ldots,d\}`$, the
@@ -145,7 +145,7 @@ ternary structure.
 
 :::lemma_ "wc:lem:good-chain-residue-intersection" (parent := "paper-preliminaries") (lean := "WeightedChains.Chain.Good.card_lowerResidueFinset_inter_vertices, WeightedChains.Chain.Good.card_upperResidueFinset_inter_vertices") (autoDeps := true) (tags := "semantic-review-pending, direct, unnumbered")
 %%%
-source := paperSource "Good-chain residue intersection" 233 244
+source := paperSource "Good-chain residue intersection" 250 261
 %%%
 
 Every good chain meets each of the lower and upper middle rank-residue families

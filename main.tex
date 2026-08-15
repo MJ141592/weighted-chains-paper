@@ -12,6 +12,9 @@
 \usepackage[parfill]{parskip}
 \usepackage{hyperref}
 
+\newcommand{\leanblueprintbase}{https://mj141592.github.io/weighted-chains-paper}
+\input{blueprint/latex/lean-links.tex}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{corollary}[theorem]{Corollary}
@@ -107,6 +110,7 @@ for any vector $L$ with coefficients coprime to $d+1$.
 In this paper, we prove the following (and conjecture that it holds for any $d \geqslant 1$):
 
 \begin{theorem}
+\label{wc:thm:main-theorem}
 \label{the_main_theorem}
 For any $n$, $1 < k \leqslant n,$ and $d \in \{1, 2\}$, the unique largest $k$-separated subsets of the hypercube are:
 \begin{equation}
@@ -122,6 +126,7 @@ where we denote
 \end{equation*}
 
 If $2 \mid nd$, we have $A_1=A_2$ and so there is only one largest such subset.
+\leanblueprint{main-theorem}
 \end{theorem}
 
 \begin{remark}
@@ -182,13 +187,17 @@ This section discusses the general weighted chains strategy for proving Theorem 
 We will call the elements of $\thehypercube$ `points' and `vertices' (of the hypercube) interchangeably.
 
 \begin{definition}[Chain]
+\label{wc:def:chain}
     We call an ordered set of elements $x_1, x_2, \ldots, x_l \in \thehypercube$ a chain if $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$.
 
     We call $l$ (the number of the chain's elements) its length.
+\leanblueprint{chain}
 \end{definition}
 
 \begin{definition}[Chain width]
+\label{wc:def:chain-width}
     We say that a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ is of width $w$ if there are exactly $w$ indices $i$ such that $x_{1,i} < x_{l, i}$.
+\leanblueprint{chain-width}
 \end{definition}
 
 If in a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ the first and last elements have equal coordinate $i$ ($x_{1,i}=x_{l,i}$), then all the elements of the chain have the same coordinate $i$ ($x_{1, i} = x_{2, i} = \ldots = x_{l, i}$).
@@ -200,12 +209,16 @@ For $d=1$, a chain's width is $l$ if and only if its length is $l+1$.
 Let us also note that no chain of width at most $k$ may contain two elements of a $k$-separated set.
 
 \begin{definition}[Saturated chain]
+\label{wc:def:saturated-chain}
 \label{saturated_definition}
     Let us call a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ saturated if for any $i$ we have $\vert x_{i+1}\vert -\vert x_i\vert =1$, i.e. all consecutive elements differ on exactly one coordinate by $1$.
+\leanblueprint{saturated-chain}
 \end{definition}
 
 \begin{definition}[Symmetric chain]
+\label{wc:def:symmetric-chain}
     We say that a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ is symmetric if for any $i$ we have $\vert x_{i}\vert +\vert x_{l+1-i}\vert =nd$ (hence, if the corresponding elements from the beginning and end of the chain are equally far from the middle of the cube).
+\leanblueprint{symmetric-chain}
 \end{definition}
 
 \begin{remark}
@@ -215,10 +228,12 @@ Let us also note that no chain of width at most $k$ may contain two elements of 
 It is often convenient to think of the points in the cube as grouped into diagonal `layers':
 
 \begin{definition}[A layer]
+\label{wc:def:layer}
     For $0 \leqslant i \leqslant nd$ let the $i$th layer of the hypercube be defined as:
     \begin{equation*}
         L_i := \{x \in \thehypercube: \vert x\vert =i\}.
     \end{equation*}
+\leanblueprint{layer}
 \end{definition}
 
 We note that the size of layers is the larger, the closer they are to the middle of the hypercube: $1=\vert L_0\vert  \leqslant \vert L_1\vert  \leqslant \ldots \leqslant \vert L_{\fclass}\vert =\vert L_{\cclass}\vert  \geqslant \ldots \geqslant \vert L_{nd-1}\vert  \geqslant \vert L_{nd}\vert =1$.
@@ -226,8 +241,10 @@ We note that the size of layers is the larger, the closer they are to the middle
 Let us call the layer $L_{\frac{nd}{2}}$ (if $2 \mid nd$) or the layers $L_{\fclass}$ and $L_{\cclass}$ (if $2 \nmid nd$) the middle layers or `the middle of the cube'.
 
 \begin{definition}[Good chains]
+\label{wc:def:good-chain}
 \label{good_chain_definition}
     For given $n, k, d$ let us call a chain $C=(x_1, \ldots, x_l) \subseteq \thehypercube$ good if it is saturated, of width at most $k$ and either symmetric or of length exactly $dk+1$.
+\leanblueprint{good-chain}
 \end{definition}
 
 The shortest good chains are (for $2 \mid nd$) the singletons
@@ -244,6 +261,7 @@ or (for $2 \nmid nd$ ) pairs of vertices
 Any good chain contains exactly one element from $A_1$ and exactly one from $A_2$.
 
 \begin{definition}[A chain starting at $x$]
+\label{wc:def:chain-start}
     We say that a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ starts at $x_1$ if $\big\vert  \vert x_1\vert -\frac{nd}{2} \big\vert  \leqslant \big\vert  \vert x_l\vert -\frac{nd}{2} \big\vert $.
 
     If $\big\vert  \vert x_1\vert -\frac{nd}{2} \big\vert  \geqslant \big\vert  \vert x_l\vert -\frac{nd}{2} \big\vert $, we say that the chain starts at $x_l$.
@@ -251,17 +269,22 @@ Any good chain contains exactly one element from $A_1$ and exactly one from $A_2
     If an equality holds in the above two inequalities, we may say either that the chain starts at $x_1$ or at $x_l$.
 
     That is, a chain starts at $x$ if it passes only through points at least as close to the middle of the cube as $x$.
+\leanblueprint{chain-start}
 \end{definition}
 
 In this section we discuss some definitions and ways of looking at the hypercube that are later useful for assigning weights satisfying the conditions of Proposition \ref{the_weights_assigning_proposition}. The discussion in this section holds for any $d \geqslant 1$. 
 
 \begin{definition}[The lower and upper sides of the hypercube]
+\label{wc:def:cube-sides}
     We will often refer to $\{x \in \thehypercube: \vert x\vert  \leqslant \frac{nd}{2}\}$ as the lower side of the cube, and to $\{x \in \thehypercube: \vert x\vert  \geqslant \frac{nd}{2}\}$ as the upper side of the cube.
+\leanblueprint{cube-sides}
 \end{definition}
 
 The following notion will turn out to be crucial for assigning weights to chains.
 \begin{definition}[Inner and outer layers]
+\label{wc:def:inner-outer-layers}
     Let us call a layer $L_i$ inner if the length of symmetric saturated chains between layers $L_i$ and $L_{nd+1-i}$ is smaller than $kd+1$. Otherwise, we call a layer outer.
+\leanblueprint{inner-outer-layers}
 \end{definition}
 
 \begin{remark}
@@ -275,11 +298,13 @@ For $d \leqslant 2$, the outer layers are those for which the good chains starti
 We note that when $k=n$, the only outer layers are $L_0=\{(0, \ldots, 0)\}$ and $L_{dn}=\{(d, \ldots, d)\}.$
 
 \begin{definition}[Type]
+\label{wc:def:type}
     For $x \in \thehypercube$, we say that $x$ is of type $(t_0 \ldots, t_n)$ if for any $0 \leqslant i \leqslant n$ exactly $t_i$ of $x\text{'s}$ coordinates equal $i$.
 
     We will also often treat a type tuple $(t_0, \ldots, t_n)$ (for $t_0+\ldots+t_n=d$) as the set of vertices of the hypercube of such type.
 
     According to this convention, a type tuple $(t_0, \ldots, t_n)$ with $t_i < 0$ for some $i$ is just an empty set.
+\leanblueprint{type}
 \end{definition}
 
 Two vertices are of the same type if and only if their coordinates are a permutation of each other (i.e., types are orbits of the group of the coordinate permutation group).
@@ -307,6 +332,7 @@ The Proposition below is the key step in proving Theorem \ref{the_main_theorem}.
 We recall sets $A_1, A_2$ defined in Theorem \ref{the_main_theorem} (where $A_1=A_2$ if $2 \mid d$).
 
 \begin{proposition}
+\label{wc:prop:good-chain-weighting}
 \label{the_weights_assigning_proposition}
     For any $n, k$ and $d \in \{1, 2\}$, it is possible to assign weights to good chains in the hypercube so that:
     \begin{enumerate}
@@ -323,6 +349,7 @@ We recall sets $A_1, A_2$ defined in Theorem \ref{the_main_theorem} (where $A_1=
     In the last condition, $y_i$ is closer to the middle of the cube than $x$ if and only if $\vert |y_i| - \frac{nd}{2} \vert < \vert |x| - \frac{nd}{2} \vert$.
     
     The last three conditions are only needed for showing the uniqueness of $A_1$ and $A_2$.
+\leanblueprint{good-chain-weighting}
 \end{proposition}
 
 We note that at this stage it is by no means clear why the point $\thespecialpoint$ (the centre of the cube - if it belongs to the integer lattice) is treated separately in the last three conditions. The reason for this is that the most intuitive weight assignment we later construct assigns weight $0$ to this point, and so it is simplest to allow for this exception in the Proposition.
@@ -338,10 +365,12 @@ For $d=2$ (handled in Section \ref{section_d2}) first we show in Lemma \ref{posi
 Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 
 \begin{lemma}
+\label{wc:lem:weighted-cover-implies-main}
 \label{weights_imply_theorem_lemma}
     For any $n, k, d$ if there exists an assignment of weights to good chains in $\thehypercube$ satisfying conditions (\ref{sum_1_condition}) and (\ref{non_negative_condition}), then any $k$-separated set in the hypercube is at most as large as $A_1$ (for $A_1$ defined as in Theorem \ref{the_main_theorem}).
 
     Furthermore, if such an assignment satisfies conditions (\ref{short_chains_positive_condition}), (\ref{positive_A_condition}) and (\ref{positive_non_A_condition}) of the Proposition, then $A_1$ and $A_2$ are the unique largest such subsets (and so Theorem \ref{the_main_theorem} is satisfied).
+\leanblueprint{weighted-cover-implies-main}
 \end{lemma}
 
 \begin{proof}
@@ -488,10 +517,12 @@ From the symmetry, for $a$ an upper outer layer we have $W_n(a)=W_n(n-a)=U_n(a)$
 \end{equation}
 
 \begin{lemma}
+\label{wc:lem:boolean-inner-weight}
      For $a$ a lower inner level, we have
     \begin{equation}
         W_n(a)=U_n(a) - U_n(n-a-k).
     \end{equation}
+\leanblueprint{boolean-inner-weight}
 \end{lemma}
 
 \begin{proof}
@@ -576,7 +607,9 @@ However, after running a computer simulation, it turns out that this recursive a
 Hence, instead, we will do the same simple approach, but assign positive weights only to a subset of all good chains.
 
 \begin{definition}[Basic chains]
+\label{wc:def:basic-chain}
     Let $(x_1, \ldots, x_l)$ be a saturated chain of width $w$. We call this chain good if $l=dw+1$ and its subchains $(x_{id+1}, x_{id+2}, \ldots, x_{id+d+1})$ (for $0 \leqslant i \leqslant w-1$) are all of width $1$.
+\leanblueprint{basic-chain}
 \end{definition}
 
 For example, for $n=5, d=2$ the following chain is basic:
@@ -631,6 +664,7 @@ For a given $k$, we can also represent all basic chains starting at a lower oute
 It turns out that for $d=2$ it is possible to assign positive weights only to basic good chains and weight $0$ to all other chains so that the conditions of Proposition \ref{the_weights_assigning_proposition} are satisfied. In the lemma below we show that an assignment of positive weights to all basic good chains (except for $\{(1, \dots, 1)\}$) would satisfy conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of the Proposition.
 
 \begin{lemma}
+\label{wc:lem:basic-chains-suffice}
 \label{positive_basic_enough_lemma}
     As in Theorem \ref{the_main_theorem}, let $A_1$ denote the points in $x \in \{0, 1, 2\}^n$ with $|x| \equiv n \ (\modd 2k+1)$.
 
@@ -639,6 +673,7 @@ It turns out that for $d=2$ it is possible to assign positive weights only to ba
     Moreover, for any $x \in A$, there exists a basic good chain starting at $x$.
 
     Finally, for any $x \notin A$, there exists $y \in A \setminus \{(1, \dots, 1)\}$, $y$ closer to the middle of the cube than $x$, and a basic good chain passing through $x$ and $y$.
+\leanblueprint{basic-chains-suffice}
 \end{lemma}
 
 \begin{proof}
@@ -727,7 +762,9 @@ Since $U_n$s are defined recursively in terms of each other and the trinomial co
 We will prove a slightly stronger claim.
 
 \begin{lemma}
+\label{wc:lem:ternary-auxiliary-positive}
     For $n \geqslant k$ and $0 \leqslant c \leqslant a$, $0 \leqslant n-a-c$ we have $U_n(a, c)>0$.
+\leanblueprint{ternary-auxiliary-positive}
 \end{lemma}
 
 This lemma immediately shows that the weights of the chains starting at the outer types are positive.
@@ -785,10 +822,12 @@ This lemma immediately shows that the weights of the chains starting at the oute
 As in the case when $d=1$, to find the weights of the chains starting at the inner layers we need to take into account the fact that some chains starting on the other side of the cube pass through these layers.
 
 \begin{lemma}
+\label{wc:lem:ternary-inner-weight}
     For $(a, n-a-c, c)$ a lower inner type (i.e. with $a-k < c \leqslant a$) we have
     \begin{equation*}
         W_n(a, c)=U_n(a, c) - U_n(c+k, a-k).
     \end{equation*}
+\leanblueprint{ternary-inner-weight}
 \end{lemma}
 
 \begin{proof}

@@ -26,7 +26,7 @@ Definitions and results stated in the introduction of the paper.
 
 :::theorem "wc:thm:main-theorem" (parent := "paper-introduction") (lean := "WeightedChains.main_cardinality_and_uniqueness, WeightedChains.Cube.lowerResidueFinset_eq_upperResidueFinset_of_even") (autoDeps := true) (uses := "wc:def:k-separated") (tags := "semantic-review-pending, corrected, encoding, numbered") (priority := "high")
 %%%
-source := paperSource "Theorem 1.1" 109 125
+source := paperSource "Theorem 1.1" 112 130
 %%%
 
 For $`1 < k \leq n` and $`d \in \{1,2\}`$, every $`k`-separated family in
@@ -49,7 +49,7 @@ families.
 
 :::definition "wc:def:k-separated" (parent := "paper-introduction") (lean := "WeightedChains.Cube.KSeparated") (autoDeps := true) (tags := "semantic-review-pending, corrected, unnumbered")
 %%%
-source := paperSource "Introduction, definition of k-separation" 93 99
+source := paperSource "Introduction, definition of k-separation" 96 102
 %%%
 
 A family in the discrete cube is $`k`-separated when no two *distinct*
@@ -62,7 +62,7 @@ the definition.
 
 :::lemma_ "wc:lem:residue-families-separated" (parent := "paper-introduction") (lean := "WeightedChains.Cube.lowerResidueFamily_kSeparated, WeightedChains.Cube.upperResidueFamily_kSeparated") (autoDeps := true) (tags := "semantic-review-pending, direct, unnumbered")
 %%%
-source := paperSource "Remark after Theorem 1.1" 127 137
+source := paperSource "Remark after Theorem 1.1" 132 142
 %%%
 
 The lower and upper middle rank-residue families are $`k`-separated for every
