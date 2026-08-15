@@ -26,5 +26,5 @@ agreement with the semantic-review ledger, informal-block targets, and
 commit-pinned GitHub line links for every associated Lean declaration. A local
 build from a dirty worktree is useful for previewing, but its source URLs target
 `HEAD`; only publish a clean committed CI or release build. The LaTeX helper in
-`latex/lean-links.tex` is ready for a linked arXiv build but is intentionally
-not included by `main.tex`.
+`latex/lean-links.tex` is loaded by `../main.tex` and enables the theorem links
+by default. Add `\leanlinksfalse` after that input for an unlinked journal build.
