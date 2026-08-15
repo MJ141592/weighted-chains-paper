@@ -109,97 +109,105 @@ review are intentionally reported as distinct facts.
 ## Clarifications exposed by formalisation
 
 These points were exposed by translating the paper into typed statements. The
-first three have been confirmed by the author; the remaining entries are
-resolved by the formal proofs, and correction 25 also has the displayed
-numerical counterexample.
+first two have been confirmed by the author; the remaining mathematical entries
+are resolved by the formal proofs, and the corrected-sign recurrence also has
+the displayed numerical counterexample. Issues fixed in the manuscript are
+removed from this list.
 
 1. `k`-separation must quantify over **distinct** comparable vertices. Without
    `x ≠ y`, no nonempty family is `k`-separated. Lean's definition makes this
    condition explicit.
-2. The paper's definition of type has its parameters transposed. A point of
-   `{0, ..., d}^n` has type `(t₀, ..., t_d)` with `∑ t_i = n`, not
-   `(t₀, ..., t_n)` with sum `d`. Lean uses the former.
-3. The sentence “For `d = 1`, a chain's width is `l` iff its length is `l + 1`”
+2. The sentence “For `d = 1`, a chain's width is `l` iff its length is `l + 1`”
    is false for arbitrary chains (for example, the two-vertex chain
    `000 ≤ 111`). It becomes correct for saturated chains and is proved in that
    form as `Chain.length_eq_width_add_one_of_saturated`.
-4. In the inner-layer positivity argument for `d = 1`, the lemma gives
+3. In the inner-layer positivity argument for `d = 1`, the lemma gives
    `W_n(a) = U_n(a) - U_n(n-a-k)`, but the next paragraph says it suffices to
    prove `U_n(a) - U_n(a+k) > 0`. The induction that follows consistently uses
    `n-a-k`. The chain starting at upper layer `a+k` reflects to lower starting
    layer `n-a-k`, so `n-a-k` is the correct argument and is now formalised.
-5. The sentence about an upper outer layer says
+4. The sentence about an upper outer layer says
    `W_n(a) = W_n(n-a) = U_n(a)`. With `a` denoting the upper layer, the final
    term is `U_n(n-a)` by the same reflection.
-6. The Section 5 definition of a basic chain ends “We call this chain good”.
-   The new notion being defined there is **basic**, not good.
-7. The displayed lower-outer range `c+k ≤ a ≤ c` is impossible for positive
+5. The displayed lower-outer range `c+k ≤ a ≤ c` is impossible for positive
    `k`. The recurrence and type triangle require `c+k ≤ a` together with
    `a+c ≤ n` (equivalently `a ≤ n-c`).
-8. The outer-positivity paragraph reverses the lower-type inequality when it
+6. The outer-positivity paragraph reverses the lower-type inequality when it
    writes `a ≤ c ≤ n`; the lower half has `c ≤ a` (and validity also requires
    `a+c ≤ n`).
-9. The stated ternary positivity lemma includes `(a,c)=(0,0)`, but the
+7. The stated ternary positivity lemma includes `(a,c)=(0,0)`, but the
    recurrence gives `U_n(0,0)=0` for every positive `n`. Positivity must exclude
    this exceptional all-ones type, consistently with its zero chain weight
    elsewhere in Section 5.
-10. In the proof of the basic-chain sufficiency lemma, the “outer vertices”
+8. In the proof of the basic-chain sufficiency lemma, the “outer vertices”
     paragraph immediately calls a type satisfying `c<a-k` “lower inner”. That
     inequality describes a lower outer type.
-11. In inner-positivity case `2.2°`, the first displayed difference writes
+9. In inner-positivity case `2.2°`, the first displayed difference writes
     `U_n(a-k,a+k)`. The preceding lemma and the cancellation on the following
     lines both require `U_n(a+k,a-k)`.
-12. In the `n=k` outer-positivity calculation, the final numerator is
+10. In the `n=k` outer-positivity calculation, the final numerator is
     `((a-c)(n-c)+a)`, not `((a-c)(n-c)+1)`. The same sentence also reverses
     the lower-type inequality: positivity uses `c ≤ a`.
-13. In the Sperner appendix, the two extremal ranks must be
-    `⌊n/2⌋` and `⌈n/2⌉`; they coincide when `2 ∣ n`, not when `2 ∤ n`.
-14. In the appendix's incidence calculation, the symmetric chains capable of
+11. In the appendix's incidence calculation, the symmetric chains capable of
     meeting `L_i` lie in `𝒞₀ ∪ ⋯ ∪ 𝒞ᵢ`, not the displayed intersection of
     those pairwise-disjoint strata.
-15. The displayed general multinomial Pascal recurrence cumulatively lowers
-    several arguments and is false.  Each summand should lower exactly one
-    argument, alongside the term in which none is lowered; the ternary
-    specialization is proved as `Ternary.trinomial_succ`.
-16. Whether the exceptional lattice point `(d/2, …, d/2)` exists depends on
-    the parity of `d`, not on the parity of `n`.
-17. Coordinate reflection in the `d`-ary cube is `𝐝 - x`, where
+12. Coordinate reflection in the `d`-ary cube is `𝐝 - x`, where
     `𝐝 = (d, …, d)`, not the displayed `𝐧 - x`.
-18. A symmetric ternary basic chain of width `w` runs between layers
+13. A symmetric ternary basic chain of width `w` runs between layers
     `L_(n-w)` and `L_(n+w)`, not `L_(n/2-w)` and `L_(n/2+w)`.
-19. With the paper's zero-based layer indices, the rank complementary to `i`
+14. With the paper's zero-based layer indices, the rank complementary to `i`
     is `nd-i`; the preliminary inner-layer paragraph's `nd+1-i` is off by one.
-20. In the uniqueness induction, `i` is introduced as distance from the
+15. In the uniqueness induction, `i` is introduced as distance from the
     middle but then used as an absolute layer index.  The Lean proof uses the
     well-founded distance functions in `DOne.EqualityPropagation` and
     `DTwo.Uniqueness`, avoiding that index conflation.
-21. All basic good chains do not form one orbit under coordinate permutation.
+16. All basic good chains do not form one orbit under coordinate permutation.
     The orbit/uniformity assertion is for a fixed canonical start type and
     trace, formalized by the start-group and metachain declarations.
-22. The concluding displayed ternary extremal family should have ambient cube
+17. The concluding displayed ternary extremal family should have ambient cube
     `{0,1,2}^n`, not `{0,…,d}^n`.
-23. The lower-outer `W_n(a,c)` recurrence also holds on the boundary
+18. The lower-outer `W_n(a,c)` recurrence also holds on the boundary
     `c+k=a`; the printed strict range `c<a-k` omits it.
-24. Immediately before that recurrence, the incidence difference should
+19. Immediately before that recurrence, the incidence difference should
     contain `W_n(a+1,c)`, as the labeled equation does, rather than
     `W_n(a+1,c-1)`.
-25. The final term in the later-inner recurrence must be
+20. The final term in the later-inner recurrence must be
     `-W_n(a-k+1,c+k)`, not `+W_n(a-k+1,c+k)`.  For
     `n=5, k=2, a=c=2`, the corrected recurrence and the defined weight both
     give `2`, whereas the printed plus-sign gives `10`.
-26. In the parenthetical discussion of the first inner diagonal
+21. In the parenthetical discussion of the first inner diagonal
     `c=a-k+1`, the type `(a-k+1,b-1,c+k)` lies on the upper **outer**
     boundary, not in the upper inner region.  It is the reflected endpoint of
     the symmetric metachain starting at `(a+1,b-1,c)`, so there is no separate
     canonical upper start group contributing another recurrence term.
-27. In Lean's natural-number arithmetic, the paper's rational inequality
+22. In Lean's natural-number arithmetic, the paper's rational inequality
     `n/2 ≤ k` must be encoded as `n ≤ 2k`.  Writing `n / 2 ≤ k` with truncated
     division would be one unit too weak when `n` is odd.  Appendix 2 uses the
     exact former condition and the paper's floor/ceiling coordinate split.
-28. The strategy section recalls that `A₁=A₂` “if `2 ∣ d`”.  While sufficient,
+23. The strategy section recalls that `A₁=A₂` “if `2 ∣ d`”.  While sufficient,
     this misses, for example, `d=1` with even `n`.  The exact condition in the
     main theorem is `2 ∣ nd`, and this is the condition formalised by
     `Cube.lowerResidueFinset_eq_upperResidueFinset_of_even`.
+
+## Current manuscript proof-reading follow-ups
+
+These source-level issues were introduced by the current proof-reading changes;
+they do not alter the kernel-checked Lean statements.
+
+1. The parenthetical antichain definition at `main.tex:103` begins a new
+   sentence but has no full stop before its closing parenthesis.
+2. The AI usage note at `main.tex:160` writes “Latex”, duplicates “the” in “the
+   the mathematical content”, and uses the ungrammatical phrase “proofs are
+   legitimate and following”. It also says that the Lean correspondence has
+   been checked manually while all records in `SEMANTIC_REVIEW.md` remain
+   pending, and should clarify the intended distinction between model-generated
+   formalisation code and model-generated mathematical content.
+3. The Sperner appendix switches to `\mathbb{P}([n])` at `main.tex:973`, while
+   the rest of the manuscript uses `\mathcal{P}([n])` for the power set.
+4. The Appendix A conclusion at `main.tex:1042` says “sn interesting
+   difference”; this should be “an interesting difference”.
+5. The Appendix B conclusion at `main.tex:1061` says “similary”; this should be
+   “similarly”.
 
 ## Sources for the setup
 

@@ -19,7 +19,7 @@ The two appendix results, stated in prose rather than numbered environments.
 
 :::theorem "wc:thm:sperner-appendix" (parent := "paper-appendices") (lean := "WeightedChains.SpernerAppendix.cardinality_and_uniqueness, WeightedChains.SpernerAppendix.SymmetricChain.inducedWeight_eq_one, WeightedChains.SpernerAppendix.SymmetricChain.weight_le_one") (autoDeps := true) (tags := "semantic-review-pending, corrected, factored, unnumbered")
 %%%
-source := paperSource "Appendix: weighted Sperner theorem" 955 1033
+source := paperSource "Appendix: weighted Sperner theorem" 964 1042
 %%%
 
 For every $`n`, the largest Boolean antichains are precisely the lower and upper
@@ -28,9 +28,9 @@ weighting has unit induced weight at every vertex and weights in $`(0,1]` under
 the mathematically necessary small-dimension hypotheses.
 
 *Semantic review:* pending. *Correspondence:* corrected and factored. Lean
-corrects the manuscript's parity sentence and its union/intersection slip in the
-chain-stratum incidence calculation, and packages the final bound and equality
-classification in one theorem.
+corrects the manuscript's union/intersection slip in the chain-stratum incidence
+calculation and packages the final bound and equality classification in one
+theorem.
 :::
 
 :::proof "wc:thm:sperner-appendix"
@@ -41,7 +41,7 @@ layers gives the two extremal choices.
 
 :::theorem "wc:thm:large-k-appendix" (parent := "paper-appendices") (lean := "WeightedChains.LargeK.lowerResidueFinset_isMaximum, WeightedChains.LargeK.upperResidueFinset_isMaximum, WeightedChains.LargeK.kSeparated_card_le_lowerResidueFinset, WeightedChains.LargeK.deBruijnTengbergenKruyswijk, WeightedChains.LargeK.cuboid_lowerMiddleLayer_isMaximum, WeightedChains.LargeK.cuboid_upperMiddleLayer_isMaximum") (autoDeps := true) (tags := "semantic-review-pending, direct, factored, unnumbered")
 %%%
-source := paperSource "Appendix: arbitrary d and large k" 1035 1052
+source := paperSource "Appendix: arbitrary d and large k" 1044 1061
 %%%
 
 For arbitrary $`d` in the exact large-separation range $`n\leq 2k`, the lower
