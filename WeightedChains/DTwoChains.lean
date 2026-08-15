@@ -16,6 +16,48 @@ namespace WeightedChains
 
 namespace Ternary
 
+namespace Chain
+
+def basicBlockStart {n : ℕ} (C : Chain n 2) (hsteps : C.steps = 2 * C.width)
+    (i : Fin C.width) : Fin (C.steps + 1) :=
+  ⟨2 * (i : ℕ), by omega⟩
+
+def basicBlockMiddle {n : ℕ} (C : Chain n 2) (hsteps : C.steps = 2 * C.width)
+    (i : Fin C.width) : Fin (C.steps + 1) :=
+  ⟨2 * (i : ℕ) + 1, by omega⟩
+
+def basicBlockEnd {n : ℕ} (C : Chain n 2) (hsteps : C.steps = 2 * C.width)
+    (i : Fin C.width) : Fin (C.steps + 1) :=
+  ⟨2 * (i : ℕ) + 2, by omega⟩
+
+/-- The ternary instance of the paper's Definition 5.1.
+
+The paper describes a basic chain as a saturated chain of length `2w+1`
+whose consecutive three-vertex blocks have width one.  Since `Chain.steps`
+is the length minus one, the length condition is written here as
+`C.steps = 2 * C.width`.
+-/
+def Basic {n : ℕ} (C : Chain n 2) : Prop :=
+  C.Saturated ∧
+    ∃ hsteps : C.steps = 2 * C.width,
+      ∀ i : Fin C.width,
+        Cube.hammingDistance
+          (C.vertex (basicBlockStart C hsteps i))
+          (C.vertex (basicBlockEnd C hsteps i)) = 1
+
+end Chain
+
+private theorem chain_ext {n d : ℕ} {C D : Chain n d} (hsteps : D.steps = C.steps)
+    (hvertex : ∀ i : Fin (C.steps + 1),
+      C.vertex i = D.vertex (Fin.cast (congrArg Nat.succ hsteps.symm) i)) :
+    C = D := by
+  cases C
+  cases D
+  cases hsteps
+  simp_all
+  funext i
+  exact hvertex i
+
 /-- A finite descriptor for an oriented basic chain in `{0,1,2}^n`.
 `width` coordinates are changed, in the order given by `coordinate`. -/
 @[ext]
@@ -463,6 +505,55 @@ theorem differingCoordinates_start_evenVertex (B : BasicChain n) (i : ℕ) :
       hvalue, hq, iff_false]
     exact not_ne_iff.mpr rfl
 
+private theorem hammingDistance_evenVertex_succ (B : BasicChain n) (i : ℕ)
+    (hi : i < B.width) :
+    Cube.hammingDistance (B.evenVertex i) (B.evenVertex (i + 1)) = 1 := by
+  rw [Cube.hammingDistance]
+  have hcoord : B.coordinate ⟨i, hi⟩ ∉ B.initialSegment i := by
+    intro hmem
+    rcases (B.mem_initialSegment_iff i (B.coordinate ⟨i, hi⟩)).mp hmem with ⟨j, hj, hji⟩
+    have : (j : ℕ) = i := congrArg Fin.val (B.coordinate.injective hji)
+    omega
+  have hcoord_next : B.coordinate ⟨i, hi⟩ ∈ B.initialSegment (i + 1) := by
+    rw [B.mem_initialSegment_iff]
+    exact ⟨⟨i, hi⟩, by simp, rfl⟩
+  have hsegment (q : Fin n) (hq : q ≠ B.coordinate ⟨i, hi⟩) :
+      (q ∈ B.initialSegment (i + 1) ↔ q ∈ B.initialSegment i) := by
+    constructor
+    · intro hqnext
+      rcases (B.mem_initialSegment_iff (i + 1) q).mp hqnext with ⟨j, hj, hjq⟩
+      by_cases hji : (j : ℕ) < i
+      · exact (B.mem_initialSegment_iff i q).mpr ⟨j, hji, hjq⟩
+      · have hji' : (j : ℕ) = i := by omega
+        exfalso
+        apply hq
+        rw [← hjq]
+        exact congrArg B.coordinate (Fin.ext hji')
+    · intro hqi
+      rcases (B.mem_initialSegment_iff i q).mp hqi with ⟨j, hj, hjq⟩
+      exact (B.mem_initialSegment_iff (i + 1) q).mpr ⟨j, by omega, hjq⟩
+  have hset : Cube.differingCoordinates (B.evenVertex i) (B.evenVertex (i + 1)) =
+      {B.coordinate ⟨i, hi⟩} := by
+    ext q
+    by_cases hq : q = B.coordinate ⟨i, hi⟩
+    · subst q
+      simp only [Cube.differingCoordinates, Finset.mem_filter, Finset.mem_univ, true_and,
+        Finset.mem_singleton]
+      simp [evenVertex, hcoord, hcoord_next, B.start_coordinate ⟨i, hi⟩]
+    · have hseg := hsegment q hq
+      simp only [Cube.differingCoordinates, Finset.mem_filter, Finset.mem_univ, true_and,
+        Finset.mem_singleton]
+      simp only [evenVertex]
+      by_cases hqi : q ∈ B.initialSegment i
+      · have hqnext : q ∈ B.initialSegment (i + 1) := hseg.mpr hqi
+        simp [hqi, hqnext, hq]
+      · have hqnext : q ∉ B.initialSegment (i + 1) := by
+          intro h
+          exact hqi (hseg.mp h)
+        simp [hqi, hqnext, hq]
+  rw [hset]
+  simp
+
 theorem hammingDistance_start_evenVertex (B : BasicChain n) (i : ℕ)
     (hi : i ≤ B.width) :
     Cube.hammingDistance B.start (B.evenVertex i) = i := by
@@ -473,6 +564,409 @@ theorem hammingDistance_start_evenVertex (B : BasicChain n) (i : ℕ)
 theorem toChain_width (B : BasicChain n) : B.toChain.width = B.width := by
   rw [Chain.width, B.toChain_first, B.toChain_last,
     B.hammingDistance_start_evenVertex B.width le_rfl]
+
+/-- Every descriptor-defined basic chain satisfies the paper's
+Definition 5.1 predicate. -/
+theorem toChain_basic (B : BasicChain n) : Chain.Basic B.toChain := by
+  refine ⟨B.toChain_saturated, ?_⟩
+  refine ⟨by simpa only [B.toChain_width] using B.toChain_steps, ?_⟩
+  intro i
+  have hi : (i : ℕ) < B.width := by simpa only [B.toChain_width] using i.isLt
+  change Cube.hammingDistance
+    (B.vertexAt (2 * (i : ℕ)))
+    (B.vertexAt (2 * (i : ℕ) + 2)) = 1
+  rw [B.vertexAt_even i]
+  rw [show 2 * (i : ℕ) + 2 = 2 * ((i : ℕ) + 1) by omega,
+    B.vertexAt_even (i + 1)]
+  exact hammingDistance_evenVertex_succ B (i : ℕ) hi
+
+private theorem block_change_values {C : Chain n 2} (hsaturated : C.Saturated)
+    (hsteps : C.steps = 2 * C.width) (i : Fin C.width) (q : Fin n)
+    (huniq : Cube.differingCoordinates
+      (C.vertex (Chain.basicBlockStart C hsteps i))
+      (C.vertex (Chain.basicBlockEnd C hsteps i)) = {q}) :
+    C.vertex (Chain.basicBlockStart C hsteps i) q = 0 ∧
+      C.vertex (Chain.basicBlockMiddle C hsteps i) q = 1 ∧
+      C.vertex (Chain.basicBlockEnd C hsteps i) q = 2 := by
+  let j0 : Fin C.steps := ⟨2 * (i : ℕ), by omega⟩
+  let j1 : Fin C.steps := ⟨2 * (i : ℕ) + 1, by omega⟩
+  have hstep_ne (j : Fin C.steps) :
+      C.vertex j.castSucc ≠ C.vertex j.succ := by
+    intro heq
+    have hrank := hsaturated j
+    have hrank_eq := congrArg Cube.rank heq
+    omega
+  have hstep_coord (j : Fin C.steps)
+      (hbefore : Chain.basicBlockStart C hsteps i ≤ j.castSucc)
+      (hend : j.succ ≤ Chain.basicBlockEnd C hsteps i) :
+      C.vertex j.castSucc q < C.vertex j.succ q := by
+    have hne := hstep_ne j
+    obtain ⟨r, hr⟩ : ∃ r, C.vertex j.castSucc r ≠ C.vertex j.succ r := by
+      by_contra h
+      apply hne
+      funext r
+      exact not_ne_iff.mp (not_exists.mp h r)
+    have hlt : C.vertex j.castSucc r < C.vertex j.succ r :=
+      lt_of_le_of_ne (C.monotone_vertex (Fin.castSucc_le_succ j) r) hr
+    have hrmem : r ∈ Cube.differingCoordinates
+        (C.vertex (Chain.basicBlockStart C hsteps i))
+        (C.vertex (Chain.basicBlockEnd C hsteps i)) := by
+      simp only [Cube.differingCoordinates, Finset.mem_filter, Finset.mem_univ, true_and]
+      intro hreq
+      apply hr
+      apply le_antisymm
+      · exact C.monotone_vertex (Fin.castSucc_le_succ j) r
+      · have hmid : C.vertex j.succ r ≤
+            C.vertex (Chain.basicBlockEnd C hsteps i) r :=
+          C.monotone_vertex hend r
+        calc
+          C.vertex j.succ r ≤ C.vertex (Chain.basicBlockEnd C hsteps i) r := hmid
+          _ = C.vertex (Chain.basicBlockStart C hsteps i) r := by rw [hreq]
+          _ ≤ C.vertex j.castSucc r := C.monotone_vertex hbefore r
+    have hrq : r = q := by
+      rw [huniq] at hrmem
+      simpa using hrmem
+    simpa [hrq] using hlt
+  have hlt0 : C.vertex (Chain.basicBlockStart C hsteps i) q <
+      C.vertex (Chain.basicBlockMiddle C hsteps i) q := by
+    have h := hstep_coord j0 (by
+      apply Fin.le_iff_val_le_val.mpr
+      simp [j0, Chain.basicBlockStart]) (by
+      apply Fin.le_iff_val_le_val.mpr
+      simp [j0, Chain.basicBlockEnd])
+    simpa [j0, Chain.basicBlockStart, Chain.basicBlockMiddle] using h
+  have hlt1 : C.vertex (Chain.basicBlockMiddle C hsteps i) q <
+      C.vertex (Chain.basicBlockEnd C hsteps i) q := by
+    have h := hstep_coord j1 (by
+      apply Fin.le_iff_val_le_val.mpr
+      simp [j1, Chain.basicBlockStart]) (by
+      apply Fin.le_iff_val_le_val.mpr
+      simp [j1, Chain.basicBlockEnd])
+    simpa [j1, Chain.basicBlockMiddle, Chain.basicBlockEnd] using h
+  have hstart_lt : (C.vertex (Chain.basicBlockStart C hsteps i) q : ℕ) <
+      (C.vertex (Chain.basicBlockMiddle C hsteps i) q : ℕ) := by exact hlt0
+  have hmiddle_lt : (C.vertex (Chain.basicBlockMiddle C hsteps i) q : ℕ) <
+      (C.vertex (Chain.basicBlockEnd C hsteps i) q : ℕ) := by exact hlt1
+  have hslt := (C.vertex (Chain.basicBlockStart C hsteps i) q).isLt
+  have hmlt := (C.vertex (Chain.basicBlockMiddle C hsteps i) q).isLt
+  have helt := (C.vertex (Chain.basicBlockEnd C hsteps i) q).isLt
+  have hsval : (C.vertex (Chain.basicBlockStart C hsteps i) q : ℕ) = 0 := by omega
+  have hmval : (C.vertex (Chain.basicBlockMiddle C hsteps i) q : ℕ) = 1 := by omega
+  have heval : (C.vertex (Chain.basicBlockEnd C hsteps i) q : ℕ) = 2 := by omega
+  constructor
+  · apply Fin.ext
+    simpa using hsval
+  constructor
+  · apply Fin.ext
+    simpa using hmval
+  · apply Fin.ext
+    simpa using heval
+
+private theorem evenVertex_succ_eq_of_ne (B : BasicChain n) (i : ℕ)
+    (hi : i < B.width) (q : Fin n) (hq : q ≠ B.coordinate ⟨i, hi⟩) :
+    B.evenVertex i q = B.evenVertex (i + 1) q := by
+  have hsegment : q ∈ B.initialSegment (i + 1) ↔ q ∈ B.initialSegment i := by
+    constructor
+    · intro hqnext
+      rcases (B.mem_initialSegment_iff (i + 1) q).mp hqnext with ⟨j, hj, hjq⟩
+      by_cases hji : (j : ℕ) < i
+      · exact (B.mem_initialSegment_iff i q).mpr ⟨j, hji, hjq⟩
+      · have hji' : (j : ℕ) = i := by omega
+        exfalso
+        apply hq
+        rw [← hjq]
+        exact congrArg B.coordinate (Fin.ext hji')
+    · intro hqi
+      rcases (B.mem_initialSegment_iff i q).mp hqi with ⟨j, hj, hjq⟩
+      exact (B.mem_initialSegment_iff (i + 1) q).mpr ⟨j, by omega, hjq⟩
+  by_cases hqi : q ∈ B.initialSegment i
+  · have hqnext : q ∈ B.initialSegment (i + 1) := hsegment.mpr hqi
+    simp [evenVertex, hqi, hqnext]
+  · have hqnext : q ∉ B.initialSegment (i + 1) := by
+      intro h
+      exact hqi (hsegment.mp h)
+    simp [evenVertex, hqi, hqnext]
+
+theorem exists_basicChain_of_basic {C : Chain n 2} (hC : Chain.Basic C) :
+    ∃ B : BasicChain n, B.toChain = C := by
+  classical
+  rcases hC with ⟨hsaturated, ⟨hsteps, hblocks⟩⟩
+  have hwidth : C.width ≤ n := by
+    rw [Chain.width, Cube.hammingDistance]
+    simpa using Finset.card_le_univ (Cube.differingCoordinates C.first C.last)
+  let changeSet (i : Fin C.width) : Finset (Fin n) :=
+    Cube.differingCoordinates
+      (C.vertex (Chain.basicBlockStart C hsteps i))
+      (C.vertex (Chain.basicBlockEnd C hsteps i))
+  have hchangeSet_card (i : Fin C.width) : (changeSet i).card = 1 := by
+    exact hblocks i
+  let change (i : Fin C.width) : Fin n :=
+    (Finset.card_eq_one.mp (hchangeSet_card i)).choose
+  have hchange_spec (i : Fin C.width) : changeSet i = {change i} := by
+    exact (Finset.card_eq_one.mp (hchangeSet_card i)).choose_spec
+  have hvalues (i : Fin C.width) :
+      C.vertex (Chain.basicBlockStart C hsteps i) (change i) = 0 ∧
+        C.vertex (Chain.basicBlockMiddle C hsteps i) (change i) = 1 ∧
+        C.vertex (Chain.basicBlockEnd C hsteps i) (change i) = 2 := by
+    apply block_change_values hsaturated hsteps i (change i)
+    exact hchange_spec i
+  have hconstant (i : Fin C.width) (r : Fin n) (hr : r ≠ change i) :
+      C.vertex (Chain.basicBlockStart C hsteps i) r =
+          C.vertex (Chain.basicBlockMiddle C hsteps i) r ∧
+        C.vertex (Chain.basicBlockMiddle C hsteps i) r =
+          C.vertex (Chain.basicBlockEnd C hsteps i) r := by
+    have hnot : r ∉ changeSet i := by
+      rw [hchange_spec i]
+      simp [hr]
+    have hse : C.vertex (Chain.basicBlockStart C hsteps i) r =
+        C.vertex (Chain.basicBlockEnd C hsteps i) r := by
+      apply not_ne_iff.mp
+      simpa [changeSet, Cube.differingCoordinates] using hnot
+    have hsm : C.vertex (Chain.basicBlockStart C hsteps i) r ≤
+        C.vertex (Chain.basicBlockMiddle C hsteps i) r := by
+      apply C.monotone_vertex
+      apply Fin.le_iff_val_le_val.mpr
+      simp [Chain.basicBlockStart, Chain.basicBlockMiddle]
+    have hme : C.vertex (Chain.basicBlockMiddle C hsteps i) r ≤
+        C.vertex (Chain.basicBlockEnd C hsteps i) r := by
+      apply C.monotone_vertex
+      apply Fin.le_iff_val_le_val.mpr
+      simp [Chain.basicBlockMiddle, Chain.basicBlockEnd]
+    constructor
+    · exact le_antisymm hsm (by simpa [hse] using hme)
+    · exact le_antisymm hme (by simpa [hse] using hsm)
+  have hchange_inj : Function.Injective change := by
+    intro i j hij
+    by_contra hne
+    have hneval : (i : ℕ) ≠ (j : ℕ) := by
+      intro hval
+      apply hne
+      exact Fin.ext hval
+    rcases lt_or_gt_of_ne hneval with hijlt | hjilt
+    · have hidx : Chain.basicBlockEnd C hsteps i ≤
+          Chain.basicBlockStart C hsteps j := by
+        apply Fin.le_iff_val_le_val.mpr
+        change 2 * (i : ℕ) + 2 ≤ 2 * (j : ℕ)
+        omega
+      have hmon := C.monotone_vertex hidx (change i)
+      have hjstart : C.vertex (Chain.basicBlockStart C hsteps j) (change i) = 0 := by
+        rw [hij]
+        exact (hvalues j).1
+      rw [(hvalues i).2.2, hjstart] at hmon
+      have hbad : ¬ ((2 : Fin 3) ≤ 0) := by omega
+      exact (hbad hmon).elim
+    · have hidx : Chain.basicBlockEnd C hsteps j ≤
+          Chain.basicBlockStart C hsteps i := by
+        apply Fin.le_iff_val_le_val.mpr
+        change 2 * (j : ℕ) + 2 ≤ 2 * (i : ℕ)
+        omega
+      have hmon := C.monotone_vertex hidx (change j)
+      have histart : C.vertex (Chain.basicBlockStart C hsteps i) (change j) = 0 := by
+        rw [← hij]
+        exact (hvalues i).1
+      rw [(hvalues j).2.2, histart] at hmon
+      have hbad : ¬ ((2 : Fin 3) ≤ 0) := by omega
+      exact (hbad hmon).elim
+  let B : BasicChain n :=
+    { width := ⟨C.width, by omega⟩
+      start := C.first
+      coordinate :=
+        { toFun := fun i => change ⟨i, i.isLt⟩
+          inj' := by
+            intro i j hij
+            apply Fin.ext
+            have hh : change (⟨i, i.isLt⟩ : Fin C.width) =
+                change (⟨j, j.isLt⟩ : Fin C.width) := by simpa using hij
+            exact congrArg Fin.val (hchange_inj hh) }
+      start_coordinate := by
+        intro i
+        have hidx : (0 : Fin (C.steps + 1)) ≤
+            Chain.basicBlockStart C hsteps ⟨i, i.isLt⟩ := by
+          apply Fin.le_iff_val_le_val.mpr
+          simp [Chain.basicBlockStart]
+        have hmon := C.monotone_vertex hidx (change ⟨i, i.isLt⟩)
+        have hzero := (hvalues ⟨i, i.isLt⟩).1
+        have hle : C.first (change ⟨i, i.isLt⟩) ≤ 0 := by
+          simpa [Chain.first, hzero] using hmon
+        exact le_antisymm hle (Fin.zero_le _) }
+  refine ⟨B, ?_⟩
+  have hcoord_eq (i : Fin C.width) :
+      B.coordinate ⟨i, i.isLt⟩ = change i := by
+    rfl
+  have hB_even_value (i : Fin C.width) :
+      B.vertexAt (2 * (i : ℕ)) (change i) = 0 := by
+    rw [B.vertexAt_even i]
+    have hnot : change i ∉ B.initialSegment (i : ℕ) := by
+      have hcoord : B.coordinate i = change i := by rfl
+      rw [← hcoord]
+      exact B.coordinate_not_mem_initialSegment (i : ℕ) i.isLt
+    have hstart : B.start (change i) = 0 := by
+      have hcoord : B.coordinate i = change i := by rfl
+      rw [← hcoord]
+      exact B.start_coordinate i
+    simp [evenVertex, hnot, hstart]
+  have hB_odd_value (i : Fin C.width) :
+      B.vertexAt (2 * (i : ℕ) + 1) (change i) = 1 := by
+    rw [B.vertexAt_odd (i : ℕ) i.isLt]
+    have hcoord : B.coordinate i = change i := by rfl
+    simp only [oddVertex]
+    rw [hcoord]
+    simp
+  have hB_even_next_value (i : Fin C.width) :
+      B.vertexAt (2 * (i : ℕ) + 2) (change i) = 2 := by
+    rw [show 2 * (i : ℕ) + 2 = 2 * ((i : ℕ) + 1) by omega,
+      B.vertexAt_even ((i : ℕ) + 1)]
+    have hmem : change i ∈ B.initialSegment ((i : ℕ) + 1) := by
+      rw [B.mem_initialSegment_iff]
+      exact ⟨⟨i, i.isLt⟩, by simp, hcoord_eq i⟩
+    simp [evenVertex, hmem]
+  have hB_even_odd_eq (i : Fin C.width) (r : Fin n)
+      (hr : r ≠ change i) :
+      B.vertexAt (2 * (i : ℕ)) r = B.vertexAt (2 * (i : ℕ) + 1) r := by
+    rw [B.vertexAt_even i, B.vertexAt_odd (i : ℕ) i.isLt]
+    simp only [oddVertex]
+    have hcoord : B.coordinate i = change i := by rfl
+    by_cases hcur : r = B.coordinate i
+    · exfalso
+      exact hr (hcur.trans hcoord)
+    · simp [hcur]
+  have hB_odd_even_eq (i : Fin C.width) (r : Fin n)
+      (hr : r ≠ change i) :
+      B.vertexAt (2 * (i : ℕ) + 1) r = B.vertexAt (2 * (i : ℕ) + 2) r := by
+    rw [B.vertexAt_odd (i : ℕ) i.isLt,
+      show 2 * (i : ℕ) + 2 = 2 * ((i : ℕ) + 1) by omega,
+      B.vertexAt_even ((i : ℕ) + 1)]
+    simp only [oddVertex]
+    have hcoord : B.coordinate i = change i := by rfl
+    have hcur : r ≠ B.coordinate i := by
+      intro h
+      exact hr (h.trans hcoord)
+    simp [hcur]
+    exact evenVertex_succ_eq_of_ne B (i : ℕ) i.isLt r hcur
+  have hC_even_odd_eq (i : Fin C.width) (r : Fin n)
+      (hr : r ≠ change i) :
+      C.vertex (Chain.basicBlockStart C hsteps i) r =
+        C.vertex (Chain.basicBlockMiddle C hsteps i) r := by
+    exact (hconstant i r hr).1
+  have hC_odd_even_eq (i : Fin C.width) (r : Fin n)
+      (hr : r ≠ change i) :
+      C.vertex (Chain.basicBlockMiddle C hsteps i) r =
+        C.vertex (Chain.basicBlockEnd C hsteps i) r := by
+    exact (hconstant i r hr).2
+  have hstepsEq : B.toChain.steps = C.steps := by
+    simp only [B.toChain_steps]
+    dsimp [B]
+    omega
+  have hvertexEq : ∀ t : Fin (C.steps + 1),
+      B.vertexAt t = C.vertex t := by
+    intro t
+    induction t using Fin.induction with
+    | zero =>
+        change B.vertexAt 0 = C.vertex 0
+        rw [B.vertexAt_even 0]
+        funext r
+        simp [evenVertex, Chain.first, B]
+    | succ t ih =>
+        obtain ⟨i, hit | hit⟩ := Nat.even_or_odd' (t : ℕ)
+        · have ht : (t : ℕ) = 2 * i := hit
+          have hi : i < C.width := by
+            rw [hsteps] at t
+            omega
+          let bi : Fin C.width := ⟨i, hi⟩
+          have hsucc : (t.succ : ℕ) = 2 * i + 1 := by
+            simp only [Fin.val_succ]
+            omega
+          have hcast : t.castSucc = Chain.basicBlockStart C hsteps bi := by
+            apply Fin.ext
+            change (t : ℕ) = 2 * i
+            exact ht
+          have hscast : t.succ = (⟨2 * i + 1, by omega⟩ : Fin (C.steps + 1)) := by
+            apply Fin.ext
+            change (t.succ : ℕ) = 2 * i + 1
+            exact hsucc
+          have hih : B.vertexAt (2 * i) =
+              C.vertex (Chain.basicBlockStart C hsteps bi) := by
+            rw [hcast] at ih
+            have hstartNat : (Chain.basicBlockStart C hsteps bi : ℕ) = 2 * i := by rfl
+            rw [hstartNat] at ih
+            exact ih
+          funext r
+          by_cases hr : r = change bi
+          · subst r
+            have hB := hB_odd_value bi
+            have hC := (hvalues bi).2.1
+            have hcalc : B.vertexAt (2 * i + 1) (change bi) =
+                C.vertex (Chain.basicBlockMiddle C hsteps bi) (change bi) :=
+              hB.trans hC.symm
+            rw [hscast]
+            simpa [hsucc, ht, Fin.val_succ, bi, Chain.basicBlockMiddle] using hcalc
+          · have hcalc : B.vertexAt (2 * i + 1) r =
+                C.vertex (Chain.basicBlockMiddle C hsteps bi) r := by
+              calc
+                B.vertexAt (2 * i + 1) r = B.vertexAt (2 * i) r :=
+                  (hB_even_odd_eq bi r hr).symm
+                _ = C.vertex (Chain.basicBlockStart C hsteps bi) r := congrFun hih r
+                _ = C.vertex (Chain.basicBlockMiddle C hsteps bi) r :=
+                  hC_even_odd_eq bi r hr
+            rw [hscast]
+            simpa [hsucc, ht, Fin.val_succ, bi, Chain.basicBlockMiddle] using hcalc
+        · have ht : (t : ℕ) = 2 * i + 1 := hit
+          have hi : i < C.width := by
+            rw [hsteps] at t
+            omega
+          let bi : Fin C.width := ⟨i, hi⟩
+          have hsucc : (t.succ : ℕ) = 2 * i + 2 := by
+            simp only [Fin.val_succ]
+            omega
+          have hcast : t.castSucc = Chain.basicBlockMiddle C hsteps bi := by
+            apply Fin.ext
+            change (t : ℕ) = 2 * i + 1
+            exact ht
+          have hscast : t.succ = (⟨2 * i + 2, by omega⟩ : Fin (C.steps + 1)) := by
+            apply Fin.ext
+            change (t.succ : ℕ) = 2 * i + 2
+            exact hsucc
+          have hih : B.vertexAt (2 * i + 1) =
+              C.vertex (Chain.basicBlockMiddle C hsteps bi) := by
+            rw [hcast] at ih
+            have hmiddleNat : (Chain.basicBlockMiddle C hsteps bi : ℕ) = 2 * i + 1 := by rfl
+            rw [hmiddleNat] at ih
+            exact ih
+          funext r
+          by_cases hr : r = change bi
+          · subst r
+            have hB := hB_even_next_value bi
+            have hC := (hvalues bi).2.2
+            have hcalc : B.vertexAt (2 * i + 2) (change bi) =
+                C.vertex (Chain.basicBlockEnd C hsteps bi) (change bi) :=
+              hB.trans hC.symm
+            rw [hscast]
+            simpa [hsucc, ht, Fin.val_succ, bi, Chain.basicBlockEnd] using hcalc
+          · have hcalc : B.vertexAt (2 * i + 2) r =
+                C.vertex (Chain.basicBlockEnd C hsteps bi) r := by
+              calc
+                B.vertexAt (2 * i + 2) r = B.vertexAt (2 * i + 1) r :=
+                  (hB_odd_even_eq bi r hr).symm
+                _ = C.vertex (Chain.basicBlockMiddle C hsteps bi) r := congrFun hih r
+                _ = C.vertex (Chain.basicBlockEnd C hsteps bi) r :=
+                  hC_odd_even_eq bi r hr
+            rw [hscast]
+            simpa [hsucc, ht, Fin.val_succ, bi, Chain.basicBlockEnd] using hcalc
+  symm
+  apply chain_ext hstepsEq
+  intro t
+  have h := hvertexEq t
+  symm
+  simpa [BasicChain.toChain, Fin.cast] using h
+
+/-- Exact converse to `BasicChain.toChain_basic`: the paper-style ternary
+basic chains are precisely the chains represented by `BasicChain` descriptors. -/
+theorem basic_iff_exists_basicChain (C : Chain n 2) :
+    Chain.Basic C ↔ ∃ B : BasicChain n, B.toChain = C := by
+  constructor
+  · exact exists_basicChain_of_basic
+  · rintro ⟨B, rfl⟩
+    exact B.toChain_basic
 
 @[simp]
 theorem rank_toChain_first (B : BasicChain n) :

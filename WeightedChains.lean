@@ -55,6 +55,7 @@ import WeightedChains.DTwoMain
 import WeightedChains.DTwoUniqueness
 import WeightedChains.MainTheorem
 import WeightedChains.SpernerAppendix
+import WeightedChains.Cuboid
 import WeightedChains.LargeK
 
 /-!

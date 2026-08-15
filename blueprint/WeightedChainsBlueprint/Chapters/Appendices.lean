@@ -39,18 +39,20 @@ point on every positive middle chain, and connectedness of the two middle
 layers gives the two extremal choices.
 :::
 
-:::theorem "wc:thm:large-k-appendix" (parent := "paper-appendices") (lean := "WeightedChains.LargeK.lowerResidueFinset_isMaximum, WeightedChains.LargeK.upperResidueFinset_isMaximum, WeightedChains.LargeK.kSeparated_card_le_lowerResidueFinset") (autoDeps := true) (tags := "semantic-review-pending, direct, factored, unnumbered")
+:::theorem "wc:thm:large-k-appendix" (parent := "paper-appendices") (lean := "WeightedChains.LargeK.lowerResidueFinset_isMaximum, WeightedChains.LargeK.upperResidueFinset_isMaximum, WeightedChains.LargeK.kSeparated_card_le_lowerResidueFinset, WeightedChains.LargeK.deBruijnTengbergenKruyswijk, WeightedChains.LargeK.cuboid_lowerMiddleLayer_isMaximum, WeightedChains.LargeK.cuboid_upperMiddleLayer_isMaximum") (autoDeps := true) (tags := "semantic-review-pending, direct, factored, unnumbered")
 %%%
 source := paperSource "Appendix: arbitrary d and large k" 996 1013
 %%%
 
 For arbitrary $`d` in the exact large-separation range $`n\leq 2k`, the lower
-and upper rank-residue families are maximum $`k`-separated families.
+and upper rank-residue families are maximum $`k`-separated families. More
+generally, both central layers are maximum for cuboids with independently
+varying coordinate bounds.
 
 *Semantic review:* pending. *Correspondence:* direct and factored. The
 natural-number condition $`n\leq2k` faithfully expresses the paper's rational
-$`n/2\leq k`; Lean proves the required symmetric-chain decomposition internally
-rather than assuming the cited existence theorem.
+$`n/2\leq k`; Lean proves the de Bruijn--Tengbergen--Kruyswijk symmetric-chain
+decomposition constructively for arbitrary products of finite chains.
 :::
 
 :::proof "wc:thm:large-k-appendix"
