@@ -1,5 +1,5 @@
 import WeightedChains
-import WeightedChains.LargeK
+import WeightedChains.Appendices.LargeK
 import Lean.Util.CollectAxioms
 import Lean.Elab.Command
 

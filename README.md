@@ -44,11 +44,12 @@ The source is arranged in the order of the paper:
 - `WeightedStrategy`, `WeightedUniqueness`, `UniquenessPropagation`, and
   `MainBound`: weighted double-counting and the equality/uniqueness machinery
   from Lemma 3.2;
-- `DOne*`: the Section 4 recurrence and positivity proof, finite Boolean-chain
-  model, layer incidence, reflection, the concrete positive weighted cover,
-  and the resulting `d = 1` extremal cardinality and equality-classification
-  theorems;
-- `DTwo*`: ternary types, trinomial coefficients and Pascal recurrence,
+- `DOne/` (umbrella import `WeightedChains.DOne`): the Section 4 recurrence and
+  positivity proof, finite Boolean-chain model, layer incidence, reflection,
+  the concrete positive weighted cover, and the resulting `d = 1` extremal
+  cardinality and equality-classification theorems;
+- `DTwo/` (umbrella import `WeightedChains.DTwo`): ternary types, trinomial
+  coefficients and Pascal recurrence,
   type-orbit cardinalities, concrete/reflected basic chains, metachain
   uniformity, the corrected basic-chain sufficiency geometry, and the
   auxiliary, inner, and pointwise starting-weight recurrences with their
@@ -56,12 +57,10 @@ The source is arranged in the order of the paper:
   cardinality and uniqueness theorem;
 - `MainTheorem`: the paper's unified extremal cardinality and equality
   classification theorem for `d = 1` or `d = 2`;
-- `SpernerAppendix`: the appendix's independent weighted symmetric-chain proof,
-  including its exact stratum weights and equality classification for every
-  dimension `n`;
-- `LargeK`: Appendix 2 for arbitrary `d` and `n/2 ≤ k ≤ n`, including an
-  internally proved symmetric-chain decomposition rather than assuming the
-  cited external existence theorem.
+- `Appendices/` (umbrella import `WeightedChains.Appendices`): the independent
+  weighted proof of Sperner's theorem and the arbitrary-`d`, `n/2 ≤ k ≤ n`
+  result, including the internally proved symmetric-chain decomposition and
+  cuboid extension.
 
 See `REPRODUCIBILITY.md` for the trust model and clean-room build instructions,
 and `FORMALIZATION.md` for the full theorem map and design decisions.

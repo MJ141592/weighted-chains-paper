@@ -195,7 +195,7 @@ removed.
   (`WeightedChains/PaperDefinitions.lean:17-23`). These use doubled ranks to
   express comparison with `n*d/2` without fractions. In the ternary
   specialization, `WeightedChains.Ternary.rank_le_dimension_iff`
-  (`WeightedChains/DTwo.lean:67-71`) identifies the lower half with
+  (`WeightedChains/DTwo/Types.lean:67-71`) identifies the lower half with
   `twoCount x <= zeroCount x`.
 - **Reviewer focus:** confirm the fraction-free comparisons at odd total rank.
   The two sides intentionally overlap on the middle layer when `n*d` is even.
@@ -214,15 +214,15 @@ removed.
   by `WeightedChains.Cube.innerLayer_iff_not_outerLayer` (lines 38-40). The
   Boolean case split is also encoded by
   `WeightedChains.DOne.lowerStartingWeight`
-  (`WeightedChains/DOne.lean:382-383`) and exposed by
+  (`WeightedChains/DOne/AuxiliaryWeights.lean:382-383`) and exposed by
   `WeightedChains.DOne.lowerStartingWeight_eq_auxiliaryWeightNat`
-  (`WeightedChains/DOneLayerWeights.lean:80-84`) and
+  (`WeightedChains/DOne/LayerWeights.lean:80-84`) and
   `WeightedChains.DOne.lowerStartingWeight_eq_innerWeight`
-  (`WeightedChains/DOneLayerWeights.lean:97-100`). The ternary split is encoded
+  (`WeightedChains/DOne/LayerWeights.lean:97-100`). The ternary split is encoded
   by `WeightedChains.Ternary.startTypeWeight`
-  (`WeightedChains/DTwoStartingWeights.lean:49-59`) and the arithmetic
+  (`WeightedChains/DTwo/StartingWeights.lean:49-59`) and the arithmetic
   equivalence `WeightedChains.Ternary.TypeCounts.rank_add_le_dimension_iff`
-  (`WeightedChains/DTwo.lean:148-152`).
+  (`WeightedChains/DTwo/Types.lean:148-152`).
 - **Reviewer focus:** the rank complementary to zero-based layer `i` is
   `nd-i`, not the manuscript's `nd+1-i`. Confirm that the corrected length
   comparison yields the Boolean condition `n-k < 2a` and ternary inner
@@ -241,9 +241,9 @@ removed.
   `WeightedChains.Cube.sum_typeOf`
   (`WeightedChains/Preliminaries.lean:82-85`). The ternary record is
   `WeightedChains.Ternary.TypeCounts`
-  (`WeightedChains/DTwo.lean:91-95`) with
+  (`WeightedChains/DTwo/Types.lean:91-95`) with
   `WeightedChains.Ternary.TypeCounts.ofVertex`
-  (`WeightedChains/DTwo.lean:100-104`).
+  (`WeightedChains/DTwo/Types.lean:100-104`).
 - **Reviewer focus:** the manuscript transposes the indices: a point of
   `{0,...,d}^n` has `d+1` counts indexed by coordinate values, and those counts
   sum to `n`. Lean uses this corrected convention.
@@ -262,14 +262,14 @@ removed.
   `WeightedChains.DOne.BooleanChain.indexedChain_good`,
   `WeightedChains.DOne.BooleanChain.indexedWeight_pos`, and
   `WeightedChains.DOne.BooleanChain.indexedInducedWeight_eq_one`
-  (`WeightedChains/DOneWeights.lean:992-1052`); chain existence is
+  (`WeightedChains/DOne/Weights.lean:992-1052`); chain existence is
   `WeightedChains.DOne.BooleanChain.exists_good_containing`
-  (`WeightedChains/DOneChainExistence.lean:131-141`), with the directed
+  (`WeightedChains/DOne/ChainExistence.lean:131-141`), with the directed
   uniqueness witnesses
   `WeightedChains.DOne.BooleanChain.exists_towardMiddle_witness_of_mem_lowerResidue`
   and
   `WeightedChains.DOne.BooleanChain.exists_towardMiddle_witness_of_not_mem_lowerResidue`
-  (`WeightedChains/DOneEqualityPropagation.lean:379-430`).
+  (`WeightedChains/DOne/EqualityPropagation.lean:379-430`).
 - **Ternary declarations:**
   `WeightedChains.Ternary.BasicChain.indexedChain`,
   `WeightedChains.Ternary.BasicChain.indexedWeight`,
@@ -277,13 +277,13 @@ removed.
   `WeightedChains.Ternary.BasicChain.indexedWeight_pos_of_start_ne_middle`,
   `WeightedChains.Ternary.BasicChain.indexedWeight_nonneg`, and
   `WeightedChains.Ternary.BasicChain.indexedInducedWeight_eq_one`
-  (`WeightedChains/DTwoMain.lean:25-99`); shortest singletons are supplied by
+  (`WeightedChains/DTwo/Main.lean:25-99`); shortest singletons are supplied by
   `WeightedChains.Ternary.BasicChain.exists_singleton_good_of_rank_eq_dimension`
-  (`WeightedChains/DTwoBasicSufficiency.lean:154-188`); the two incidence
+  (`WeightedChains/DTwo/BasicSufficiency.lean:154-188`); the two incidence
   witnesses are
   `WeightedChains.Ternary.BasicChain.exists_good_with_endpoint_avoiding_middle_of_lowerResidue`
   and `WeightedChains.Ternary.BasicChain.exists_closer_lowerResidue`
-  (`WeightedChains/DTwoBasicSufficiency.lean:545-625`).
+  (`WeightedChains/DTwo/BasicSufficiency.lean:545-625`).
 - **Reviewer focus:** the current proposition omits the ambient assumptions
   `1 < k <= n`, which the positivity/uniqueness construction needs. Lean uses
   a finite indexed family of represented chains; for `d=2` it assigns weight
@@ -311,7 +311,7 @@ removed.
   (`WeightedChains/UniquenessPropagation.lean:104-117`). The ternary
   exceptional-point variant is
   `WeightedChains.UniquenessPropagation.finset_eq_of_active_exact_one_outward_induction_except`
-  (`WeightedChains/DTwoUniqueness.lean:25-112`).
+  (`WeightedChains/DTwo/Uniqueness.lean:25-112`).
 - **Reviewer focus:** Lean factors the double-counting, exact-one consequence,
   and outward propagation. The manuscript's proof conflates distance from the
   middle with an absolute layer index; Lean replaces it by well-founded
@@ -327,9 +327,9 @@ removed.
 - **Category:** direct, factored
 - **Status:** pending semantic review
 - **Primary Lean declarations:** `WeightedChains.DOne.innerWeight`
-  (`WeightedChains/DOne.lean:278-279`) and
+  (`WeightedChains/DOne/AuxiliaryWeights.lean:278-279`) and
   `WeightedChains.DOne.lowerStartingWeight_eq_innerWeight`
-  (`WeightedChains/DOneLayerWeights.lean:97-100`).
+  (`WeightedChains/DOne/LayerWeights.lean:97-100`).
 - **Reviewer focus:** the displayed lemma correctly uses
   `U_n(n-a-k)`. The prose immediately afterward incorrectly switches to
   `U_n(a+k)`; Lean consistently formalizes the displayed, reflection-corrected
@@ -344,14 +344,14 @@ removed.
 - **Category:** corrected, factored, encoding
 - **Status:** pending semantic review
 - **Primary Lean declarations:** `WeightedChains.Ternary.BasicChain`
-  (`WeightedChains/DTwoChains.lean:22-26`) and
+  (`WeightedChains/DTwo/Chains.lean:22-26`) and
   `WeightedChains.Ternary.BasicChain.toChain`
-  (`WeightedChains/DTwoChains.lean:128-131`). The constructed chain's length,
+  (`WeightedChains/DTwo/Chains.lean:128-131`). The constructed chain's length,
   saturation, and width are proved by
   `WeightedChains.Ternary.BasicChain.toChain_length`,
   `WeightedChains.Ternary.BasicChain.toChain_saturated`, and
   `WeightedChains.Ternary.BasicChain.toChain_width`
-  (`WeightedChains/DTwoChains.lean:418`, `435-445`, `473-475`).
+  (`WeightedChains/DTwo/Chains.lean:418`, `435-445`, `473-475`).
 - **Reviewer focus:** the environment ends “call this chain good”; the intended
   word is “basic.” Lean encodes an oriented basic chain by its starting vertex
   and an injective ordered list of zero coordinates, each changed
@@ -369,14 +369,14 @@ removed.
 - **Status:** pending semantic review
 - **Primary Lean declarations:**
   `WeightedChains.Ternary.BasicChain.exists_singleton_good_of_rank_eq_dimension`
-  (`WeightedChains/DTwoBasicSufficiency.lean:154-188`),
+  (`WeightedChains/DTwo/BasicSufficiency.lean:154-188`),
   `WeightedChains.Ternary.BasicChain.exists_good_with_endpoint_avoiding_middle_of_lowerResidue`
-  (`WeightedChains/DTwoBasicSufficiency.lean:545-583`), and
+  (`WeightedChains/DTwo/BasicSufficiency.lean:545-583`), and
   `WeightedChains.Ternary.BasicChain.exists_closer_lowerResidue`
-  (`WeightedChains/DTwoBasicSufficiency.lean:589-625`). The exceptional
+  (`WeightedChains/DTwo/BasicSufficiency.lean:589-625`). The exceptional
   `(1,n-1,0)` detour is
   `WeightedChains.Ternary.BasicChain.exists_good_containing_avoiding_middle_of_type_one_zero`
-  (`WeightedChains/DTwoBasicSufficiency.lean:296-393`).
+  (`WeightedChains/DTwo/BasicSufficiency.lean:296-393`).
 - **Reviewer focus:** the manuscript writes undefined `A` where `A_1` is
   intended. Lean separates the central singleton, noncentral reference
   endpoints, and nonreference closer witnesses. For the exceptional type, the
@@ -394,12 +394,12 @@ removed.
 - **Status:** pending semantic review
 - **Primary Lean declaration:**
   `WeightedChains.Ternary.auxiliaryWeight_pos_of_valid_lower`
-  (`WeightedChains/DTwoWeightPositivity.lean:278-300`), with the natural-index
+  (`WeightedChains/DTwo/WeightPositivity.lean:278-300`), with the natural-index
   form `WeightedChains.Ternary.auxiliaryWeight_pos_of_valid_lower_nat`
-  (`WeightedChains/DTwoWeightPositivity.lean:171-274`).
+  (`WeightedChains/DTwo/WeightPositivity.lean:171-274`).
 - **Exceptional value:**
   `WeightedChains.Ternary.auxiliaryWeight_zero_zero`
-  (`WeightedChains/DTwoWeights.lean:156-170`).
+  (`WeightedChains/DTwo/Weights.lean:156-170`).
 - **Reviewer focus:** the printed statement includes `(a,c)=(0,0)`, but
   `U_n(0,0)=0` in every positive dimension. Lean adds
   `(a,c) != (0,0)`. This correction requires explicit author approval.
@@ -413,9 +413,9 @@ removed.
 - **Category:** direct, factored
 - **Status:** pending semantic review
 - **Primary Lean declarations:** `WeightedChains.Ternary.innerStartingWeight`
-  (`WeightedChains/DTwoInnerWeights.lean:19-20`) and
+  (`WeightedChains/DTwo/InnerWeights.lean:19-20`) and
   `WeightedChains.Ternary.extendedStartTypeWeight_eq_inner_of_lower_inner`
-  (`WeightedChains/DTwoStartingWeightRecurrences.lean:139-162`).
+  (`WeightedChains/DTwo/StartingWeightRecurrences.lean:139-162`).
 - **Reviewer focus:** confirm the lower-inner hypotheses correspond to
   `c <= a < c+k`, and that the shifted term is exactly `U_n(c+k,a-k)`. A later
   diagonal calculation in the manuscript reverses these arguments, but the

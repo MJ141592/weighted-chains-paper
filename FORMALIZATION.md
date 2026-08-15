@@ -55,7 +55,7 @@ review are intentionally reported as distinct facts.
 | Weighted double-counting in Lemma 3.2 | `WeightedCover.card_le_of_weighted_cover` | proved |
 | Lemma 3.2, cardinality with the actual reference family | `Chain.kSeparated_card_le_lowerResidueFinset` | proved, conditional only on the weighted cover |
 | Equality forces one point on each positive chain | `Chain.kSeparated_inter_vertices_card_eq_one_of_positive` | proved |
-| Proposition 3.1, concrete weighted assignments and positivity geometry | `DOne.BooleanChain.indexedInducedWeight_eq_one`, `DOne.BooleanChain.indexedWeight_pos`, `Ternary.BasicChain.indexedInducedWeight_eq_one`, `Ternary.BasicChain.indexedWeight_nonneg`, and the `DOneEqualityPropagation`/`DTwoBasicSufficiency` witnesses | proved componentwise for `d = 1,2` |
+| Proposition 3.1, concrete weighted assignments and positivity geometry | `DOne.BooleanChain.indexedInducedWeight_eq_one`, `DOne.BooleanChain.indexedWeight_pos`, `Ternary.BasicChain.indexedInducedWeight_eq_one`, `Ternary.BasicChain.indexedWeight_nonneg`, and the `DOne.EqualityPropagation`/`DTwo.BasicSufficiency` witnesses | proved componentwise for `d = 1,2` |
 | Outward uniqueness induction | `UniquenessPropagation.finset_eq_of_positive_weight_outward_induction` | proved |
 | Connected two-middle-layer choice | `DOneMiddleUniqueness.inter_adjacentLayers_eq_lower_or_upper` | proved for the Boolean cube |
 | Section 4, `U_n` definition and recurrence | `DOne.auxiliaryWeight`, `DOne.auxiliaryWeight_recurrence_ofNat` | proved |
@@ -171,8 +171,8 @@ numerical counterexample.
     is `nd-i`; the preliminary inner-layer paragraph's `nd+1-i` is off by one.
 20. In the uniqueness induction, `i` is introduced as distance from the
     middle but then used as an absolute layer index.  The Lean proof uses the
-    well-founded distance functions in `DOneEqualityPropagation` and
-    `DTwoUniqueness`, avoiding that index conflation.
+    well-founded distance functions in `DOne.EqualityPropagation` and
+    `DTwo.Uniqueness`, avoiding that index conflation.
 21. All basic good chains do not form one orbit under coordinate permutation.
     The orbit/uniformity assertion is for a fixed canonical start type and
     trace, formalized by the start-group and metachain declarations.

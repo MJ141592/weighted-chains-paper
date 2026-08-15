@@ -1,5 +1,5 @@
-import WeightedChains.DOneUniqueness
-import WeightedChains.DTwoUniqueness
+import WeightedChains.DOne.Uniqueness
+import WeightedChains.DTwo.Uniqueness
 
 /-!
 # The main theorem
