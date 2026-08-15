@@ -195,24 +195,34 @@ removed from this list.
     dimensions in the displayed limit. The Lean proof handles every remainder
     class modulo `k` (equivalently, one may supply a base interval of length
     `k`) and proves convergence along the full sequence.
+25. The two inequalities in the definition of a chain “starting at” an endpoint
+    are reversed relative to the explanatory sentence that follows and to the
+    later proofs.  A chain starts at `x₁` when `x₁` is **at least as far** from
+    the middle as `xₗ`, so the first displayed comparison at `main.tex:274`
+    should be `≥`; correspondingly, the comparison for starting at `xₗ` at
+    `main.tex:276` should be `≤`.  Lean's `Chain.StartsAtFirst` and
+    `Chain.StartsAtLast` use these intended orientations, with equality
+    permitting either endpoint.
+26. The weighted-chain proposition at `main.tex:346` says “for any `n,k`”, but
+    the theorem it is used to prove and the positive-weight constructions
+    require the standing range `1 < k ≤ n`.  Those hypotheses should be stated
+    explicitly in the proposition.  The corresponding Boolean and ternary Lean
+    theorems both carry `1 < k` and `k ≤ n` as hypotheses.
 
 ## Current manuscript proof-reading follow-ups
 
 These source-level issues were introduced by the current proof-reading changes;
 they do not alter the kernel-checked Lean statements.
 
-1. The parenthetical antichain definition at `main.tex:103` begins a new
-   sentence but has no full stop before its closing parenthesis.
-2. The AI usage note at `main.tex:160` writes “Latex”, duplicates “the” in “the
-   the mathematical content”, and uses the ungrammatical phrase “proofs are
-   legitimate and following”. It also says that the Lean correspondence has
-   been checked manually while all records in `SEMANTIC_REVIEW.md` remain
-   pending, and should clarify the intended distinction between model-generated
-   formalisation code and model-generated mathematical content.
-3. The Sperner appendix switches to `\mathbb{P}([n])` at `main.tex:974`, while
-   the rest of the manuscript uses `\mathcal{P}([n])` for the power set.
-4. The Appendix B conclusion at `main.tex:1064` says “similary”; this should be
-   “similarly”.
+1. The AI usage note at `main.tex:160` uses the ungrammatical phrase “proofs are
+   legitimate and following”.  More substantively, “legitimate” does not
+   distinguish kernel acceptance from semantic correspondence, while
+   “following the structure of the paper” is too literal for proofs that are
+   sometimes factored, corrected, or reorganised for Lean.  The note also says
+   that the correspondence has been checked manually while all author sign-off
+   records in `SEMANTIC_REVIEW.md` remain pending.  Until that review is
+   complete, it should distinguish the completed kernel checks from the ongoing
+   author review of correspondence.
 
 ## Sources for the setup
 
