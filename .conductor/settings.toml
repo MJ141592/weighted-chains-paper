@@ -1,0 +1,13 @@
+"$schema" = "https://conductor.build/schemas/settings.repo.schema.json"
+
+[scripts]
+setup = "if ! command -v elan >/dev/null 2>&1 && [ ! -x \"$HOME/.elan/bin/elan\" ]; then curl -sSf https://elan.lean-lang.org/elan-init.sh | sh -s -- -y --no-modify-path; fi; export PATH=\"$HOME/.elan/bin:$PATH\"; lake exe cache get; lake build"
+run_mode = "concurrent"
+
+[scripts.run.build]
+command = "export PATH=\"$HOME/.elan/bin:$PATH\"; lake build"
+icon = "hammer"
+
+[scripts.run.check]
+command = "export PATH=\"$HOME/.elan/bin:$PATH\"; lake build && ./scripts/audit.sh"
+icon = "badge-check"

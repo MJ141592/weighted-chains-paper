@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "routePrefix": "/theorems/",
   "reviewState": "semantic-review-pending",
-  "repository": "https://github.com/MJ141592/weighted-chains-shared",
+  "repository": "https://github.com/MJ141592/weighted-chains-paper",
   "entries": [
     {
       "slug": "main-theorem",
