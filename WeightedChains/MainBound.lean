@@ -9,8 +9,6 @@ weighted-cover strategy using the fact that every good chain contains exactly
 one point of each distinguished residue family.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Chain
 

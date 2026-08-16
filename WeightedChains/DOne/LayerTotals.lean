@@ -10,8 +10,6 @@ opposite side at `a+k` enter.  The recurrences for `W_n` make the resulting
 total equal to the binomial layer size.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace DOne
 

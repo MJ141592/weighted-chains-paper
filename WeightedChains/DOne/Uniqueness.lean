@@ -13,8 +13,6 @@ then determines the family everywhere.  The upper choice is reduced to the
 lower choice by coordinate reflection.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

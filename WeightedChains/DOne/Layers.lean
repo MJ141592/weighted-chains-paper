@@ -7,8 +7,6 @@ The `a`-th Boolean layer is identified with the `a`-element subsets of the
 coordinate set.  Its cardinality is therefore `n.choose a`.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace DOne
 

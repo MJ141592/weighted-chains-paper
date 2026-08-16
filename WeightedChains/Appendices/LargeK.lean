@@ -11,8 +11,6 @@ two symmetric chains is partitioned into the nested ``hooks'' of its
 rectangular grid, and iteration gives a decomposition of every discrete cube.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace LargeK
 

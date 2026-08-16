@@ -10,8 +10,6 @@ initial type of every good basic-chain descriptor in the group. Consequently
 all descriptors in one start group visit the same type at every time.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

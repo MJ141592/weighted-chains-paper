@@ -9,8 +9,6 @@ instance used to rewrite the remaining cover calculation as a sum over the
 finite triangular type diagram.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

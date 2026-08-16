@@ -8,8 +8,6 @@ This module packages the separately constructed Boolean and ternary weighted
 covers into the paper's single statement for `d ∈ {1,2}`.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 
 /-- The paper's main cardinality and equality-classification theorem.  Every

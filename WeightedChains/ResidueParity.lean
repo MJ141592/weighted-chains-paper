@@ -9,8 +9,6 @@ middle ranks are adjacent.  These elementary facts are useful in the final
 equality-case classification.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Cube
 

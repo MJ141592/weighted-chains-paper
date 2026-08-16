@@ -8,8 +8,6 @@ an explicit represented saturated chain.  These witnesses establish
 nonemptiness of the start groups used to distribute the Section 4 weights.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace DOne
 namespace BooleanChain

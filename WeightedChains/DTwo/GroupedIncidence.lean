@@ -11,8 +11,6 @@ visits a target type or misses it.  Thus an incident metachain contributes
 exactly its prescribed start-type total.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 noncomputable section

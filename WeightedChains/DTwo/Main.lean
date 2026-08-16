@@ -9,8 +9,6 @@ abstract weighted-cover argument.  The unique zero-weight good descriptor is
 the all-ones singleton; all other good basic chains have positive weight.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

@@ -13,8 +13,6 @@ Symmetric chains have two equally distant endpoints; to keep the chain family
 a genuine partition, their lower endpoint is chosen as the canonical start.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 noncomputable section

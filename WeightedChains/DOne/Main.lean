@@ -9,8 +9,6 @@ weighted strategy.  Thus the paper's extremal cardinality bound for `d = 1`
 is no longer conditional on the existence of weights.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace DOne
 namespace BooleanChain

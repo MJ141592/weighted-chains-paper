@@ -9,8 +9,6 @@ vertex starts a basic good chain: an outer vertex starts one of width `k`,
 while an inner vertex starts the symmetric chain reaching the reflected type.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

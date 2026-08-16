@@ -8,8 +8,6 @@ For a lower inner type, Section 5 identifies its starting total with
 dimension recurrence needed for its eventual positivity induction.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Ternary
 

@@ -16,8 +16,6 @@ are subtracted.  Thus the final sign in the printed version of
 the proof immediately following it.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

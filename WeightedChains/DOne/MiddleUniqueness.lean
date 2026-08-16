@@ -10,8 +10,6 @@ coordinatewise order is subset inclusion.  We then transport the connected
 adjacent-layer uniqueness theorem back to the paper's cube notation.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 namespace WeightedChains

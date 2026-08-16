@@ -13,8 +13,6 @@ bridge between the canonical start-type sum and the telescoping identity for
 `auxiliaryIncidenceSum`.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 noncomputable section

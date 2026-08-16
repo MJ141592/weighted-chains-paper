@@ -8,8 +8,6 @@ in the final remark of Appendix 2. A cuboid with side bounds `bounds` is the
 product `\prod i, {0, ..., bounds i}`.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 
 /-- The finite cuboid `\prod i, {0, ..., bounds i}`. -/

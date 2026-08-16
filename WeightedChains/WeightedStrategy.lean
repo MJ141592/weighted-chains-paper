@@ -8,8 +8,6 @@ stated for an arbitrary finite family of blocks, so the bookkeeping theorem is
 independent of the later constructions of good chains for `d = 1` and `d = 2`.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 namespace WeightedChains

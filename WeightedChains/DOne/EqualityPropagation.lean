@@ -15,8 +15,6 @@ This second tie-break is needed for symmetric chains, whose two endpoints can
 be equally far from the middle.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

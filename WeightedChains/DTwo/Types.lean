@@ -8,8 +8,6 @@ paper writes the type of a point of `{0, 1, 2}^n` as `(a, b, c)` and writes
 `\binom{n}{a,c}` for the number of points of that type.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 
 namespace Ternary

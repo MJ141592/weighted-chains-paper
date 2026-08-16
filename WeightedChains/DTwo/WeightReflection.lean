@@ -9,8 +9,6 @@ weight symmetry is proved at descriptor level, including the corresponding
 start-group cardinalities.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

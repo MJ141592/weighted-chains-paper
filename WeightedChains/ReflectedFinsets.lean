@@ -8,8 +8,6 @@ and preserves Hamming distance and `k`-separation.  This lets equality-case
 arguments for the lower reference family be transported to the upper one.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Cube
 

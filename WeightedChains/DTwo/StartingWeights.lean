@@ -16,8 +16,6 @@ symmetry and positivity, and transfers positivity through the finite equal
 division in `BasicChain.distributedChainWeight`.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

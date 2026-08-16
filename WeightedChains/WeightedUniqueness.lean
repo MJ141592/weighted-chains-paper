@@ -9,8 +9,6 @@ positive weight exactly once.  The final lemmas record the two local
 propagation steps used in the paper's induction towards the outside layers.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 namespace WeightedChains

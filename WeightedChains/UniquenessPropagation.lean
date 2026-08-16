@@ -10,8 +10,6 @@ reference nonmembers, while a nonreference point is forced out by a block
 containing an already-known reference member.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace UniquenessPropagation
 

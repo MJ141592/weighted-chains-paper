@@ -10,8 +10,6 @@ the paper's notation.  Distribution of these totals among individual chains
 is handled separately.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace DOne
 

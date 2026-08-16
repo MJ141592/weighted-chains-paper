@@ -9,8 +9,6 @@ run the paper's outward induction on every other vertex and recover membership
 of the exceptional point from equality of cardinalities at the end.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

@@ -9,8 +9,6 @@ proof arguments and then shows that the canonical start label alone determines
 the resulting incidence relation.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

@@ -10,8 +10,6 @@ This file proves all genuinely invalid cases and the distinguished base point;
 the nonnegative `c = 0` edge is proved in `DTwo.Weights`.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Ternary
 

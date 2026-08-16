@@ -9,8 +9,6 @@ between its endpoint ranks, and no vertices at other ranks.  This supplies the
 finite layer-intersection formula used when summing individual chain weights.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace DOne
 namespace BooleanChain

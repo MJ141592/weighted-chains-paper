@@ -10,8 +10,6 @@ finite bookkeeping.  The endpoint farther from the middle is the canonical
 paper start; in the symmetric tie the lower (first) endpoint is used.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 noncomputable section

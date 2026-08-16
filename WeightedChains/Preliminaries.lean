@@ -7,8 +7,6 @@ Definitions from Section 2 of *A generalisation of Sperner's theorem using
 weighted chain decomposition*.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 
 /-- The discrete cube `{0, ..., d}^n`. -/

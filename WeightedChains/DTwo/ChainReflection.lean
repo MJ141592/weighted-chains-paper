@@ -11,8 +11,6 @@ old chain in reverse time.  This file packages that operation as an
 involutive equivalence and records its incidence and goodness covariance.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

@@ -10,8 +10,6 @@ descriptors.  It is the double-counting bridge between metachain start totals
 and the pointwise weighted cover in Section 5.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 noncomputable section

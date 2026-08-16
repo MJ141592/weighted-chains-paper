@@ -11,8 +11,6 @@ the witnesses and identifying their vertices does not depend on the Boolean
 cardinality bound that they later help to sharpen.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

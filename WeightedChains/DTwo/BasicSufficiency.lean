@@ -13,8 +13,6 @@ paper's width-two detour from type `(2,n-2,0)` gives the required chain; this
 is precisely where the standing assumption `1 < k` is used.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

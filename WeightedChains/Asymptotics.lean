@@ -16,8 +16,6 @@ The resulting contracting recurrence gives the limit.  The matching lower
 bound uses the `d * k + 1` rank-residue families.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Asymptotics
 

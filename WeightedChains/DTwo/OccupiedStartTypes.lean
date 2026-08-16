@@ -9,8 +9,6 @@ starts; the boundary at distance exactly `k` belongs to a symmetric chain
 whose canonical label is its lower endpoint.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

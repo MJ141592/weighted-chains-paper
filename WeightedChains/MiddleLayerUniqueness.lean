@@ -10,8 +10,6 @@ exactly one endpoint of every edge of a connected bipartite graph must be one
 of its two colour classes.  This file isolates that graph-theoretic argument.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace MiddleLayerUniqueness
 

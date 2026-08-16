@@ -10,8 +10,6 @@ each vertex of that type.  This file supplies that argument independently of
 the later recursive construction of the starting-type totals.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 noncomputable section

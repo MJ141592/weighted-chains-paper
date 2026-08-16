@@ -10,8 +10,6 @@ diagonals below.  This file proves that their sum is exactly the trinomial
 coefficient, by the local telescoping recurrence used in Section 5.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 namespace WeightedChains

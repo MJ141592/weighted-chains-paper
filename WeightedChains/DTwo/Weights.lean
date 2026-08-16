@@ -9,8 +9,6 @@ recursive call has a strictly larger first coordinate, so the valid triangle
 `0 ≤ a`, `0 ≤ c`, `a + c ≤ n` makes the recursion finite.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 
 namespace Ternary

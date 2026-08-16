@@ -14,8 +14,6 @@ The final theorem includes the elementary dimensions `n = 0, 1` and states
 both Sperner's cardinality bound and the appendix's classification of equality.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

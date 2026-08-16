@@ -8,8 +8,6 @@ lower and upper residue families.  In particular, the two candidate extremal
 families have equal cardinality.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Cube
 

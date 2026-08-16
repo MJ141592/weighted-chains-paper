@@ -14,8 +14,6 @@ we construct represented zero-step chains at middle vertices and represented
 one-step chains along every comparable edge between the two middle layers.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

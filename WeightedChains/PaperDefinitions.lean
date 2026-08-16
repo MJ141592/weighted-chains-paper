@@ -9,8 +9,6 @@ these declarations provide stable, statement-level correspondence targets for
 the publication artifact.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Cube
 

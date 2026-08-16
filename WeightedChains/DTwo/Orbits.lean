@@ -8,8 +8,6 @@ zero and two coordinate counts.  This file counts those orbits by the
 trinomial coefficient used in Section 5 of the paper.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 
 namespace Ternary

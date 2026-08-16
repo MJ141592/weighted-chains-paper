@@ -8,8 +8,6 @@ Section 5.  The point `(a,c) = (0,0)` must be excluded: in every positive
 dimension its auxiliary weight is zero.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Ternary
 

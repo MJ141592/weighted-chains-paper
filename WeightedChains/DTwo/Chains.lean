@@ -10,8 +10,6 @@ the chain changes each selected coordinate `0 → 1 → 2` before moving to
 the next coordinate.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 
 namespace Ternary

@@ -8,8 +8,6 @@ quantity `U_n(a)`.  It is convenient to define it by the finite expansion of
 the paper's recurrence; the recurrence itself is then a theorem.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 namespace WeightedChains

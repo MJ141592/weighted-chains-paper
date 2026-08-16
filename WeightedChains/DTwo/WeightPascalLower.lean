@@ -9,8 +9,6 @@ the first type coordinate.  Its induction hypothesis is therefore available
 at each of the three forward coordinates occurring in that recurrence.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Ternary
 

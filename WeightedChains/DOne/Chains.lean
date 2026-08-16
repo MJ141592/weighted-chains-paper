@@ -10,8 +10,6 @@ which makes both finiteness and the absence of repeated coordinate changes
 explicit.
 -/
 
-set_option autoImplicit false
-
 open scoped BigOperators
 
 noncomputable section

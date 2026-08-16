@@ -8,8 +8,6 @@ point of each of the paper's two distinguished rank-residue families.  This
 file proves that assertion for every alphabet bound `d`.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 
 namespace Cube

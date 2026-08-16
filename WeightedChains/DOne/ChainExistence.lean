@@ -8,8 +8,6 @@ side, and by reflection every upper vertex is the terminal endpoint of one.
 These explicit descriptors are used by the equality-case propagation proof.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

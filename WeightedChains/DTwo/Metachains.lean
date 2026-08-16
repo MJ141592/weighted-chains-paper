@@ -9,8 +9,6 @@ such chains pass through the same ternary type.  We also isolate the exceptional
 singleton chain through `(1, ..., 1)`.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains

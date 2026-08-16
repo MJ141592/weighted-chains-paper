@@ -11,8 +11,6 @@ induction on the dimension, with the diagonal and lowest-inner-type
 cancellations made explicit.
 -/
 
-set_option autoImplicit false
-
 namespace WeightedChains
 namespace Ternary
 

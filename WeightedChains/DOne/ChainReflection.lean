@@ -14,8 +14,6 @@ incidence and goodness covariance needed to transfer the Section 4 weighted
 cover calculation from the lower half of the cube to the upper half.
 -/
 
-set_option autoImplicit false
-
 noncomputable section
 
 namespace WeightedChains
