@@ -3,11 +3,34 @@
 \usepackage[table]{xcolor}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath, amsfonts, amsthm, amscd, amssymb, fullpage, upgreek, enumerate, comment, siunitx, enumitem, graphicx, mathrsfs, mathtools}
+\usepackage{changepage}
 \usepackage{thmtools}
 \usepackage{thm-restate}
 \usepackage{relsize}
 \usepackage{caption}
 \captionsetup{width=0.45\textwidth}
+
+\makeatletter
+\newenvironment{caseindent}[1][2em]
+  {%
+    \begin{list}{}{%
+      \setlength{\leftmargin}{#1}%
+      \setlength{\rightmargin}{0pt}%
+      \setlength{\topsep}{0pt}%
+      \setlength{\partopsep}{0pt}%
+      \setlength{\itemsep}{0pt}%
+      \setlength{\parsep}{\parskip}%
+      \setlength{\listparindent}{\parindent}%
+    }%
+    \item[]%
+    \let\fullwidthdisplay\relax
+    \ignorespaces
+  }
+  {%
+    \end{list}%
+    \ignorespacesafterend
+  }
+\makeatother
 
 \usepackage[parfill]{parskip}
 \usepackage{hyperref}
@@ -67,15 +90,6 @@
 
 \title{A generalisation of Sperner's theorem using weighted chain decomposition}
 
-\author{Ya\"el Dillies}
-\thanks{Department of Mathematics, Stockholm University. Email: yael.dillies@math.su.se}
-
-\author{Matthew Johnson}
-\thanks{Independent researcher, London, UK. Email: mjohnson31415926@gmail.com}
-
-\author{Aleksandra Kowalska}
-\thanks{Mathematical Institute, University of Oxford. Email: aleksandra.kowalska@seh.ox.ac.uk}
-
 \begin{document}
 
 \begin{abstract}
@@ -98,19 +112,19 @@ are the unique such families (where for $2 \mid n$ they are equal).
 
 There are a couple of intuitive ways to generalise this result. The first one is to relax the condition that no subset may contain another one. For example, we may allow $A$ to have two sets $X, Y \in A$ with $X \subseteq Y$ only if $\vert Y \setminus X \vert > k$ for some constant $k$ (or only if $\vert Y \setminus X \vert \leqslant k$). Katona studied this and related problems in \cite{katona}, where he classified all largest families of subsets satisfying such conditions.
 
-Another possible way of generalising Sperner's result is to work on multisets instead of sets. In this case, we wish to find the largest family of multisubsets of a multiset $\{1^{d_1}, \ldots, n^{d_n}\}$ such that for no two $X, Y \in A$ we may have $X \subset Y$ (i.e., $Y$ containing at least as many copies of each number as $X$). This problem (under an equivalent formulation) was studied and solved by de Bruijn, Tengbergen and Kruyswijk \cite{symmetric_chain_decomposition}.
+Another possible way of generalising Sperner's result is to work on multisets instead of sets. In this case, we wish to find the largest family of multisubsets of a multiset $\{1^{d_1}, \ldots, n^{d_n}\}$ (i.e., a multiset containing $d_i$ copies of $i$ for $1 \leqslant i \leqslant n$) such that for no two $X, Y \in A$ we may have $X \subsetneq Y$ (i.e., $Y$ containing at least as many copies of each number as $X$). This problem (under an equivalent formulation) was studied and solved by de Bruijn, Tengbergen and Kruyswijk \cite{symmetric_chain_decomposition}.
 
 In this paper, we consider a generalisation of Sperner's theorem which pursues both these directions at once. Before we state it, let us note that Sperner's theorem may be reformulated in a more geometric language as follows: what is the largest subset of $\{0, 1\}^n$ which has no elements $x, y$ with $x \leqslant y$ coordinatewise? (Let us call such a subset of $\{0, 1\}^n$ or $\thehypercube$ an antichain.)
 
 We may formulate a generalisation of Sperner's theorem which explores both of the mentioned notions at once as follows:
 
-Let us call a subset $A \subseteq \thehypercube$ `$k$-separated' if for any $x, y \in A$ with $x \leqslant y$, $x$ and $y$ differ on strictly more than $k$ coordinates. What is the largest $k$-separated subset of the hypercube $\thehypercube$?
+Let us call a subset $A \subseteq \thehypercube$ `$k$-separated' if for any different $x, y \in A$ with $x \leqslant y$, $x$ and $y$ differ on strictly more than $k$ coordinates. What is the largest $k$-separated subset of the hypercube $\thehypercube$?
 
 We now note in passing that the notion of $k$-separation is based on the $L_0$ metric (the number of coordinates which differ) rather than the $L_1$ metric (the sum of coordinate differences). It follows from Katona's proof in \cite{katona} (and in fact from many other techniques used to prove Sperner's theorem, for example a generalisation of Lubell's technique \cite{lubell} as presented in \cite{nagys}). On the other hand, the $L_0$ formulation resisted attempts at generalisations of existing proofs and seemed to require new ideas, and hence it drew our interest.
 
 For $k \geqslant n$, a family is $k$-separated if and only if it is an antichain. Hence, in what follows we will assume that $k \leqslant n$ (as any larger $k$ gives the same condition as $k=n$). 
 
-For $k=1$ the problem is equivalent to finding the largest subset of the hypercube with no two elements in the same `row' (i.e., placing non-attacking rooks on an $n$-dimensional chessboard). Such a subset must have at most $(1+d)^{n-1}$ elements (as otherwise, by the Pigeonhole Principle, there would be two with the same first $n-1$ coordinates). On the other hand, there are many subsets of this size satisfying this condition - for example,
+For $k=1$ the problem is equivalent to finding the largest subset of the hypercube with no two elements in the same `row' (i.e., placing non-attacking rooks on an $n$-dimensional chessboard). Such a subset must have at most $(1+d)^{n-1}$ elements (as otherwise, by the pigeonhole principle, there would be two with the same first $n-1$ coordinates). On the other hand, there are many subsets of this size satisfying this condition - for example,
 \begin{equation*}
     \big\{ x \in \thehypercube: L \cdot x \equiv 0 \ (\modd \ (d+1)) \big\}
 \end{equation*}
@@ -157,7 +171,7 @@ The case $d=1, k=n$ is simply Sperner's theorem. Our proof simplifies in this sp
 Finally, we note that for any $d$ and $\frac{n}{2} \leqslant k \leqslant n$ there exists a simple proof that the sets $A_1, A_2$ in Theorem \ref{the_main_theorem} are largest possible, presented in Appendix \ref{appendix_large_k} (as it is rather unrelated to the rest of the paper and doesn't show their uniqueness). This case also follows from \cite[Theorem 5.1]{tour_m_part_p_sperner_families}.
 
 \subsection{AI usage note}
-In working on and writing this paper, we used Large Language Models for spelling and typo checking, grammar proofreading, LaTeX queries, searching literature, searching for binomial coefficient identities, generating LaTeX code for the figures (corresponding to our detailed descriptions) and making the Lean formalisation code and the corresponding blueprint. We have checked manually that the Lean code is a faithful translation of the paper, and that the proofs are legitimate and follow the arguments of the paper. No part of the mathematical content or the paper write-up was generated by a model.
+In working on and writing this paper, we used Large Language Models for spelling and typo checking, grammar proofreading, \LaTeX queries, searching literature, searching for binomial coefficient identities, generating \LaTeX code for the figures (corresponding to our detailed descriptions) and making the Lean formalisation code and the corresponding blueprint. We have checked manually that the Lean code is a faithful translation of the paper, and that the proofs are legitimate and follow the arguments of the paper. No part of the mathematical content or the paper write-up was generated by a model.
 
 \subsection{The structure of the paper}
 In the rest of this section we discuss related research. Then, in Section \ref{section_strategy}, we discuss our main proof strategy: decomposing the hypercube into weighted chains. Proposition \ref{the_weights_assigning_proposition} from that section implies Theorem \ref{the_main_theorem} if only an appropriate assignment of weights to chains may be found, which is done in the rest of the paper.
@@ -172,21 +186,21 @@ Appendix \ref{appendix_sperner} contains a new proof of Sperner's theorem which 
 
 We briefly discuss another related problem, which was our initial motivation for the notion of $k$-separated sets.
 
-Let $X_1, \ldots, X_n$ be disjoint sets. What is the size of the largest family of subsets $\mathcal{F} \subseteq \mathcal{P}(X_1 \cup \ldots \cup X_n)$ such that there are no $U, V \in \mathcal{F}$ s.t. $U \subset V$ and $U \cap X_i = V \cap X_i$ for some $1 \leqslant i \leqslant n$?
+Let $X_1, \ldots, X_n$ be disjoint sets. What is the size of the largest family of subsets $\mathcal{F} \subseteq \mathcal{P}(X_1 \cup \ldots \cup X_n)$ such that there are no $U, V \in \mathcal{F}$ s.t. $U \subsetneq V$ and $U \cap X_i = V \cap X_i$ for some $1 \leqslant i \leqslant n$?
 
-Our method of solving the problem above (using Symmetric Chain Decomposition similar to \cite{symmetric_chain_decomposition}) required the case $k=n$ of the problem presented in this paper. Having solved the special case with $k=n$ (with a simpler method for large $k$ described in Appendix \ref{appendix_large_k}), we tried to generalise it to other values of $k$, which motivated the work whose results are presented in this note.
+Our method of solving the problem above (using symmetric chain decomposition similar to \cite{symmetric_chain_decomposition}) required the case $k=n$ of the problem presented in this paper. Having solved the special case with $k=n$ (with a simpler method for large $k$ described in Appendix \ref{appendix_large_k}), we tried to generalise it to other values of $k$, which motivated the work whose results are presented in this note.
 
 The above problem has been discussed and solved in a paper \cite[Theorem 5.1]{tour_m_part_p_sperner_families} on various similar generalisations of Sperner's theorem, hence we don't pursue this direction here. Its special case with $n=2$ was first solved by Katona \cite{katona_n2}.
 
 \subsection{Connections to coding theory}
 
-The problem we are studying can be reformulated as follows in the language of coding theory: suppose that we have alphabet $\{0, \dots, d-1\}$ and an asymmetric channel, where the error of swapping $x$ for $y$ can occur only if $x<y$. What is the maximum size of a code with codewords of length $n$ that would detect any erroneous transmission with at most $k$ errors?
+The problem we are studying can be reformulated as follows in the language of coding theory: suppose that we have alphabet $\{0, 1, \dots, d\}$ and an asymmetric channel, where the error of swapping $x$ for $y$ can occur only if $x<y$. What is the maximum size of a code with codewords of length $n$ that would detect any erroneous transmission with at most $k$ errors?
 
 Error detection in asymmetric channels was studied by Ahlswede and Aydinian in \cite{asymmetric_channels}. They studied the problem above for binary codes over the alphabet $\{0, 1\}$, and arrived at the case $d=1$ of Theorem \ref{the_main_theorem}.
 
-For larger alphabets they generalised this problem in a different direction: they studied asymmetric channels where all numbers from the alphabet $\{0, \dots, d-1\}$ are transmitted as their binary expansions and the only errors that can occur are transmitting bit $1$ instead of bit $0$, so $x$ can be swapped for $y$ if and only if on all positions in the binary expansions where they differ $y$ has a $1$ and $x$ has a $0$. We note that this is a stronger condition than $x < y$. In \cite[Proposition 6]{asymmetric_channels} they observe that the set $A_1$ (as defined in Theorem \ref{the_main_theorem}) is error-detecting for codes of length $n$ where at most $k$ errors can occur, and note that larger such sets exist.
+For larger alphabets they generalised this problem in a different direction: they studied asymmetric channels where all numbers from the alphabet $\{0, 1, \dots, d\}$ are transmitted as their binary expansions and the only errors that can occur are transmitting bit $1$ instead of bit $0$, so $x$ can be swapped for $y$ if and only if on all positions in the binary expansions where they differ $y$ has a $1$ and $x$ has a $0$. We note that this is a stronger condition than $x < y$. In \cite[Proposition 6]{asymmetric_channels} they observe that the set $A_1$ (as defined in Theorem \ref{the_main_theorem}) is error-detecting for codes of length $n$ where at most $k$ errors can occur, and note that larger such sets exist.
 
-Another paper that studied problems related to Sperner's theorem and somewhat reminiscent of its generalisation explored here from the perspective of coding theory is Gunby's, He's, Narayanan's and Spiro's \cite{more_coding_theory}. There they look for the largest antichain $A$ in $\{0, 1\}^n$ satisfying a further condition than any $x, y \in A$ have Hamming distance at least $k$ (i.e., differ on at least $k$ indices) and show that $\vert A\vert=O_k(2^nn^{-k/2})$ for odd $k$.
+Another paper that studied problems related to Sperner's theorem and somewhat reminiscent of its generalisation explored here from the perspective of coding theory is the paper of Gunby, He, Narayanan and Spiro \cite{more_coding_theory}. There they look for the largest antichain $A$ in $\{0, 1\}^n$ satisfying a further condition than any $x, y \in A$ have Hamming distance at least $k$ (i.e., differ on at least $k$ indices) and show that $\vert A\vert=O_k(2^nn^{-k/2})$ for odd $k$.
 
 \section{Preliminaries}
 \label{section_strategy}
@@ -203,6 +217,13 @@ We will call the elements of $\thehypercube$ `points' and `vertices' (of the hyp
 \leanblueprint{chain}
 \end{definition}
 
+\begin{definition}[Saturated chain]
+\label{wc:def:saturated-chain}
+\label{saturated_definition}
+    Let us call a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ saturated if for any $i$ we have $\vert x_{i+1}\vert -\vert x_i\vert =1$, i.e. all consecutive elements differ on exactly one coordinate by $1$.
+\leanblueprint{saturated-chain}
+\end{definition}
+
 \begin{definition}[Chain width]
 \label{wc:def:chain-width}
     We say that a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ is of width $w$ if there are exactly $w$ indices $i$ such that $x_{1,i} < x_{l, i}$.
@@ -213,16 +234,9 @@ If in a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ the first and l
 
 Hence, the width of a chain is the number of coordinates which ever change in the chain (assume more than one value among the elements of the chain).
 
-For $d=1$, a chain's width is $l$ if and only if its length is $l+1$.
+For $d=1$, a saturated chain's width is $l$ if and only if its length is $l+1$.
 
 Let us also note that no chain of width at most $k$ may contain two elements of a $k$-separated set.
-
-\begin{definition}[Saturated chain]
-\label{wc:def:saturated-chain}
-\label{saturated_definition}
-    Let us call a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ saturated if for any $i$ we have $\vert x_{i+1}\vert -\vert x_i\vert =1$, i.e. all consecutive elements differ on exactly one coordinate by $1$.
-\leanblueprint{saturated-chain}
-\end{definition}
 
 \begin{definition}[Symmetric chain]
 \label{wc:def:symmetric-chain}
@@ -245,7 +259,11 @@ It is often convenient to think of the points in the cube as grouped into diagon
 \leanblueprint{layer}
 \end{definition}
 
-We note that the size of layers is larger the closer they are to the middle of the hypercube: $1=\vert L_0\vert  \leqslant \vert L_1\vert  \leqslant \ldots \leqslant \vert L_{\fclass}\vert =\vert L_{\cclass}\vert  \geqslant \ldots \geqslant \vert L_{nd-1}\vert  \geqslant \vert L_{nd}\vert =1$.
+We note that the sizes of layers are symmetric ($\vert L_i \vert = \vert L_{nd-i} \vert$), as $(x_1, \dots, x_n) \in L_i$ if and only if $(d-x_1, \dots, d-x_n) \in L_{nd-i}$. They are also unimodal:
+\begin{equation*}
+    1=\vert L_0\vert  \leqslant \vert L_1\vert  \leqslant \ldots \leqslant \vert L_{\fclass}\vert =\vert L_{\cclass}\vert  \geqslant \ldots \geqslant \vert L_{nd-1}\vert  \geqslant \vert L_{nd}\vert =1,
+\end{equation*}
+which can be shown by induction on $d$ with base case $d=1$ (when $L_i=\binom{n}{i}$ and so the unimodality follows from the unimodality of binomial coefficients).
 
 Let us call the layer $L_{\frac{nd}{2}}$ (if $2 \mid nd$) or the layers $L_{\fclass}$ and $L_{\cclass}$ (if $2 \nmid nd$) the middle layers or `the middle of the cube'.
 
@@ -271,13 +289,13 @@ Any good chain contains exactly one element from $A_1$ and exactly one from $A_2
 
 \begin{definition}[A chain starting at $x$]
 \label{wc:def:chain-start}
-    We say that a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ starts at $x_1$ if $\big\vert  \vert x_1\vert -\frac{nd}{2} \big\vert  \leqslant \big\vert  \vert x_l\vert -\frac{nd}{2} \big\vert $.
+    We say that a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ starts at $x_1$ if $\big\vert  \vert x_1\vert -\frac{nd}{2} \big\vert  \geqslant \big\vert  \vert x_l\vert -\frac{nd}{2} \big\vert $.
 
-    If $\big\vert  \vert x_1\vert -\frac{nd}{2} \big\vert  \geqslant \big\vert  \vert x_l\vert -\frac{nd}{2} \big\vert $, we say that the chain starts at $x_l$.
+    If $\big\vert  \vert x_1\vert -\frac{nd}{2} \big\vert  \leqslant \big\vert  \vert x_l\vert -\frac{nd}{2} \big\vert $, we say that the chain starts at $x_l$.
 
     If an equality holds in the above two inequalities, we may say either that the chain starts at $x_1$ or at $x_l$.
 
-    That is, a chain starts at $x$ if it passes only through points at least as close to the middle of the cube as $x$.
+    That is, a chain starts at $x$ if it passes only through points at least as far from the middle of the cube as $x$.
 \leanblueprint{chain-start}
 \end{definition}
 
@@ -292,12 +310,12 @@ In this section we discuss some definitions and ways of looking at the hypercube
 The following notion will turn out to be crucial for assigning weights to chains.
 \begin{definition}[Inner and outer layers]
 \label{wc:def:inner-outer-layers}
-    Let us call a layer $L_i$ inner if the length of symmetric saturated chains between layers $L_i$ and $L_{nd+1-i}$ is smaller than $kd+1$. Otherwise, we call a layer outer.
+    Let us call a layer $L_i$ inner if the length of symmetric saturated chains between layers $L_i$ and $L_{nd-i}$ is smaller than $kd+1$. Otherwise, we call a layer outer.
 \leanblueprint{inner-outer-layers}
 \end{definition}
 
 \begin{remark}
-    A layer is inner if and only if $(nd+1-i)-(i-1) < kd+1$, but we will not use this formula very often.
+    A layer is inner if and only if $(nd-i)-(i-1) < kd+1$, but we will not use this formula very often.
     
     Moreover, a layer is outer if and only if there are no saturated chains of width at most $k$ (hence, of length at most $kd+1$) starting on the other side of the cube and crossing it.
 \end{remark}
@@ -338,12 +356,12 @@ Similarly to calling layers lower/upper, outer/inner, we can call a type `lower'
 
 The Proposition below is the key step in proving Theorem \ref{the_main_theorem}. Below we show how it implies the Theorem, and in the subsequent sections provide a construction of weights satisfying the required properties.
 
-We recall sets $A_1, A_2$ defined in Theorem \ref{the_main_theorem} (where $A_1=A_2$ if $2 \mid d$).
+We recall sets $A_1, A_2$ defined in Theorem \ref{the_main_theorem} (where $A_1=A_2$ if $2 \mid nd$).
 
 \begin{proposition}
 \label{wc:prop:good-chain-weighting}
 \label{the_weights_assigning_proposition}
-    For any $n, k$ and $d \in \{1, 2\}$, it is possible to assign weights to good chains in the hypercube so that:
+    For any $n, 1 < k \leqslant n$ and $d \in \{1, 2\}$, it is possible to assign weights to good chains in the hypercube so that:
     \begin{enumerate}
         \item \label{sum_1_condition} The sum of weights of chains passing through each vertex (which we will call the induced weight of that vertex) equals $1$.
         
@@ -367,16 +385,18 @@ We also note that these conditions make sense also when $2 \nmid d$, in which ca
 
 All the shortest chains (as specified in Equations \ref{singleton_chains_equation} and \ref{double_chains_equation}) are good chains. However, at first it is not clear whether for any $x \in A_1 \cup A_2$ there exists a good chain starting at $x$ and whether for any $x \notin A_i$ there exists a good chain passing through $x$ and through an element of $A_1$ closer to the middle of the cube than $x$.
 
-In fact, the first of these conditions is not satisfied for $d>2$, which limits the scope of the Proposition to $d \leqslant 2$ where, as we will show, both of these conditions are satisfied. For $d=1$ they are trivially satisfied as there exist good chains starting at any point (and as $(\frac{1}{2}, \dots, \frac{1}{2}) \notin \{0,1\}^n$ so no point requires a special treatment). Hence, assigning positive weights to all good chains (which, as we show in Section \ref{section_d1} is possible) is sufficient.
+For $d=1$, conditions $(\ref{positive_non_A_condition})$ and $(\ref{positive_A_condition})$ are clearly satisfied as there exist good chains starting at any point (and as $(\frac{1}{2}, \dots, \frac{1}{2}) \notin \{0,1\}^n$ so no point requires a special treatment). Hence, assigning positive weights to all good chains (which, as we show in Section \ref{section_d1} is possible) is sufficient.
 
-For $d=2$ (handled in Section \ref{section_d2}) first we show in Lemma \ref{positive_basic_enough_lemma} that for $d=2$ the mentioned conditions hold not only for good chains, but also for their certain subset called `basic chains', and then we show that an assignment of positive weights to basic chains which satisfies (\ref{sum_1_condition}) exists.
+For $d=2$ (handled in Section \ref{section_d2}) first we show in Lemma \ref{positive_basic_enough_lemma} that conditions $(\ref{positive_non_A_condition})$ and $(\ref{positive_A_condition})$ hold not only for good chains, but also for their certain subset called `basic chains', which is a bit simpler and so easier to analyse. Then we show that there exists an assignment of non-negative weights to basic chains which satisfies conditions (\ref{sum_1_condition}) and (\ref{short_chains_positive_condition}).
+
+We note that the Proposition cannot hold for $d > 2$, as in this case there exist points in the cube at which no good chains start. For example, consider an even $d=2d'>2$, any $k$ and $n$ large enough divisible by $(dk+1)$. Let $x$ be a point with all coordinates equal $d'-1$. Then $x$ is a lower point and since $dk+1 \mid n$, $|x|=n(d'-1)$, which is equivalent to $nd' = \lfloor \frac{nd}{2} \rfloor$ modulo $dk+1$. Then $x \in A_1=A_2$ but there is no chain of width $k$ and length $kd+1$ starting at $x$ (as $x$ has no coordinate $0$) and also, for $n$ large enough, no symmetric chain starting at $x$ and of width at most $d$. Hence, there are no good chains starting at $x$, and so condition $(\ref{positive_A_condition})$ cannot be satisfied. We could analogously construct counterexamples for odd $d$.
 
 Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 
 \begin{lemma}
 \label{wc:lem:weighted-cover-implies-main}
 \label{weights_imply_theorem_lemma}
-    For any $n, k, d$ if there exists an assignment of weights to good chains in $\thehypercube$ satisfying conditions (\ref{sum_1_condition}) and (\ref{non_negative_condition}), then any $k$-separated set in the hypercube is at most as large as $A_1$ (for $A_1$ defined as in Theorem \ref{the_main_theorem}).
+    For any $n, 1 < k \leqslant n,$ and $d$ if there exists an assignment of weights to good chains in $\thehypercube$ satisfying conditions (\ref{sum_1_condition}) and (\ref{non_negative_condition}), then any $k$-separated set in the hypercube is at most as large as $A_1$ (for $A_1$ defined as in Theorem \ref{the_main_theorem}).
 
     Furthermore, if such an assignment satisfies conditions (\ref{short_chains_positive_condition}), (\ref{positive_A_condition}) and (\ref{positive_non_A_condition}) of the Proposition, then $A_1$ and $A_2$ are the unique largest such subsets (and so Theorem \ref{the_main_theorem} is satisfied).
 \leanblueprint{weighted-cover-implies-main}
@@ -406,31 +426,37 @@ Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 
     Let us consider the implications of condition (\ref{short_chains_positive_condition}) separately for the cases $2 \mid nd$ (so $A_1=A_2$) and $2 \nmid nd$ (so $A_1, A_2$ are distinct).
 
-    $1^{\circ} \ 2 \mid nd.$ Since the weights of all singleton chains except for $\{\thespecialpoint\}$ are positive, $x \in A'$ for any $x \in L_{\frac{nd}{2}}$ (except possibly for $x=\thespecialpoint$).
+    \begin{caseindent}
+    $1: \ 2 \mid nd.$ Since the weights of all singleton chains except for $\{\thespecialpoint\}$ are positive, $x \in A'$ for any $x \in L_{\frac{nd}{2}}$ (except possibly for $x=\thespecialpoint$).
 
-    $2^{\circ} \ 2 \nmid nd.$ For any $x, y$ with $\vert x\vert =\fclass$, $\vert y\vert =\cclass$ and $x \leqslant y$ the chain $\{x, y\}$ has positive weight, so exactly one of $x$ and $y$ is in $A'$.
-
-    We may draw this condition on a bipartite graph, whose vertices are points from the layers $L_{\fclass}$ and $L_{\cclass}$ and where two vertices $x \in L_{\fclass},$ $y \in L_{\cclass}$ are connected by an edge if and only $x \leqslant y$. Since this bipartite graph is easily seen to be connected, the only subsets of vertices of this graph which contain exactly one vertex from each edge are $L_{\fclass}$ and $L_{\cclass}$.
+    $2: \ 2 \nmid nd.$ For any $x, y$ with $\vert x\vert =\fclass$, $\vert y\vert =\cclass$ and $x \leqslant y$ the chain $\{x, y\}$ has positive weight, so exactly one of $x$ and $y$ is in $A'$.
     
+    We may draw this condition on a bipartite graph, whose vertices are points from the layers $L_{\fclass}$ and $L_{\cclass}$ and where two vertices $x \in L_{\fclass},$ $y \in L_{\cclass}$ are connected by an edge if and only $x \leqslant y$. Since this bipartite graph is easily seen to be connected, the only subsets of vertices of this graph which contain exactly one vertex from each edge are $L_{\fclass}$ and $L_{\cclass}$.
+
     Hence, we need either $L_{\fclass} \subseteq A'$ or $L_{\cclass} \subseteq A'$. Without loss of generality, let us assume that the former is the case (and then $L_{\cclass} \cap A'=\emptyset$).
+    \end{caseindent}
     
     We will now show (simultaneously for both cases) that we must have $A'=A_1$.
 
-    For $0 \leqslant i \leqslant \cclass$ let $B_i$ denote a `slice' of the cube close to the middle of thickness $i$ without $\thespecialpoint$, that is $B_i:=\{x: \big\vert \vert x\vert -\fclass\big\vert  \leqslant i\} \setminus \{\thespecialpoint\}$. We have shown that $B_0 \cap A'=B_0 \cap A_1$. Now we will show that in fact, for any $i$ we have $B_i \cap A'=B_i\cap A_1$.
+    For $0 \leqslant i \leqslant \cclass$ let $B_i$ denote a `slice' of the cube close to the middle of thickness $i$ without $\thespecialpoint$, that is $B_i:=\{x: \big\vert \vert x\vert -\frac{nd}{2}\big\vert  \leqslant i + \frac{1}{2}\} \setminus \{\thespecialpoint\}$. We have shown that $B_0 \cap A'=B_0 \cap A_1$. Now we will show that in fact, for any $i$ we have $B_i \cap A'=B_i\cap A_1$.
 
     Let us suppose that $B_{i-1} \cap A' = B_{i-1} \cap A_1$. We'd like to show that the same holds for $i$.
 
-    First, let us consider the case when $i \not\equiv \lfloor \frac{nd}{2} \rfloor \ (\modd dk+1)$. But then for any $x \in L_i$, from condition (\ref{positive_non_A_condition}) there is a chain of positive weight passing through $x$ and through some $y \in A_1 \setminus \{\thespecialpoint\}$, $y$ closer to the middle of the hypercube than $x$ (that is, $y \in B_{i-1}$). But then by induction, $y \in A'$, and so we must have $x \notin A'$.
+    \begin{caseindent}
+        $1:$ First, let us consider the case when $i$ is s.t. neither $L_{\fclass} - i$ nor $L_{\cclass + i}$ is a subset of $A_1$. But then for any $x \in B_i \setminus B_{i-1} = L_{\lfloor \frac{nd}{2} \rfloor - i} \cup L_{\lceil \frac{nd}{2} \rceil + i}$, from condition (\ref{positive_non_A_condition}) there is a chain of positive weight passing through $x$ and through some $y \in A_1 \setminus \{\thespecialpoint\}$, $y$ closer to the middle of the hypercube than $x$ (that is, $y \in B_{i-1}$). But then by induction, $y \in A'$, and so we must have $x \notin A'$. Applying this reasoning to every $x \in L_{\lfloor \frac{nd}{2} \rfloor - i} \cup L_{\lceil \frac{nd}{2} \rceil + i}$, we conclude that $B_i \cap A'=B_i \cap A_1$.
 
-    Now, let us consider $i \equiv \lfloor \frac{nd}{2} \rfloor \ (\modd dk+1)$. For any $x \in L_i$, there exists a chain of positive weight starting at $x$. But this chain can only pass through elements not belonging to $A_1$ that are closer to the middle of the hypercube than $x$ (so are in $B_{i-1}$), and so by induction not belonging to $A'$. Hence, we must have $x \in A'$. 
+        $2:$ Now, let us consider $i$ s.t. $L_{\fclass - i} \subseteq A_1$, $L_{\cclass + i} \not\subseteq A_1$ (the case when $L_{\fclass - i} \not\subseteq A_1$ and $L_{\cclass + i} \subseteq A_1$ can be considered analogously). Then for any $x \in L_{\fclass - i}$, there exists a chain of positive weight starting at $x$. But this chain can only pass through elements not belonging to $A_1$ that are closer to the middle of the hypercube than $x$ (so are in $B_{i-1}$), and so by induction not belonging to $A'$. Hence, we must have $x \in A'$. Moreover, just as in case $1$ for any $x \in L_{\cclass + i}$ we have $x \not\in A'$. 
+
+        $3:$ Finally, let us suppose that $L_{\fclass - i} \subseteq A_1$ and $L_{\cclass} + i \subseteq A_1$. Since also $L_{\fclass} \subseteq A_1$, from the definition of $A_1$ it follows that $dk+1 \mid i$ and $2 \mid nd$ (i.e., $\fclass=\cclass$). However, then the distance between $L_{\fclass - i}$ and $L_{\cclass + i}$ is at least $2(dk+1)$ and so there is no good chain passing through elements from both these layers. A reasoning analogous to the in case $2$ leads us to a conclusion that $L_{\fclass - i}, L_{\cclass + i} \subseteq A'$ and so again $B_i \cap A'=B_i \cap A_1$.
+        \end{caseindent}
 \end{proof}
 
 In the rest of the paper, we prove Proposition \ref{the_weights_assigning_proposition} by constructing a suitable assignment of weights.
 
-We should expect a reasonable assignment of weights to chains to satisfy the following two conditions:
+We should aim at an assignment of weights to chains satisfying the following two conditions:
 \begin{itemize}
     \item It should be invariant under a permutation of coordinates.
-    \item It should be symmetric, i.e. the chains $(x_1, \ldots, x_l)$ and $(\textbf{n}-x_l, \ldots, \textbf{n}-x_1)$ should have equal weights (where $\textbf{n}=(n, \ldots, n)$).
+    \item It should be symmetric, i.e. the chains $(x_1, \ldots, x_l)$ and $(\textbf{d}-x_l, \ldots, \textbf{d}-x_1)$ should have equal weights (where $\textbf{d}=(d, \ldots, d)$).
 \end{itemize}
 
 The first of these conditions is equivalent to saying that all chains passing through exactly the same types should have equal weights.
@@ -520,7 +546,7 @@ for $a>0$.
 
 Clearly, for $a$ a lower outer layer, we have $W_n(a)=U_n(a)$ (as they satisfy the same base conditions and inductive equation). Moreover, by an argument analogous to the one for $W_n$, $U_n(a)>0$ for any $0 \leqslant a \leqslant \frac{n}{2}$.
 
-From the symmetry, for $a$ an upper outer layer we have $W_n(a)=W_n(n-a)=U_n(a)$. Finally, since $U_n$ is defined only in terms of binomial coefficients and other values of $U_n$, we may inductively show that for any $a \leqslant n$ we have
+From the symmetry, for $a$ an upper outer layer we have $W_n(a)=W_n(n-a)=U_n(n-a)$. Finally, since $U_n$ is defined only in terms of binomial coefficients and other values of $U_n$, we may inductively show that for any $0 \leqslant a \leqslant n$ we have
 \begin{equation}
     U_n(a)=\uno(a)+\uno(a-1).
 \end{equation}
@@ -542,11 +568,11 @@ From the symmetry, for $a$ an upper outer layer we have $W_n(a)=W_n(n-a)=U_n(a)$
     as required.
 \end{proof}
 
-Now we are ready to show that $W_n(a)>0$ for lower inner layers. We need to show that for $n-k < 2i \leqslant n$ we have $U_n(a) - U_n(a+k) > 0.$ Somewhat surprisingly, we will fix $k$ and show this by induction on $n$. Since we are interested in $k \leqslant n$, the base case of the induction is $n=k$.
+Now we are ready to show that $W_n(a)>0$ for lower inner layers. We need to show that for $n-k < 2a \leqslant n$ we have $U_n(a) - U_n(n-a-k) > 0.$ Somewhat surprisingly, we will fix $k$ and show this by induction on $n$. Since we are interested in $k \leqslant n$, the base case of the induction is $n=k$.
 
-$1^{\circ}$ For $n=k$ and $0<2a \leqslant n$, we have $W_n(a)=U_n(a)-U_n(-a)$. Since $a>0$, $U_n(-a)=0$ and from the previous discussion we have $U_n(a)>0$, which finishes the proof in this case.
+$1:$ For $n=k$ and $0<2a \leqslant n$, we have $W_n(a)=U_n(a)-U_n(-a)$. Since $a>0$, $U_n(-a)=0$ and from the previous discussion we have $U_n(a)>0$, which finishes the proof in this case.
 
-$2^{\circ}$ Let $n>k$. We have
+$2:$ Let $n>k$. We have
 \begin{equation*}
     U_n(a)=U_{n-1}(a)+U_{n-1}(a-1)
 \end{equation*}
@@ -554,53 +580,54 @@ and
 \begin{equation*}
     U_n(n-a-k)=U_{n-1}(n-a-k)+U_{n-1}(n-a-k-1).
 \end{equation*}
-$2.1^{\circ}$ If we have
-\begin{equation*}
-    (n-1)-k<2a\leqslant n-1
-\end{equation*}
-and
-\begin{equation*}
-    (n-1)-k<2(a-1)\leqslant n-1,
-\end{equation*}
-then $a$ and $a-1$ are lower inner layers of $\{0,1\}^{n-1}$ and so
-\begin{equation*}
-    \wno(a)=\uno(a)-\uno((n-1)-a-k)
-\end{equation*}
-and
-\begin{equation*}
-     \wno(a-1)=\uno(a-1)-\uno((n-1)-(a-1)-k).
-\end{equation*}
-Hence
-\begin{equation*}
-    W_n(a)=W_{n-1}(a)+W_{n-1}(a-1),
-\end{equation*}
-which by induction is a sum of two positive integers.
-
-For $n-k<2a \leqslant n$, we always have $(n-1)-k<2a$ and $2(a-1)\leqslant n-1$, and at most one of the other two required inequalities might be broken.
-
-$2.2^{\circ}$ If $2a > n-1$, then (since also $2a \leqslant n$), we must have $2a=n$.
-Then $U_n(a)=U_{n-1}(a)+U_{n-1}(a-1)$ and
-\begin{equation*}
-    U_{n-1}(a)=\binom{n-1}{a}-\binom{n-1}{a-1}+U_{n-1}(a-k-1)=U_{n-1}(a-k-1).
-\end{equation*}
-We also have
-\begin{equation*}
-    U_n(n-a-k)=\uno(n-a-k)+\uno(n-a-k-1)=\uno((n-1)-(a-1)-k)+\uno(a-k-1).
-\end{equation*}
-Hence,
-\begin{equation*}
-    W_n(a)=U_n(a)-U_n(n-a-k)=\uno(a-1)-\uno((n-1)-(a-1)-k)=W_{n-1}(a-1),
-\end{equation*}
-which by induction is positive (since $0<2(a-1)<n-1$).
-
-$2.3^{\circ}$ If $(n-1)-k \geqslant 2(a-1)$, then (since also $n-k<2a$), we must have $2a+k-1=n$. But then $U_{n-1}(a-1)=U_{n-1}(n-a-k)$ and hence
-\begin{multline*}
-    W_n(a)=U_n(a) - U_n(n-a-k)\\
-    =(\uno(a) + \uno(a-1))-(\uno(n-a-k) + \uno(n-a-k-1))\\
-    =U_{n-1}(a)-U_{n-1}((n-1)-a-k)=W_{n-1}(a),
-\end{multline*}
-which by induction is positive.
-
+\begin{caseindent}
+    $2.1:$ If we have
+    \begin{equation*}
+        (n-1)-k<2a\leqslant n-1
+    \end{equation*}
+    and
+    \begin{equation*}
+        (n-1)-k<2(a-1)\leqslant n-1,
+    \end{equation*}
+    then $a$ and $a-1$ are lower inner layers of $\{0,1\}^{n-1}$ and so
+    \begin{equation*}
+        \wno(a)=\uno(a)-\uno((n-1)-a-k)
+    \end{equation*}
+    and
+    \begin{equation*}
+         \wno(a-1)=\uno(a-1)-\uno((n-1)-(a-1)-k).
+    \end{equation*}
+    Hence
+    \begin{equation*}
+        W_n(a)=W_{n-1}(a)+W_{n-1}(a-1),
+    \end{equation*}
+    which by induction is a sum of two positive integers.
+    
+    For $n-k<2a \leqslant n$, we always have $(n-1)-k<2a$ and $2(a-1)\leqslant n-1$, and at most one of the other two required inequalities might be broken.
+    
+    $2.2:$ If $2a > n-1$, then (since also $2a \leqslant n$), we must have $2a=n$.
+    Then $U_n(a)=U_{n-1}(a)+U_{n-1}(a-1)$ and
+    \begin{equation*}
+        U_{n-1}(a)=\binom{n-1}{a}-\binom{n-1}{a-1}+U_{n-1}(a-k-1)=U_{n-1}(a-k-1).
+    \end{equation*}
+    We also have
+    \begin{equation*}
+        U_n(n-a-k)=\uno(n-a-k)+\uno(n-a-k-1)=\uno((n-1)-(a-1)-k)+\uno(a-k-1).
+    \end{equation*}
+    Hence,
+    \begin{equation*}
+        W_n(a)=U_n(a)-U_n(n-a-k)=\uno(a-1)-\uno((n-1)-(a-1)-k)=W_{n-1}(a-1),
+    \end{equation*}
+    which by induction is positive (since $0<2(a-1)<n-1$).
+    
+    $2.3:$ If $(n-1)-k \geqslant 2(a-1)$, then (since also $n-k<2a$), we must have $2a+k-1=n$. But then $U_{n-1}(a-1)=U_{n-1}(n-a-k)$ and hence
+    \begin{multline*}
+        W_n(a)=U_n(a) - U_n(n-a-k)\\
+        =(\uno(a) + \uno(a-1))-(\uno(n-a-k) + \uno(n-a-k-1))\\
+        =U_{n-1}(a)-U_{n-1}((n-1)-a-k)=W_{n-1}(a),
+    \end{multline*}
+    which by induction is positive.
+\end{caseindent}
 \section{Assigning weights for \texorpdfstring{$d=2$}{d=2}}
 \label{section_d2}
 
@@ -617,7 +644,7 @@ Hence, instead, we will do the same simple approach, but assign positive weights
 
 \begin{definition}[Basic chains]
 \label{wc:def:basic-chain}
-    Let $(x_1, \ldots, x_l)$ be a saturated chain of width $w$. We call this chain basic if $l=dw+1$ and its subchains $(x_{id+1}, x_{id+2}, \ldots, x_{id+d+1})$ (for $0 \leqslant i \leqslant w-1$) are all of width $1$.
+    Let $(x_1, \ldots, x_l)$ be a saturated chain of width $w$ and length $l$. We call this chain basic if $l=dw+1$ and its subchains $(x_{id+1}, x_{id+2}, \ldots, x_{id+d+1})$ (for $0 \leqslant i \leqslant w-1$) are all of width $1$.
 \leanblueprint{basic-chain}
 \end{definition}
 
@@ -641,7 +668,7 @@ However, the following chain is not basic:
 \end{equation*}
 as it first changes on coordinate $5$, then on coordinate $1$ (twice) and then again on coordinate $5$.
 
-Basic chains that are also good are those basic chains that are either of width $k$ (and so starting at an outer layer $a$) or of width $w<k$ and `between' layers $L_{\frac{n}{2}-w}$ and $L_{\frac{n}{2}+w}$.
+Basic chains that are also good are those basic chains that are either of width $k$ (and so starting at an outer layer $a$) or of width $w<k$ and `between' layers $L_{n-w}$ and $L_{n+w}$.
 
 \begin{remark}
     At first sight it is by no means obvious that taking only basic good chains should be enough. We noticed this after making simulations in Python. We also tried some other subsets of chains, which turned out to require negative weights.
@@ -651,7 +678,7 @@ A useful property of the set of basic chains is that all basic chains of a given
 \begin{equation*}
     (a, b, c), (a-1, b+1, c), (a-1, b, c+1), (a-2, b+1, c+1), (a-2, b, c+2), \ldots, (a-w, b, c+w).
 \end{equation*}
-Hence, the set of basic good chains is one of the orbits of the action of permuting coordinates on the set of chains. Therefore, it will be natural to assign the same weights to all basic good chains starting at the same type.
+Hence, the set of all basic good chains starting at a given type is one of the orbits of the action of permuting coordinates on the set of chains. Therefore, it will be natural to assign the same weights to all basic good chains starting at the same type.
 
 Given the symmetry (under permuting coordinates) of all vertices in the same type (and all basic good chains), we will think of all basic good chains starting at vertices from the same type together, as one `metachain'.
 
@@ -692,7 +719,7 @@ It turns out that for $d=2$ it is possible to assign positive weights only to ba
 
     From the symmetry, it suffices to show this for lower vertices.
 
-    For outer vertices the claim is clear: if a lower inner vertex $x$ is of type $(a, b, c)$ (that is, $c<a-k$), then we have $k \leqslant c+k<a$, and so $x$ has more than $k$ coordinates equal to $0$ and has a basic chain of length $kd+1$ starting at it (which, if $x \notin A_1$, must pass through an element of $A_1$ with at least one coordinate $0$, so different from $(1, \dots, 1)$).
+    For outer vertices the claim is clear: if a lower outer vertex $x$ is of type $(a, b, c)$ (that is, $c<a-k$), then we have $k \leqslant c+k<a$, and so $x$ has more than $k$ coordinates equal to $0$ and has a basic chain of length $kd+1$ starting at it (which, if $x \notin A_1$, must pass through an element of $A_1$ with at least one coordinate $0$, so different from $(1, \dots, 1)$).
 
     For $x$ inner of type $(a, b, c)$, $b+2c=l$, there are symmetric chains of width $n-l$ and length $2n-2l+1$ starting at $x$. If $c>0$, all the vertices they pass through have at least one coordinate equal to $2$, and so they do not pass through $\thespecialpoint$.
     
@@ -715,19 +742,19 @@ We will first show that the weights of chains starting at the outer types are po
 
 It may be easily checked that a lower type is outer if and only if $c+k \leqslant a$ and inner otherwise. Moreover, the vertices of type $(a, b, c)$ lie in layer $b+2c=n-a+c$.
 
-The key observation for estimating the weights of chains is that basic good chains pass through a lower type $(a, b, c)$ if and only if they pass through type $(a+1, b, c-1)$, except for:
+The key observation for calculating the weights of chains is that basic good chains pass through a lower type $(a, b, c)$ if and only if they pass through type $(a+1, b, c-1)$, except for:
 \begin{itemize}
     \item The chains starting at $(a, b, c)$ and $(a+1, b-1, c)$.
-    \item The chains starting at $(a+k+1, b, c-k-1)$ and $(a+k+1, b-1, c-k)$, as they end `just before' $(a, b, c)$ (they are of length $1+2k$ and finish respectively at types $(a+1, b, c-1)$ and $(a+1, b-1, c)$).
+    \item The chains starting at $(a+k+1, b, c-k-1)$ and $(a+k+1, b-1, c-k)$, as they end `just before' $(a, b, c)$ (they are of length $2k+1$ and finish respectively at types $(a+1, b, c-1)$ and $(a+1, b-1, c)$).
     \item For $(a, b, c)$ a lower inner type, additionally chains starting at $(a-k, b, c+k)$ pass through $(a, b, c)$ but not through $(a+1, b, c-1)$.
-    \item For $(a, b, c)$ a lower inner type with $c > a-k+1$, also chains starting at $(a-k+1, b-1, c+k)$ pass through $(a, b, c)$ but not $(a+1, b, c-1)$. (For $c=a-k+1$, $(a-k+1, b-1, c+k)$ is an upper inner type, so the chains starting at it are symmetric of length $2k-1$ and pass through neither $(a, b, c)$ nor $(a+1, b, c-1)$.)
+    \item For $(a, b, c)$ a lower inner type with $c > a-k+1$, also chains starting at $(a-k+1, b-1, c+k)$ pass through $(a, b, c)$ but not $(a+1, b, c-1)$. (For $c=a-k+1$, the good chains starting at $(a-k+1, b-1, c+k)$ are symmetric of length $2k+1$ and pass through both $(a, b, c)$ and $(a+1, b, c-1)$.)
 \end{itemize}
 
 The difference between the sum of weights of chains passing through types $(a, b, c)$ and $(a+1, b, c-1)$ should be $\binom{n}{a, c}-\binom{n}{a+1, c-1}$. However, from the above we also know that for lower outer types it equals
 \begin{equation*}
-    \wn(a, c) + \wn(a+1, c-1) - \wn(a+k+1, c-k) - \wn(a+k+1, c-k-1)
+    \wn(a, c) + \wn(a+1, c) - \wn(a+k+1, c-k) - \wn(a+k+1, c-k-1)
 \end{equation*}
-and so for these types we have (for $c<a-k$):
+and so for these types we have (for $c \leqslant a-k$):
 \begin{multline}
 \label{the_key_recursive_equation}
     W_n(a, c) = \binom{n}{a, c} - \binom{n}{a+1, c-1} - W_n(a+1, c)\\ + W_n(a+k+1, c-k) + W_n(a+k+1, c-k-1).
@@ -740,7 +767,7 @@ We can similarly derive the equation for the types $(a, b, c)$ with $c=a-k+1$ (t
 and (for $c>a-k+1$):
 \begin{multline}
 \label{the_key_recursion_inner}
-    W_n(a, c) = \binom{n}{a, c} - \binom{n}{a+1, c-1} - W_n(a+1, c)\\ + W_n(a+k+1, c-k) + W_n(a+k+1, c-k-1) - W_n(a-k, c+k) + \wn(a-k+1, c+k).
+    W_n(a, c) = \binom{n}{a, c} - \binom{n}{a+1, c-1} - W_n(a+1, c)\\ + W_n(a+k+1, c-k) + W_n(a+k+1, c-k-1) - W_n(a-k, c+k) - \wn(a-k+1, c+k).
 \end{multline}
 
 Of course, $W_n(n, 0)=1$ (as there is exactly one vertex of type $(n, 0, 0)$) and $W_n(a, c)=0$ if $a<0, c<0$ or $n-a-c<0$. These starting conditions and Equations \ref{the_key_recursive_equation}, \ref{the_key_recursion_lowest_inner} and \ref{the_key_recursion_inner} allow us to recursively compute $W_n(a, c)$.
@@ -755,7 +782,7 @@ Finally, let us introduce a helping function $U_n$ (for $n \geqslant k$) defined
     \end{equation}
 \end{itemize}
 
-We note that $U_n$ has the same base values and recursive formula as $W_n(a, c)$ for $c+k \leqslant a \leqslant c$ (i.e., lower outer types), so for these types we have $U_n(a, c)=W_n(a, c)$.
+We note that $U_n$ has the same base values and recursive formula as $W_n(a, c)$ for $c+k \leqslant a \leqslant n-c$ (i.e., lower outer types), so for these types we have $U_n(a, c)=W_n(a, c)$.
 
 For the upper outer types, we have $W_n(a, c)=W_n(c, a)=U_n(c, a)$.
 
@@ -772,7 +799,7 @@ We will prove a slightly stronger claim.
 
 \begin{lemma}
 \label{wc:lem:ternary-auxiliary-positive}
-    For $n \geqslant k$ and $0 \leqslant c \leqslant a$, $0 \leqslant n-a-c$ we have $U_n(a, c)>0$.
+    For $n \geqslant k$ and $0 \leqslant c \leqslant a$, $0 \leqslant n-a-c$ and $0 < a+c$ we have $U_n(a, c)>0$.
 \leanblueprint{ternary-auxiliary-positive}
 \end{lemma}
 
@@ -781,49 +808,53 @@ This lemma immediately shows that the weights of the chains starting at the oute
 \begin{proof}
     Similarly to the $d=1$ case, we will induct on $n$, starting from $n=k$.
 
-    $1^{\circ}$ $n=k$. In this case, we have $U_n(a+k+1, c-k-1) = U_n(a+k+1, c-k)=0$ and so
-    \begin{equation*}
-        U_n(a, c)=\binom{n}{a, c}-\binom{n}{a+1, c-1} - U_n(a+1, c)
-    \end{equation*}
-    for any $a, c$. Hence:
-    \begin{multline*}
-        U_n(a, c) = \binom{n}{a, c}-\binom{n}{a+1, c-1} - U_n(a+1, c)\\
-        = \binom{n}{a, c}-\binom{n}{a+1, c-1} - \binom{n}{a+1, c} + \binom{n}{a+2, c-1} + U_n(a+2, c)\\
-        = \sum_{i \geqslant a} \Big( \binom{n}{i, c} - \binom{n}{i+1, c-1} \Big) (-1)^{i-a}\\
-        = \sum_{i \geqslant a} \binom{n}{i, c} (-1)^{i-a} - \sum_{i \geqslant a+1} \binom{n}{i, c-1} (-1)^{i-a-1} \\
-        = \binom{n}{c}\binom{n-c-1}{a-1} - \binom{n}{c-1}\binom{n-c}{a},
-    \end{multline*}
-    where the last equality can easily be shown by induction on $a$. The last difference equals
-    \begin{equation*}
-        \frac{n!}{c!a!(n-a-c)!(n-c)(n-c+1)} ((a-c)(n-c) + 1),
-    \end{equation*}
-    which is positive for $a \leqslant c \leqslant n$.
+    \begin{caseindent}
+    $1:$ $n=k$. In this case, we have $U_n(a+k+1, c-k-1) = U_n(a+k+1, c-k)=0$ and so
+        \begin{equation*}
+            U_n(a, c)=\binom{n}{a, c}-\binom{n}{a+1, c-1} - U_n(a+1, c)
+        \end{equation*}
+        for any $a, c$. Hence:
+        \begin{multline*}
+            U_n(a, c) = \binom{n}{a, c}-\binom{n}{a+1, c-1} - U_n(a+1, c)\\
+            = \binom{n}{a, c}-\binom{n}{a+1, c-1} - \binom{n}{a+1, c} + \binom{n}{a+2, c-1} + U_n(a+2, c)\\
+            = \sum_{i \geqslant a} \Big( \binom{n}{i, c} - \binom{n}{i+1, c-1} \Big) (-1)^{i-a}\\
+            = \sum_{i \geqslant a} \binom{n}{i, c} (-1)^{i-a} - \sum_{i \geqslant a+1} \binom{n}{i, c-1} (-1)^{i-a-1} \\
+            = \binom{n}{c}\binom{n-c-1}{a-1} - \binom{n}{c-1}\binom{n-c}{a},
+        \end{multline*}
+        where the last equality can easily be shown by induction on $a$. The last difference equals
+        \begin{equation*}
+            \frac{n!}{c!a!(n-a-c)!(n-c)(n-c+1)} ((a-c)(n-c) + a),
+        \end{equation*}
+        which is positive for $c \leqslant a \leqslant n-c$.
     
-    $2^{\circ}$ $n>k$. To do induction on $n$, let us recall \ref{d2_u_n1}.
-    $2.1^{\circ}$ If we have: $0 \leqslant a-1, c-1, (n-1)-a-c$ and $c \leqslant a-1$, then $(a-1, n-a-c, c)$, $(a, n-a-c-1, c)$ and $(a, n-a-c, c-1)$ are all lower types in $\{0,1,2\}^{n-1}$ and so by induction each of the three summands is positive, and so is $U_n(a, c)$. Let us now consider case by case the `edge' cases when one of these conditions fail.
+    $2:$ $n>k$. To do induction on $n$, let us recall \ref{d2_u_n1}.
+    \begin{caseindent}
+        $2.1:$ If we have: $0 \leqslant a-1, c-1, (n-1)-a-c$ and $c \leqslant a-1$, then $(a-1, n-a-c, c)$, $(a, n-a-c-1, c)$ and $(a, n-a-c, c-1)$ are all lower types in $\{0,1,2\}^{n-1}$ and so by induction each of the three summands is positive, and so is $U_n(a, c)$. Let us now consider case by case the `edge' cases when one of these conditions fail.
     
-    $2.2^{\circ}$ If $c=0$, then
-    \begin{multline*}
-        U_n(a, 0) = \binom{n}{a} - 0 - U_n(a+1, 0)=\binom{n}{a}-\binom{n}{a+1}+U_n(a+2, 0)\\
-        = \binom{n}{a}-\binom{n}{a+1} + \binom{n}{a+2} - \binom{n}{a+3} + \ldots + \binom{n}{n}(-1)^{n-a}=\binom{n-1}{a-1}.
-    \end{multline*}
-    This is positive unless $a=c=0$ when it equals $0$ (which is the special case allowed in Proposition \ref{the_weights_assigning_proposition}).
+        $2.2:$ If $c=0$, then
+        \begin{multline*}
+            U_n(a, 0) = \binom{n}{a} - 0 - U_n(a+1, 0)=\binom{n}{a}-\binom{n}{a+1}+U_n(a+2, 0)\\
+            = \binom{n}{a}-\binom{n}{a+1} + \binom{n}{a+2} - \binom{n}{a+3} + \ldots + \binom{n}{n}(-1)^{n-a}=\binom{n-1}{a-1}.
+        \end{multline*}
+        This is positive unless $a=c=0$ when it equals $0$ (which is the special case allowed in Proposition \ref{the_weights_assigning_proposition}).
+        
+        $2.3:$ If $a=0$ then (since $0 \leqslant c \leqslant a$) we must also have $c=0$ which we have considered in the previous case.
     
-    $2.3^{\circ}$ If $a=0$ then (since $0 \leqslant c \leqslant a$) we must also have $c=0$ which we have considered in the previous case.
+        $2.4:$ If $(n-1)-a-c < 0$, we must in fact have $a+c=n$. We may assume that $a, c > 0$. But then $\un(a, c) \geqslant \uno(a, c-1)>0$ by induction, which finishes the proof.
     
-    $2.4^{\circ}$ If $(n-1)-a-c < 0$, we must in fact have $a+c=n$. We may assume that $a, c > 0$. But then $\un(a, c) \geqslant \uno(a, c-1)>0$ by induction, which finishes the proof.
-    
-    $2.5^{\circ}$ If $c > a-1$, we must in fact have $c=a$. Let us assume that $a>0$ (as $a=c=0$ has been discussed in the case $2.2^{\circ}$).
-    We have
-    \begin{equation*}
-        \uno(a-1, a)=\binom{n}{a-1, a} - \binom{n}{a, a-1} - \uno(a, a) + \uno(a+k+1, a-k) + \uno(a+k+1, a-k-1).
-    \end{equation*}
-    Hence, by \ref{d2_u_n1},
-    \begin{multline*}
-        \un(a, a) = \uno(a-1, a) + \uno(a, a) + \uno(a, a-1)\\
-        = \uno(a+k+1, a-k) + \uno(a+k+1, a-k-1) + \uno(a, a-1).
-    \end{multline*}
-    Since $(n-1)-a-(a-1)=n-2a=n-a-c \geqslant 0$, $a > 0$, $a>a-1$ and finally $a+k+1>a-k$, we have $\un(a, a) \geqslant \uno(a, a-1)>0$ by induction.
+        $2.5:$ If $c > a-1$, we must in fact have $c=a$. Let us assume that $a>0$ (as $a=c=0$ has been discussed in the case $2.2$).
+        We have
+            \begin{multline*}
+                \uno(a-1, a)=\binom{n}{a-1, a} - \binom{n}{a, a-1}\\ - \uno(a, a) + \uno(a+k+1, a-k) + \uno(a+k+1, a-k-1).
+            \end{multline*}
+            Hence, by \ref{d2_u_n1},
+            \begin{multline*}
+                \un(a, a) = \uno(a-1, a) + \uno(a, a) + \uno(a, a-1)\\
+                = \uno(a+k+1, a-k) + \uno(a+k+1, a-k-1) + \uno(a, a-1).
+            \end{multline*}
+            Since $(n-1)-a-(a-1)=n-2a=n-a-c \geqslant 0$, $a > 0$, $a>a-1$ and finally $a+k+1>a-k$, we have $\un(a, a) \geqslant \uno(a, a-1)>0$ by induction.
+    \end{caseindent}
+\end{caseindent}
 \end{proof}
 
 \subsection{Showing that chains starting at the inner types have positive weights}
@@ -864,64 +895,65 @@ As in the case when $d=1$, to find the weights of the chains starting at the inn
 
 Now we need to show that for any lower inner type $(a, n-a-c, c)$ we have $U_n(a, c) - U_n(c+k, a-k) > 0.$ Again, for a fixed $k$ we will induct on $n$, starting from $n=k$.
 
-$1^{\circ}$ If $n=k$, since for an inner layer $a-n<c\leqslant n$ so we cannot have $a=n$ (as then $0<c$, but we also need $a+c \leqslant n$). Hence, we have $\un(c+n, a-n)=0$ and so $W_n(a, c)=U_n(a, c)>0$.
+$1:$ If $n=k$, since for an inner layer $a-n<c\leqslant n$ so we cannot have $a=n$ (as then $0<c$, but we also need $a+c \leqslant n$). Hence, we have $\un(c+n, a-n)=0$ and so $W_n(a, c)=U_n(a, c)>0$.
 
-$2^{\circ}$ For $n>k$, we have
-\begin{equation*}
-    U_n(a, c)=\uno(a-1, c) + \uno(a, c)+\uno(a, c-1)
-\end{equation*}
-and
-\begin{equation*}
-    \un(c+k, a-k)=\uno(c+k, a-k-1)+\uno(c+k, a-k)+\uno(c+k-1, a-k).
-\end{equation*}
-Let us consider the following conditions:
-\begin{equation*}
-    (a-1)-k < c \leqslant a-1
-\end{equation*}
-\begin{equation*}
-    a-k < c-1 \leqslant a
-\end{equation*}
-(noticing that we always have $a-k-1<c$ and $c-1 \leqslant a$).
+$2:$ For $n>k$, we have
+    \begin{equation*}
+        U_n(a, c)=\uno(a-1, c) + \uno(a, c)+\uno(a, c-1)
+    \end{equation*}
+    and
+    \begin{equation*}
+        \un(c+k, a-k)=\uno(c+k, a-k-1)+\uno(c+k, a-k)+\uno(c+k-1, a-k).
+    \end{equation*}
+    Let us consider the following conditions:
+    \begin{equation*}
+        (a-1)-k < c \leqslant a-1
+    \end{equation*}
+    \begin{equation*}
+        a-k < c-1 \leqslant a
+    \end{equation*}
+    (noticing that we always have $a-k-1<c$ and $c-1 \leqslant a$).
 
-$2.1^{\circ}$ If both of the conditions are satisfied, then $(a-1, c),$ $(a, c)$ and $(a, c-1)$ are all lower inner types in $\{0, 1, 2\}^{n-1}$, and so by induction we have
-\begin{equation*}
-    W_n(a, c)=\wno(a-1, c)+\wno(a, c)+\wno(a, c-1).
-\end{equation*}
-Since at least one of $a, c, n-a-c$ is strictly positive, at least one of the three summands is a lower inner type of the cube with one less dimension, and so by induction is positive.
+    \begin{caseindent}
+    $2.1:$ If both of the conditions are satisfied, then $(a-1, c),$ $(a, c)$ and $(a, c-1)$ are all lower inner types in $\{0, 1, 2\}^{n-1}$, and so by induction we have
+        \begin{equation*}
+            W_n(a, c)=\wno(a-1, c)+\wno(a, c)+\wno(a, c-1).
+        \end{equation*}
+        Since at least one of $a, c, n-a-c$ is strictly positive, at least one of the three summands is a lower inner type of the cube with one less dimension, and so by induction is positive.
+        
+    $2.2:$ If $c > a-1$, then (since $c \leqslant a$) we must have $a=c$. From the recursive definition of $U_n$ we have:
+        \begin{equation*}
+            U_{n-1}(a-1, a)=\binom{n-1}{a-1, a}-\binom{n-1}{a, a-1}-\uno(a, a) + \uno(a+k, a-k-1)+\uno(a+k, a-k).
+        \end{equation*}
+        Hence
+        \begin{multline*}
+            \un(a, a)
+            =\uno(a-1, a)+\uno(a, a)+U_{n-1}(a, a-1)\\
+            =\uno(a+k, a-k-1)+\uno(a+k, a-k) + \uno(a, a-1),
+        \end{multline*}
+        and so
+        \begin{multline*}
+            \wn(a, a)=\un(a, a) - \un(a+k, a-k)\\
+            = \uno(a+k, a-k-1)+\uno(a+k, a-k)+\uno(a, a-1)\\
+            - \uno(a+k-1, a-k) - \uno(a+k, a-k) - \uno(a+k, a-k-1)\\
+            = \uno(a, a-1) - \uno(a+k-1, a-k)=\wno(a, a-1).
+        \end{multline*}
+        From the induction, this is positive unless $c=a=0$ (when it equals $0$).
 
-$2.2^{\circ}$ If $c > a-1$, then (since $c \leqslant a$) we must have $a=c$. From the recursive definition of $U_n$ we have:
-\begin{equation*}
-    U_{n-1}(a-1, a)=\binom{n-1}{a-1, a}-\binom{n-1}{a, a-1}-\uno(a, a) + \uno(a+k, a-k-1)+\uno(a+k, a-k).
-\end{equation*}
-Hence
-\begin{multline*}
-    \un(a, a)
-    =\uno(a-1, a)+\uno(a, a)+U_{n-1}(a, a-1)\\
-    =\uno(a+k, a-k-1)+\uno(a+k, a-k) + \uno(a, a-1),
-\end{multline*}
-and so
-\begin{multline*}
-    \wn(a, a)=\un(a, a) - \un(a-k, a+k)\\
-    = \uno(a+k, a-k-1)+\uno(a+k, a-k)+\uno(a, a-1)\\
-    - \uno(a+k-1, a-k) - \uno(a+k, a-k) - \uno(a+k, a-k-1)\\
-    = \uno(a, a-1) - \uno(a+k-1, a-k)=\wno(a, a-1).
-\end{multline*}
-From the induction, this is positive unless $c=a=0$ (when it equals $0$).
-
-$2.3^{\circ}$ If $a-k \geqslant c-1$, then (since $a-k<c$) we must have $a=c+k-1$. In this case we have
-\begin{equation*}
-    \uno(a, c-1)=\uno(c+k-1, a-k)
-\end{equation*}
-and so
-\begin{multline*}
-    \un(a, c)-\un(c+k, a-k)\\
-    = \uno(a-1, c) + \uno(a, c) + \uno(a, c-1)\\
-    - \uno(c+k-1, a-k) - \uno(c+k, a-k) - \uno(c+k, a-k-1)\\
-    =\uno(a-1, c) - \uno(c+k, (a-1)-k) + \uno(a, c) - \uno(c+k, a-k)\\
-    =\wno(a-1, c)+\wno(a, c).
-\end{multline*}
-From the inductive hypothesis, the only case when these two could both be non-positive is when $a=0$ and $a+c=n$. However, this would imply $c=n>a$, which cannot happen.
-
+    $2.3:$ If $a-k \geqslant c-1$, then (since $a-k<c$) we must have $a=c+k-1$. In this case we have
+        \begin{equation*}
+            \uno(a, c-1)=\uno(c+k-1, a-k)
+        \end{equation*}
+        and so
+        \begin{multline*}
+            \un(a, c)-\un(c+k, a-k)\\
+            = \uno(a-1, c) + \uno(a, c) + \uno(a, c-1)\\
+            - \uno(c+k-1, a-k) - \uno(c+k, a-k) - \uno(c+k, a-k-1)\\
+            =\uno(a-1, c) - \uno(c+k, (a-1)-k) + \uno(a, c) - \uno(c+k, a-k)\\
+            =\wno(a-1, c)+\wno(a, c).
+        \end{multline*}
+        From the inductive hypothesis, the only case when these two could both be non-positive is when $a=0$ and $a+c=n$. However, this would imply $c=n>a$, which cannot happen.
+    \end{caseindent}
 Hence, all the weights assigned to the basic chains in the course of the recursive procedure are positive (except for the weight of $\{\thespecialpoint\}$, which is $0$). As we shown in Lemma \ref{positive_basic_enough_lemma}, this ensures that the assignment of weights satisfies conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of Proposition \ref{the_weights_assigning_proposition}. Since the procedure also ensures that the sum of weights of chains passing through any point on the hypercube is $1$, all the conditions from Proposition \ref{the_weights_assigning_proposition} are satisfied and so, by Lemma \ref{weights_imply_theorem_lemma}, this proves Theorem \ref{the_main_theorem} for $d=2$.
 
 \section{Conclusions and further research}
@@ -929,7 +961,7 @@ Hence, all the weights assigned to the basic chains in the course of the recursi
 
 In this paper, we have shown that the unique largest subset $A \subseteq \{0, 1, 2\}^n$ such that there are no distinct elements $x, y \in A$ with $x \leqslant y$ and $x_i < y_i$ for at most $k$ coordinates $i$ is
 \begin{equation}
-    A = \Big\{ x \in \{0, 1, \ldots, d\}^n : \vert x\vert  \equiv n \ (\modd 2k+1) \Big\}.
+    A = \Big\{ x \in \{0,1, 2\} : \vert x\vert  \equiv n \ (\modd 2k+1) \Big\}.
 \end{equation}
 The main contribution of this paper is the decomposition of the cube $\cube$ into weighted chains of width at most $k$ that are either of maximal length $2k+1$ or symmetric. This is a novel approach compared to those used for other generalisations of Sperner's theorem. 
 
@@ -946,7 +978,7 @@ However, the main drawback to simply generalising the construction with basic ch
 
 A potentially easier intermediate step would be to prove Theorem \ref{the_main_theorem} without the uniqueness, that is simply to construct an assignment of non-negative weights to good chains so that the sum of values of all chains passing through any vertex is $1$.
 
-It is easy to show by induction on $n$ (with the base case $n=k$ and inductive step of size $k$) that Theorem \ref{the_main_theorem} holds asymptotically, i.e. that for any $d, k$ constant and $n \rightarrow \infty$ we have (denoting by $A_{k, d}(n)$ the size of the largest subsets satisfying the conditions of Theorem \ref{the_main_theorem} for the given $k, d, n$):
+It is easy to show by induction on $n$ (with the base cases $k \leqslant n \leqslant n-k+1$ and inductive step of size $k$) that Theorem \ref{the_main_theorem} holds asymptotically, i.e. that for any $d, k$ constant and $n \rightarrow \infty$ we have (denoting by $A_{k, d}(n)$ the size of the largest subsets satisfying the conditions of Theorem \ref{the_main_theorem} for the given $k, d, n$):
 \begin{equation*}
     \frac{A_{k, d}(n)}{(1+d)^n} = \frac{1}{dk+1} + o(1).
 \end{equation*}
@@ -958,7 +990,7 @@ An interesting additional question to ask (for $d=2$) would be what makes the fa
 \end{multline*}
 is not sufficient, and assigning weights to these chains recursively as in Subsection \ref{d2_weights_assignement_subsection} would lead to some negative weights being assigned (which we checked in a Python simulation).
 
-Another interesting line of investigation would be trying different methods for constructing bounded-width (unweighted) chain decomposition of the hypercube, or showing that it does not exist.
+Another interesting line of investigation would be to try different methods for constructing bounded-width (unweighted) chain decompositions of the hypercube, or to show that it does not exist.
 
 \appendix
 
@@ -1018,7 +1050,7 @@ Since $0 \leqslant i \leqslant \frac{n}{2}$, $w(C)$ is positive for any $C \in \
 \end{claim}
 
 \begin{proof}
-    Let $L_i := \{X \subseteq [n]: \vert X\vert =i\}$ be called `layer $i$'. For $0 \leqslant i \leqslant \frac{n}{2}$, the symmetric chains containing an element of $L_i$ are exactly those from $\mathcal{C}_0 \cap \ldots \cap \mathcal{C}_i$. Hence, the sum of weights of chains containing any element of $L_i$ is
+    Let $L_i := \{X \subseteq [n]: \vert X\vert =i\}$ be called `layer $i$'. For $0 \leqslant i \leqslant \frac{n}{2}$, the symmetric chains containing an element of $L_i$ are exactly those from $\mathcal{C}_0 \cup \ldots \cup \mathcal{C}_i$. Hence, the sum of weights of chains containing any element of $L_i$ is
     \begin{equation*}
         \sum_{j=0}^i \vert \mathcal{C}_j\vert  \cdot \frac{1}{\vert \mathcal{C}_j\vert } \cdot \Big( \binom{n}{j}-\binom{n}{j-1} \Big)=\binom{n}{i}.
     \end{equation*}
