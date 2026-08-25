@@ -1,0 +1,189 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=30mm]{geometry}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!55!black]{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\rank}{\rho}
+\newcommand{\layer}[1]{L_{#1}}
+
+\title{A Counterexample for Rectangular Products\\
+\large and a note on the asymmetric-channel literature}
+\author{}
+\date{August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We consider the direct rectangular analogue of the central-residue
+construction for $k$-separated families in products of chains.  We give an
+elementary counterexample for every $k\geq 2$, already when $n=2k+1$, the
+first dimension not covered by the two-block argument for $k\geq n/2$.
+We also record how the problem fits into Kova\v{c}evi\'c's framework for
+asymmetric-error-detecting codes and note that this reference is not currently
+present in the bibliography of the main paper.
+\end{abstract}
+
+\section{The natural rectangular construction}
+
+Let
+\[
+  P(\mathbf b)=\prod_{i=1}^n\{0,1,\ldots,b_i\},
+  \qquad \rank(x)=\sum_{i=1}^n x_i,
+  \qquad T=\sum_{i=1}^n b_i.
+\]
+A family $\mathcal F\subseteq P(\mathbf b)$ is \emph{$k$-separated} if,
+whenever $x<y$ coordinatewise are distinct members of $\mathcal F$, they
+differ in more than $k$ coordinates.
+
+Write $b_{(1)}\geq\cdots\geq b_{(n)}$ for the decreasing rearrangement of
+the bounds, and put
+\[
+  D_k=\sum_{i=1}^k b_{(i)},\qquad M=D_k+1.
+\]
+The direct analogue of the two residue families in the equal-sided cube is
+\[
+  \mathcal A^-=
+  \{x:\rank(x)\equiv\lfloor T/2\rfloor\pmod M\},\qquad
+  \mathcal A^+=
+  \{x:\rank(x)\equiv\lceil T/2\rceil\pmod M\}.
+\]
+Both are $k$-separated.  Indeed, if $x<y$ differ in at most $k$
+coordinates, then
+\[
+  1\leq \rank(y)-\rank(x)\leq D_k<M.
+\]
+Coordinatewise reflection $x_i\mapsto b_i-x_i$ exchanges $\mathcal A^-$
+and $\mathcal A^+$, so they have the same cardinality.
+
+When $k\geq n/2$, one has $D_k\geq T/2$.  Thus $M>T/2$, and these residue
+families reduce to the lower and upper central layers.  This is precisely the
+range in which the two-block symmetric-chain argument extends to rectangular
+products.  The construction below shows that the analogous statement fails
+immediately outside that range.
+
+\section{An infinite family of counterexamples}
+
+For $r\in\mathbb Z$, write
+\[
+  \layer r=\{x\in P(\mathbf b):\rank(x)=r\}.
+\]
+
+\begin{theorem}
+For every $k\geq2$, there is a rectangular product in dimension $2k+1$
+for which a $k$-separated family is strictly larger than both central-residue
+families $\mathcal A^-$ and $\mathcal A^+$.
+\end{theorem}
+
+\begin{proof}
+Take $k+1$ coordinates of bound $k+1$ and $k$ coordinates of bound $k+2$:
+\[
+  P=\{0,\ldots,k+1\}^{k+1}\times
+    \{0,\ldots,k+2\}^{k}.
+\]
+The sum of the $k$ largest bounds and the total rank are
+\[
+  D:=D_k=k(k+2),\qquad
+  T=(k+1)^2+k(k+2)=2D+1.
+\]
+Consequently $M=D+1$, and the lower central-residue family is exactly
+\[
+  \mathcal A^-=\layer D\cup\{\mathbf b\},
+\]
+where $\mathbf b$ is the top vertex of $P$.
+
+For each of the $k$ coordinates of bound $k+2$, let
+$u_j=\mathbf b-e_j$ be the corresponding coatom, and define
+\[
+  \mathcal B=\layer D\cup\{u_1,\ldots,u_k\}.
+\]
+The layer $\layer D$ is an antichain, and the $u_j$ are pairwise
+incomparable.  It remains only to rule out a forbidden comparison between
+the two parts.
+
+Suppose that $x\in\layer D$ satisfies $x\leq u_j$ and differs from $u_j$
+in at most $k$ coordinates.  Since
+$\rank(u_j)=2D$, the total decrease from $u_j$ to $x$ is $D$.  On the other
+hand, the sum of the $k$ largest coordinates of $u_j$ is
+\[
+  (k-1)(k+2)+(k+1)=D-1.
+\]
+No change in at most $k$ coordinates can therefore decrease its rank by
+$D$, a contradiction.  Hence $\mathcal B$ is $k$-separated.  Finally,
+\[
+  |\mathcal B|=|\layer D|+k
+  >|\layer D|+1=|\mathcal A^-|=|\mathcal A^+|.
+\]
+\end{proof}
+
+\begin{remark}[First instance]
+For $k=2$, take bounds $(3,3,3,4,4)$.  Here $D=8$, $M=9$, and $T=17$.
+The coefficient of $z^8$ in
+\[
+  (1+z+z^2+z^3)^3(1+z+z^2+z^3+z^4)^2
+\]
+is
+\[
+  \binom{12}{4}-3\binom84-2\binom74+3\binom44=218.
+\]
+Thus each central-residue family has size $219$, whereas
+\[
+  \layer8\cup\{(3,3,3,3,4),(3,3,3,4,3)\}
+\]
+is $2$-separated and has size $220$.  A maximum-independent-set computation
+also gives optimum $220$, but that upper bound is not needed for the
+counterexample.
+\end{remark}
+
+\begin{remark}[Uniqueness]
+Even in the range $k\geq n/2$, the rectangular cardinality result does not
+generally have the uniqueness conclusion of the equal-sided theorem.  For
+$n=k=2$ and bounds $(1,2)$, the two central layers and
+\[
+  \{(1,0),(0,2)\}
+\]
+are three distinct maximum antichains of size $2$.
+\end{remark}
+
+\section{Relation with asymmetric-error-detecting codes}
+
+Kova\v{c}evi\'c~\cite{kovacevic} studies codes in
+$\{0,\ldots,q-1\}^n$ that detect coordinatewise-increasing errors subject
+to three possible bounds: per-coordinate amplitude $a$, Hamming support
+$h$, and total increase $t$.  The equal-sided problem in the main paper is
+the finite, non-cyclic specialization
+\[
+  q=d+1,\qquad a=d,\qquad h=k,\qquad t=dk.
+\]
+Here the amplitude and total-increase bounds are redundant, so only the
+support bound remains.  Thus Kova\v{c}evi\'c's \emph{model} contains the
+problem, but his finite-alphabet optimality theorems do not contain the main
+paper's result for $k>1$.  They establish the modular construction on the
+infinite lattice and in several different finite parameter regimes, while
+the unrestricted finite problem is left open.  The weighted-chain theorem
+for $d=1,2$ therefore supplies an exact finite-boundary result not furnished
+by that paper.
+
+At the time of writing this note, Kova\v{c}evi\'c~\cite{kovacevic} is not
+cited in the bibliography of the main paper.  It would be natural to add it
+to the coding-theory discussion, while making clear that it provides the
+ambient framework rather than the theorem proved here.
+
+\begin{thebibliography}{1}
+\bibitem{kovacevic}
+M.~Kova\v{c}evi\'c,
+\newblock On error detection in asymmetric channels,
+\newblock \emph{IEEE Communications Letters} 21 (2017), no.~9, 1933--1936.
+\newblock \url{https://arxiv.org/abs/1706.04540}.
+\end{thebibliography}
+
+\end{document}
