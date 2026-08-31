@@ -200,7 +200,9 @@ Error detection in asymmetric channels was studied by Ahlswede and Aydinian in \
 
 For larger alphabets they generalised this problem in a different direction: they studied asymmetric channels where all numbers from the alphabet $\{0, 1, \dots, d\}$ are transmitted as their binary expansions and the only errors that can occur are transmitting bit $1$ instead of bit $0$, so $x$ can be swapped for $y$ if and only if on all positions in the binary expansions where they differ $y$ has a $1$ and $x$ has a $0$. We note that this is a stronger condition than $x < y$. In \cite[Proposition 6]{asymmetric_channels} they observe that the set $A_1$ (as defined in Theorem \ref{the_main_theorem}) is error-detecting for codes of length $n$ where at most $k$ errors can occur, and note that larger such sets exist.
 
-Another paper that studied problems related to Sperner's theorem and somewhat reminiscent of its generalisation explored here from the perspective of coding theory is the paper of Gunby, He, Narayanan and Spiro \cite{more_coding_theory}. There they look for the largest antichain $A$ in $\{0, 1\}^n$ satisfying a further condition than any $x, y \in A$ have Hamming distance at least $k$ (i.e., differ on at least $k$ indices) and show that $\vert A\vert=O_k(2^nn^{-k/2})$ for odd $k$.
+Gunby, He, Narayanan and Spiro in \cite{more_coding_theory} studied from the perspective of coding theory problems related to Sperner's theorem and reminiscent of its generalisation explored here. They looked for the largest antichain $A$ in $\{0, 1\}^n$ satisfying a further condition than any $x, y \in A$ have Hamming distance at least $k$ (i.e., differ on at least $k$ indices) and show that $\vert A\vert=O_k(2^nn^{-k/2})$ for odd $k$.
+
+Finally, in \cite{on_error_detection_in_asymmetric_channels}, Kovačević introduces a general coding-theory framework, where one is given an asymmetric channel over the alphabet $\{1, \dots, q\}$ and wishes to find (asymptotically) largest error-detecting code, where the errors can appear on at most $h$ coordinates, be of magnitude at most $a$ each and have the sum of magnitudes at most $t$. This phrasing is a generalisation of the problem discussed in this paper.
 
 \section{Preliminaries}
 \label{section_strategy}
@@ -668,7 +670,11 @@ However, the following chain is not basic:
 \end{equation*}
 as it first changes on coordinate $5$, then on coordinate $1$ (twice) and then again on coordinate $5$.
 
+We note that for $d=1$ all saturated chains are basic.
+
 Basic chains that are also good are those basic chains that are either of width $k$ (and so starting at an outer layer $a$) or of width $w<k$ and `between' layers $L_{n-w}$ and $L_{n+w}$.
+
+In what follows, we will show that (for $d=2$) it is possible to assign weights to basic good chains so as to satisfy the conditions of Proposition \ref{the_weights_assigning_proposition}.
 
 \begin{remark}
     At first sight it is by no means obvious that taking only basic good chains should be enough. We noticed this after making simulations in Python. We also tried some other subsets of chains, which turned out to require negative weights.
