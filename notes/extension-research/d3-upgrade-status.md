@@ -106,3 +106,20 @@ The decisive outcomes were:
 These tests do not prove the unrestricted conjecture, but they narrow viable
 routes to a genuinely new global inequality or a substantially more flexible
 weighted-chain construction.
+
+## Enlarging the chain set (new experiment)
+
+The paper's `good` chains impose an artificial endpoint restriction: they must
+be symmetric or have the full `3k+1` vertices.  I enumerated *all* saturated
+chains whose endpoints differ in at most `k` coordinates, allowing every span
+from 0 through `3k`.  The resulting type-orbit incidence LP is feasible with
+total weight equal to the conjectured residue size in every tested case:
+
+\[
+(n,k)=(5,2),(6,2),(7,2),(8,2),(9,2),(7,3),
+\]
+
+giving totals `161,622,2415,9548,37825,2136`, respectively.  Thus the
+endpoint obstruction for the original good-chain family is not fundamental;
+shorter nonsymmetric chains repair it.  The remaining problem is to identify
+and prove a positive recursive formula for these much larger chain weights.
