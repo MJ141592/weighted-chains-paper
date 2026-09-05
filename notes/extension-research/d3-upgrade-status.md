@@ -135,3 +135,8 @@ For `k=2`, an integer type-orbit chain-partition LP also succeeds at
 type-orbits respectively).  This suggests that the desired construction may
 be genuinely combinatorial rather than merely fractional; extracting its
 recurrence is the current target.
+
+The same enlarged-chain LP works beyond `d=3`: exact numerical solutions hit
+the residue bound for `(d,n,k)=(4,5,2),(4,7,2),(5,5,2)`, with objectives
+`391,9045,800` and positive supports.  This indicates that the endpoint
+relaxation is not peculiar to the ternary case.
