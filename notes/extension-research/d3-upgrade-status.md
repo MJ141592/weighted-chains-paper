@@ -123,3 +123,9 @@ giving totals `161,622,2415,9548,37825,2136`, respectively.  Thus the
 endpoint obstruction for the original good-chain family is not fundamental;
 shorter nonsymmetric chains repair it.  The remaining problem is to identify
 and prove a positive recursive formula for these much larger chain weights.
+
+Further enumeration confirms the same phenomenon at `(n,k)=(9,3)`: 49,762
+chain orbits give an exact LP decomposition of total weight 30,927, matching
+the residue construction.  This is currently the strongest computational lead
+toward a (d=3) proof, but no general positivity or min-max theorem for this
+enlarged chain family has yet been found.
