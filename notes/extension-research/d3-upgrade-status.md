@@ -140,3 +140,33 @@ The same enlarged-chain LP works beyond `d=3`: exact numerical solutions hit
 the residue bound for `(d,n,k)=(4,5,2),(4,7,2),(5,5,2)`, with objectives
 `391,9045,800` and positive supports.  This indicates that the endpoint
 relaxation is not peculiar to the ternary case.
+
+## Full-span fractional covers (stronger computational lead)
+
+There is an important distinction between an exact decomposition
+`A x = b` and the cover inequalities `A x >= b` needed for the cardinality
+bound.  The latter are the relevant LP.  Re-running the orbit LP with only
+full-span chains (exactly `dk+1` vertices, hence width exactly `k`) gives the
+residue value in every tested case, including
+
+* `d=3`: `k=2`, `n=5,...,11`, and `k=3`, `n=7,9,10`;
+* `d=4`: `k=2`, `n=3,...,7,9`;
+* `d=5`: `k=2`, `n=4,5`.
+
+Thus the shorter nonsymmetric chains are useful for finding integral
+partitions, but are not required for the fractional cardinality inequality
+in the tested range.  Every full-span chain meets the residue family in
+exactly one point, so the LP lower bound is automatic; the unresolved part is
+an explicit fractional cover attaining that lower bound.
+
+For `d=3,k=2`, a particularly small ansatz is already exact numerically:
+only the two interleaving words `000111` and `010101`, together with
+coordinate permutations and type-dependent starting weights, suffice for all
+tested `n=5,...,11`.  Finding a closed positive recurrence for those weights
+would give a plausible elegant proof of the first genuinely open infinite
+subcase.  No such recurrence has yet been derived.
+
+This should not be confused with a generic min--max theorem: the analogous
+Saks--West semiantichain/unichain-covering conjecture for arbitrary product
+posets is false (Bosek--Felsner--Knauer--Matecki, 2014).  Any proof here must
+use the strong symmetry of equal chains in the cube.
