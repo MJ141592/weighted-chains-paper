@@ -129,3 +129,9 @@ chain orbits give an exact LP decomposition of total weight 30,927, matching
 the residue construction.  This is currently the strongest computational lead
 toward a (d=3) proof, but no general positivity or min-max theorem for this
 enlarged chain family has yet been found.
+
+For `k=2`, an integer type-orbit chain-partition LP also succeeds at
+`n=5,6,7`, with exactly `161,622,2415` chains (48, 107, and 144 positive
+type-orbits respectively).  This suggests that the desired construction may
+be genuinely combinatorial rather than merely fractional; extracting its
+recurrence is the current target.
