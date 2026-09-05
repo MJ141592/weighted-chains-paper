@@ -64,5 +64,6 @@ be the unique `r in {0,...,6}` satisfying `q+r ≡ 7 (mod 7)`, since the global
 rank-level union is 2-separated and has cardinality 161.  Therefore the
 selected global ranks are exactly `0,7,14`; `B` is the conjectured family.
 
-The certificate is independently checked by `.context/equal_d_theory/venv/bin/python`
-using exact `Fraction` arithmetic (no floating point).
+The certificate is independently checked by
+`.context/d3_certificate_n5_verify.py`, using exact `Fraction` arithmetic
+(no floating point).
