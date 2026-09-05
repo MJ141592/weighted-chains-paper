@@ -170,3 +170,20 @@ This should not be confused with a generic min--max theorem: the analogous
 Saks--West semiantichain/unichain-covering conjecture for arbitrary product
 posets is false (Bosek--Felsner--Knauer--Matecki, 2014).  Any proof here must
 use the strong symmetry of equal chains in the cube.
+
+### Why this is less natural for `d=1`
+
+In the Boolean case the paper's original bookkeeping is triangular.  With
+`C(n,a)=binom(n,a)` and zero extension outside the valid range, the outer
+starting totals satisfy
+
+`U_n(a) = C(n,a)-C(n,a-1) + U_n(a-k-1)`,
+
+and the inner totals are obtained by one reflected subtraction.  This is an
+exact scalar recurrence, equivalent to the usual saturated/symmetric chain
+partition.  If one enlarges the chain family to every span `s <= k`, the
+incidence system acquires many extra variables for each start rank and loses
+the triangularity (and hence any canonical recurrence); the old construction
+is recovered simply by assigning weight zero to the extra chains.  For
+`d>=2`, multiple path geometries already occur within one type, so this loss
+of triangularity is intrinsic rather than an artefact of the enlargement.
