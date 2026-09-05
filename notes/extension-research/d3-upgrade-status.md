@@ -83,3 +83,26 @@ a global rank level, so an extremal family is a union of global rank levels.
 The separation condition and the cardinality force precisely ranks
 `0,7,14` (or, after reflection, the complementary central residue).  Thus
 the conjecture, including uniqueness, is proved for this first-open case.
+
+## Broader method audit
+
+We ran a 21-method audit covering variants of the paper's chain/weight
+strategy, compression, entropy, LP, spectral, and coding-theoretic approaches.
+The decisive outcomes were:
+
+* Coordinate and rank shifts are not preservation operations (already
+  `A={(1,0,0),(0,1,1)}` in `[0,3]^3`, `k=2`, is sent to a forbidden pair).
+* Slice induction loses one unit of separation between slices; the resulting
+  recurrence is too weak even at `(n,k)=(5,2)`.
+* Product-chain, cyclic-chain, anti-basic-chain, and signed-weight variants
+  either miss explicit vertices or have infeasible/non-positive weight LPs.
+* Hoffman, Delsarte, theta, Fourier/Krawtchouk, and association-scheme bounds
+  are unavailable or too weak: the graph is irregular and non-perfect, and
+  the exact fibre LP has value `306/25` at `(3,3,2)`.
+* Entropy/Shearer gives only `|B|≤4^(n-1)`, far above the target.
+* Symmetry-reduced exact MWIS searches excluding both residue families give
+  `37824<37825` at `(n,k)=(9,2)`, with analogous strict gaps at `n=10,11`.
+
+These tests do not prove the unrestricted conjecture, but they narrow viable
+routes to a genuinely new global inequality or a substantially more flexible
+weighted-chain construction.
