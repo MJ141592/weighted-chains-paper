@@ -51,7 +51,7 @@ Using twice the distance avoids fractions when `n * d` is odd.
 def middleDistance {n d : ℕ} (x : Cube n d) : ℕ :=
   (2 * rank x).dist (n * d)
 
-/-- A family is `k`-separated when distinct comparable members differ in more
+/-- A family is `k`-separated when distinct comparable members differ in strictly more
 than `k` coordinates. The distinctness condition is implicit in the paper and
 is necessary for the definition to generalise antichains. -/
 def KSeparated {n d : ℕ} (A : Set (Cube n d)) (k : ℕ) : Prop :=
