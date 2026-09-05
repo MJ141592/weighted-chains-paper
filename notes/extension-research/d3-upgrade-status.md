@@ -9,9 +9,9 @@ outside that range is open.
 The formal development now contains `WeightedChains/DThree.lean`.  It
 specializes the Appendix-B theorem to (d=3), proving the cardinality bound
 and maximality of both residue families whenever (nle 2k).  The first open
-parameter pairs are (n=2k+1).
+parameter pairs are (n=2k+1), beginning with `(n,k)=(5,2)`.
 
-For the smallest open pair ((n,k)=(3,2)), an explicit partition of
+For the small in-range pair `((n,k)=(3,2))`, an explicit partition of
 `{0,1,2,3}^3` into twelve good chains gives the cardinality bound (12).
 An exhaustive finite check of all transversals of that partition leaves only
 the rank-4 and rank-5 residue families.  The checked chain list is in
@@ -64,3 +64,22 @@ the induced 5-cycle
 where consecutive pairs are comparable and differ in at most two coordinates,
 while all nonconsecutive pairs are nonadjacent. Thus an ordinary
 perfect-graph or clique-cover reduction cannot supply the missing theorem.
+
+## A complete first-open case: `(d,n,k)=(3,5,2)`
+
+The first genuinely open case can now be settled exactly.  A type-symmetric
+fibre-LYM certificate assigns strictly positive rational weights to all 20
+outside types (the full list and the exact Fraction verifier are in
+`.context/d3_certificate_n5.md`).  Its weighted coverage is at least one on
+all 56 global types, and its total weight is exactly 161, the size of the
+residue family with ranks `0,7,14`.  Hence every 2-separated family has size
+at most 161.
+
+Positivity gives the equality case: a family of size 161 must attain equality
+in every pair-fibre LYM inequality.  Exhaustive exact enumeration of
+antichains in `[0,3]^2` shows that equality means a complete local rank level.
+Pair transfers preserving the two-coordinate sum then connect every point in
+a global rank level, so an extremal family is a union of global rank levels.
+The separation condition and the cardinality force precisely ranks
+`0,7,14` (or, after reflection, the complementary central residue).  Thus
+the conjecture, including uniqueness, is proved for this first-open case.
