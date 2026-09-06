@@ -112,7 +112,7 @@
 \begin{document}
 
 \begin{abstract}
-    We discuss a generalisation of Sperner's theorem in the following form: for any $k, n$ and $d \leqslant 2$ we find the unique largest subset $A$ of $\thehypercube$ such that for any $x, y \in A$, if $x \leqslant y$ coordinatewise, then $x$ and $y$ differ on more than $k$ coordinates.
+    We discuss a generalisation of Sperner's theorem in the following form: for any $1 < k \leqslant n$ and $d \leqslant 2$ we find the unique largest subset $A$ of $\thehypercube$ such that for any $x, y \in A$, if $x \leqslant y$ coordinatewise, then $x$ and $y$ differ on more than $k$ coordinates.
 
     To do so, we introduce a decomposition of $\thehypercube$ into weighted chains, which (among other desirable properties) is invariant under coordinate permutation.
 
@@ -158,7 +158,7 @@ In this paper, we prove the following (and conjecture that it holds for any $d \
 \label{the_main_theorem}
 For any $n$, $1 < k \leqslant n,$ and $d \in \{1, 2\}$, the unique largest $k$-separated subsets of the hypercube are:
 \begin{equation}
-    A_1 := \big\{x \in \thehypercube: \vert x\vert  \equiv \fclass \ (\modd \ dk+1) \big\}\\
+    A_1 := \big\{x \in \thehypercube: \vert x\vert  \equiv \fclass \ (\modd \ dk+1) \big\}
 \end{equation}
 and
 \begin{equation}
@@ -187,7 +187,7 @@ If $2 \mid nd$, we have $A_1=A_2$ and so there is only one largest such subset.
 \end{remark}
 % blueprint-end: wc:lem:residue-families-separated
 
-The case $d=1$ (in a different, but equivalent formulation) easily follows from Katona's \cite{katona} and from Grigg's \cite{griggs}. However, we present our (novel and arrived at independently) proof in this case, as we hope that it is of independent interest and as it generalises very naturally to the $d=2$ case.
+The case $d=1$ (in a different, but equivalent formulation) easily follows from Katona's \cite{katona} and from Griggs's \cite{griggs}. However, we present our (novel and arrived at independently) proof in this case, as we hope that it is of independent interest and as it generalises very naturally to the $d=2$ case.
 
 The case $d=1, k=n$ is simply Sperner's theorem. Our proof simplifies in this special case, and we present it in Appendix \ref{appendix_sperner}, which may be read independently from the rest of the paper.
 
@@ -223,7 +223,7 @@ Error detection in asymmetric channels was studied by Ahlswede and Aydinian in \
 
 For larger alphabets they generalised this problem in a different direction: they studied asymmetric channels where all numbers from the alphabet $\{0, 1, \dots, d\}$ are transmitted as their binary expansions and the only errors that can occur are transmitting bit $1$ instead of bit $0$, so $x$ can be swapped for $y$ if and only if on all positions in the binary expansions where they differ $y$ has a $1$ and $x$ has a $0$. We note that this is a stronger condition than $x < y$. In \cite[Proposition 6]{asymmetric_channels} they observe that the set $A_1$ (as defined in Theorem \ref{the_main_theorem}) is error-detecting for codes of length $n$ where at most $k$ errors can occur, and note that larger such sets exist.
 
-Gunby, He, Narayanan and Spiro in \cite{more_coding_theory} studied from the perspective of coding theory problems related to Sperner's theorem and reminiscent of its generalisation explored here. They looked for the largest antichain $A$ in $\{0, 1\}^n$ satisfying a further condition than any $x, y \in A$ have Hamming distance at least $k$ (i.e., differ on at least $k$ indices) and show that $\vert A\vert=O_k(2^nn^{-k/2})$ for odd $k$.
+Gunby, He, Narayanan and Spiro in \cite{more_coding_theory} studied from the perspective of coding theory problems related to Sperner's theorem and reminiscent of its generalisation explored here. They looked for the largest antichain $A$ in $\{0, 1\}^n$ satisfying a further condition that any $x, y \in A$ have Hamming distance at least $k$ (i.e., differ on at least $k$ indices) and show that $\vert A\vert=O_k(2^nn^{-k/2})$ for odd $k$.
 
 Finally, in \cite{on_error_detection_in_asymmetric_channels}, Kovačević introduces a general coding-theory framework, where one is given an asymmetric channel over the alphabet $\{1, \dots, q\}$ and wishes to find (asymptotically) largest error-detecting code, where the errors can appear on at most $h$ coordinates, be of magnitude at most $a$ each and have the sum of magnitudes at most $t$. This phrasing is a generalisation of the problem discussed in this paper.
 
@@ -257,7 +257,7 @@ We will call the elements of $\thehypercube$ \emph{points} and \emph{vertices} (
 
 If in a chain $x_1 \leqslant x_2 \leqslant \ldots \leqslant x_l$ the first and last elements have equal coordinate $i$ ($x_{1,i}=x_{l,i}$), then all the elements of the chain have the same coordinate $i$ ($x_{1, i} = x_{2, i} = \ldots = x_{l, i}$).
 
-Hence, the width of a chain is the number of coordinates which ever change in the chain (assume more than one value among the elements of the chain).
+Hence, the width of a chain is the number of coordinates which ever change in the chain (i.e. take more than one value among the elements of the chain).
 
 For $d=1$, a saturated chain's width is $l$ if and only if its length is $l+1$.
 
@@ -353,7 +353,7 @@ We note that when $k=n$, the only outer layers are $L_0=\{(0, \ldots, 0)\}$ and 
 
 \begin{definition}[Type]
 \label{wc:def:type}
-    For $x \in \thehypercube$, we say that $x$ is of type $(t_0 \ldots, t_d)$ if for any $0 \leqslant i \leqslant d$ exactly $t_i$ of $x\text{'s}$ coordinates equal $i$.
+    For $x \in \thehypercube$, we say that $x$ is of type $(t_0, \ldots, t_d)$ if for any $0 \leqslant i \leqslant d$ exactly $t_i$ of $x\text{'s}$ coordinates equal $i$.
 
     We will also often treat a type tuple $(t_0, \ldots, t_d)$ (for $t_0+\ldots+t_d=n$) as the set of vertices of the hypercube of such type.
 
@@ -398,7 +398,7 @@ We recall sets $A_1, A_2$ defined in Theorem \ref{the_main_theorem} (where $A_1=
         
         \item \label{positive_non_A_condition} For each $i \in \{1, 2\}$ and any $x \notin A_i$ there exists $y_i \in A_i \setminus \{\thespecialpoint\}$, $y_i$ closer to the middle of the cube than $x$ and a good chain of positive weight passing through $x$ and $y_i$. 
         
-        \item \label{positive_A_condition} For any $x \in (A_1 \cup A_2) \setminus \thespecialpoint$ there exists a good chain of positive weight starting at $x$.
+        \item \label{positive_A_condition} For any $x \in (A_1 \cup A_2) \setminus \{\thespecialpoint\}$ there exists a good chain of positive weight starting at $x$.
     \end{enumerate}
     In the penultimate condition, $y_i$ is closer to the middle of the cube than $x$ if and only if $\vert |y_i| - \frac{nd}{2} \vert < \vert |x| - \frac{nd}{2} \vert$.
     
@@ -447,7 +447,7 @@ Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
     \end{equation}
     Hence, we must have $\vert B\vert  \leqslant \vert A_1\vert =\vert A_2\vert $.
 
-    Now let us show that there are no other chains $A'$ satisfying the conditions of Theorem \ref{the_main_theorem} with $\vert A'\vert =\vert A_1\vert =\vert A_2\vert $. The main idea of the proof is quite simple, but the special treatment of $\thespecialpoint$ requires some extra attention to details.
+    Now let us show that there are no other sets $A'$ satisfying the conditions of Theorem \ref{the_main_theorem} with $\vert A'\vert =\vert A_1\vert =\vert A_2\vert $. The main idea of the proof is quite simple, but the special treatment of $\thespecialpoint$ requires some extra attention to details.
 
     For any $C \in \mathcal{C}$ with positive weight, such $A'$ must contain at least one (and so exactly one) element of $C$, as otherwise we could bound its size as in Equation \ref{chain_weights_bound_the_size}, with a strict inequality at the end.
 
@@ -458,7 +458,7 @@ Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 
     $2: \ 2 \nmid nd.$ For any $x, y$ with $\vert x\vert =\fclass$, $\vert y\vert =\cclass$ and $x \leqslant y$ the chain $\{x, y\}$ has positive weight, so exactly one of $x$ and $y$ is in $A'$.
     
-    We may draw this condition on a bipartite graph, whose vertices are points from the layers $L_{\fclass}$ and $L_{\cclass}$ and where two vertices $x \in L_{\fclass},$ $y \in L_{\cclass}$ are connected by an edge if and only $x \leqslant y$. Since this bipartite graph is easily seen to be connected, the only subsets of vertices of this graph which contain exactly one vertex from each edge are $L_{\fclass}$ and $L_{\cclass}$.
+    We may draw this condition on a bipartite graph, whose vertices are points from the layers $L_{\fclass}$ and $L_{\cclass}$ and where two vertices $x \in L_{\fclass},$ $y \in L_{\cclass}$ are connected by an edge if and only if $x \leqslant y$. Since this bipartite graph is easily seen to be connected, the only subsets of vertices of this graph which contain exactly one vertex from each edge are $L_{\fclass}$ and $L_{\cclass}$.
 
     Hence, we need either $L_{\fclass} \subseteq A'$ or $L_{\cclass} \subseteq A'$. Without loss of generality, let us assume that the former is the case (and then $L_{\cclass} \cap A'=\emptyset$).
     \end{caseindent}
@@ -474,7 +474,7 @@ Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 
         $2:$ Now, let us consider $i$ s.t. $L_{\fclass - i} \subseteq A_1$, $L_{\cclass + i} \not\subseteq A_1$ (the case when $L_{\fclass - i} \not\subseteq A_1$ and $L_{\cclass + i} \subseteq A_1$ can be considered analogously). Then for any $x \in L_{\fclass - i}$, there exists a chain of positive weight starting at $x$. But this chain can only pass through elements not belonging to $A_1$ that are closer to the middle of the hypercube than $x$ (so are in $B_{i-1}$), and so by induction not belonging to $A'$. Hence, we must have $x \in A'$. Moreover, just as in case $1$ for any $x \in L_{\cclass + i}$ we have $x \not\in A'$. 
 
-        $3:$ Finally, let us suppose that $L_{\fclass - i} \subseteq A_1$ and $L_{\cclass} + i \subseteq A_1$. Since also $L_{\fclass} \subseteq A_1$, from the definition of $A_1$ it follows that $dk+1 \mid i$ and $2 \mid nd$ (i.e., $\fclass=\cclass$). However, then the distance between $L_{\fclass - i}$ and $L_{\cclass + i}$ is at least $2(dk+1)$ and so there is no good chain passing through elements from both these layers. A reasoning analogous to the in case $2$ leads us to a conclusion that $L_{\fclass - i}, L_{\cclass + i} \subseteq A'$ and so again $B_i \cap A'=B_i \cap A_1$.
+        $3:$ Finally, let us suppose that $L_{\fclass - i} \subseteq A_1$ and $L_{\cclass} + i \subseteq A_1$. Since also $L_{\fclass} \subseteq A_1$, from the definition of $A_1$ it follows that $dk+1 \mid i$ and $2 \mid nd$ (i.e., $\fclass=\cclass$). However, then the distance between $L_{\fclass - i}$ and $L_{\cclass + i}$ is at least $2(dk+1)$ and so there is no good chain passing through elements from both these layers. A reasoning analogous to that in case $2$ leads us to a conclusion that $L_{\fclass - i}, L_{\cclass + i} \subseteq A'$ and so again $B_i \cap A'=B_i \cap A_1$.
         \end{caseindent}
 \end{proof}
 
@@ -580,7 +580,7 @@ From the symmetry, for $a$ an upper outer layer we have $W_n(a)=W_n(n-a)=U_n(n-a
 
 \begin{lemma}
 \label{wc:lem:boolean-inner-weight}
-     For $a$ a lower inner level, we have
+     For $a$ a lower inner layer, we have
     \begin{equation}
         W_n(a)=U_n(a) - U_n(n-a-k).
     \end{equation}
@@ -733,7 +733,7 @@ It turns out that for $d=2$ it is possible to assign positive weights only to ba
 \begin{lemma}
 \label{wc:lem:basic-chains-suffice}
 \label{positive_basic_enough_lemma}
-    As in Theorem \ref{the_main_theorem}, let $A_1$ denote the points in $x \in \{0, 1, 2\}^n$ with $|x| \equiv n \ (\modd 2k+1)$.
+    As in Theorem \ref{the_main_theorem}, let $A_1$ denote the points $x \in \{0, 1, 2\}^n$ with $|x| \equiv n \ (\modd 2k+1)$.
 
     The singleton chains $\{x\}$ for $x \in L_{n}$ are basic.
 
@@ -746,7 +746,7 @@ It turns out that for $d=2$ it is possible to assign positive weights only to ba
 \begin{proof}
     The first part follows directly from the definition of basic chains.
 
-    Since any good chain passes through an element of $A_1$, and the symmetric chains pass through the middle layer of the cube, to prove the second and third parts it suffices to show that any vertex $x \neq \thespecialpoint$ has a chain starting at it which does not pass through $\thespecialpoint$. We will show that this holds for all vertices $x \in A_1$ and for most vertices $x \notin A_1$, and for those vertices for which it fails we will point out to other chains passing through it which satisfy the required condition.
+    Since any good chain passes through an element of $A_1$, and the symmetric chains pass through the middle layer of the cube, to prove the second and third parts it suffices to show that any vertex $x \neq \thespecialpoint$ has a chain starting at it which does not pass through $\thespecialpoint$. We will show that this holds for all vertices $x \in A_1$ and for most vertices $x \notin A_1$, and for those vertices for which it fails we will point to other chains passing through it which satisfy the required condition.
 
     From the symmetry, it suffices to show this for lower vertices.
 
@@ -754,7 +754,7 @@ It turns out that for $d=2$ it is possible to assign positive weights only to ba
 
     For $x$ inner of type $(a, b, c)$, $b+2c=l$, there are symmetric chains of width $n-l$ and length $2n-2l+1$ starting at $x$. If $c>0$, all the vertices they pass through have at least one coordinate equal to $2$, and so they do not pass through $\thespecialpoint$.
     
-    Hence, the only types that require careful checking is $(a, n-a, 0)$ for $a\leqslant k$. If $a=0$, the type is $(0, n, 0)$ which contains only $\thespecialpoint$.
+    Hence, the only types that require careful checking are $(a, n-a, 0)$ for $a\leqslant k$. If $a=0$, the type is $(0, n, 0)$ which contains only $\thespecialpoint$.
     
     If $a>1$, $2 \mid a$, the basic good chains starting at vertices of this type pass through a vertex of type $(\frac{a}{2}, n-a, \frac{a}{2})$, which is in $A_1$. If $a>1$, $2 \nmid a$, such chains pass through a vertex of type $(\frac{a-1}{2}, n-a+1, \frac{a-1}{2})$, which is in $A_1$.
 
@@ -956,7 +956,7 @@ Putting these together, we have:
 \label{d2_w_recursive}
     W_n(a, c)=\wno(a-1, c)+\wno(a, c)+\wno(a, c-1).
 \end{equation}
-Hence, if only $(a-1, n-a-c, c)$, $(a, n-1-a-c, c)$ and $(a, n-a-c, c-1)$ are proper lower inner types, then clearly $\un(a, c)-\un(c+k, a-k)>0$. We will induct on $n$ (with $n=k$ the base case). For any $n>k$, we will need to carefully consider the cases when $(a, n-a-c, c)$ is a proper lower inner type (i.e. $0 \leqslant a, c \leqslant n$, $0<a+c\leqslant n$ and $a-k<c\leqslant a$) but one of $(a-1, n-a-c, c)$, $(a, n-1-a-c, c)$ and $(a, n-a-c, c-1)$ is not a proper lower inner type. This may happen if one of the following conditions is broken:
+Hence, if $(a-1, n-a-c, c)$, $(a, n-1-a-c, c)$ and $(a, n-a-c, c-1)$ are all proper lower inner types, then clearly $\un(a, c)-\un(c+k, a-k)>0$. We will induct on $n$ (with $n=k$ the base case). For any $n>k$, we will need to carefully consider the cases when $(a, n-a-c, c)$ is a proper lower inner type (i.e. $0 \leqslant a, c \leqslant n$, $0<a+c\leqslant n$ and $a-k<c\leqslant a$) but one of $(a-1, n-a-c, c)$, $(a, n-1-a-c, c)$ and $(a, n-a-c, c-1)$ is not a proper lower inner type. This may happen if one of the following conditions is broken:
 \begin{enumerate}
     \item $(a-1)-k < c \leqslant a-1$. Otherwise, $(a-1, n-a-c, c)$ is an outer type.
     \item $a-k < c-1 \leqslant a$. Otherwise, $(a, n-a-c, c-1)$ is an outer type.
@@ -979,7 +979,7 @@ We notice that for a proper lower inner type and $n>k$, we always have the follo
 
     $2:$ Let us now suppose that $n>k$.
         \begin{caseindent}
-        $2.1:$ If all of the conditions $(1)-(4)$ are satisfied, then $(a-1, n-a-c, c),$ $(a, n-1-a-c, c)$ and $(a, n-a-c, c-1)$ are all lower inner types in $\{0, 1, 2\}^{n-1}$ (or empty, if one of $a$, $c$ or $n-a-c$ is $0$). Let us recall Equation \ref{d2_w_recursive} and the fact that at least one of $a, c, n-a-c$ is strictly positive. Hence, at least one of the three types $(a-1, n-a-c, c),$ $(a, n-1-a-c, c)$ and $(a, n-a-c, c-1)$ is a lower inner type in $\{0, 1, 2\}^{n-1}$, and so by induction its $\wno$ is positive, and so so is $\wn(a, c)$.
+        $2.1:$ If all of the conditions $(1)-(4)$ are satisfied, then $(a-1, n-a-c, c),$ $(a, n-1-a-c, c)$ and $(a, n-a-c, c-1)$ are all lower inner types in $\{0, 1, 2\}^{n-1}$ (or empty, if one of $a$, $c$ or $n-a-c$ is $0$). Let us recall Equation \ref{d2_w_recursive} and the fact that at least one of $a, c, n-a-c$ is strictly positive. Hence, at least one of the three types $(a-1, n-a-c, c),$ $(a, n-1-a-c, c)$ and $(a, n-a-c, c-1)$ is a lower inner type in $\{0, 1, 2\}^{n-1}$, and so by induction its $\wno$ is positive, and so is $\wn(a, c)$.
         
         $2.2:$ If $c > a-1$ (i.e. condition $(1)$ is broken), then (since $c \leqslant a$) we must have $a=c$. From the recursive definition of $U_n$ we have:
             \begin{equation*}
@@ -1018,13 +1018,13 @@ We notice that for a proper lower inner type and $n>k$, we always have the follo
             \begin{equation*}
                 \wn(1, 0) = \wno(0, 0) + \wno(1, 0) + \wno(1, -1).
             \end{equation*}
-            We have $\wno(0,0)=0$ (as this is the improper type $(0, n-1,0)$ and $\wno(1, -1)=0$ (as this is an empty type). However, for $k \geqslant 2$ the type $(1, n-2, 0)$ is a proper lower inner type, and so $\wn(1, 0)=\wno(1, 0)>0$.
+            We have $\wno(0,0)=0$ (as this is the improper type $(0, n-1,0)$) and $\wno(1, -1)=0$ (as this is an empty type). However, for $k \geqslant 2$ the type $(1, n-2, 0)$ is a proper lower inner type, and so $\wn(1, 0)=\wno(1, 0)>0$.
     
-            We recall than condition $(4)$ is always satisfied, so we do not need to consider the (`empty') case when it is broken.
+            We recall that condition $(4)$ is always satisfied, so we do not need to consider the (`empty') case when it is broken.
             \end{caseindent}
 \end{proof}
 
-Hence, from Lemmas \ref{wc:lem:ternary-inner-weight} and \ref{wc:lem:ternary-inner-weight-positive} all the weights assigned to the basic chains in the course of the recursive procedure are positive (except for the weight of $\{\thespecialpoint\}$, which is $0$). As we shown in Lemma \ref{positive_basic_enough_lemma}, this ensures that the assignment of weights satisfies conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of Proposition \ref{the_weights_assigning_proposition}. Since the procedure also ensures that the sum of weights of chains passing through any point on the hypercube is $1$, all the conditions from Proposition \ref{the_weights_assigning_proposition} are satisfied and so, by Lemma \ref{weights_imply_theorem_lemma}, this proves Theorem \ref{the_main_theorem} for $d=2$.
+Hence, from Lemmas \ref{wc:lem:ternary-inner-weight} and \ref{wc:lem:ternary-inner-weight-positive} all the weights assigned to the basic chains in the course of the recursive procedure are positive (except for the weight of $\{\thespecialpoint\}$, which is $0$). As shown in Lemma \ref{positive_basic_enough_lemma}, this ensures that the assignment of weights satisfies conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of Proposition \ref{the_weights_assigning_proposition}. Since the procedure also ensures that the sum of weights of chains passing through any point on the hypercube is $1$, all the conditions from Proposition \ref{the_weights_assigning_proposition} are satisfied and so, by Lemma \ref{weights_imply_theorem_lemma}, this proves Theorem \ref{the_main_theorem} for $d=2$.
 
 \section{Conclusions and further research}
 \label{section_conclusion}
@@ -1062,7 +1062,7 @@ An interesting additional question to ask (for $d=2$) would be what makes the fa
 \end{multline*}
 is not sufficient, and assigning weights to these chains recursively as in Subsection \ref{d2_weights_assignement_subsection} would lead to some negative weights being assigned (which we checked in a Python simulation).
 
-Another interesting line of investigation would be to try different methods for constructing bounded-width (unweighted) chain decompositions of the hypercube, or to show that it does not exist.
+Another interesting line of investigation would be to try different methods for constructing bounded-width (unweighted) chain decompositions of the hypercube, or to show that none exists.
 
 \appendix
 
