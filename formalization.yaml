@@ -1,0 +1,272 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "A generalisation of Sperner's theorem using weighted chain decomposition"
+  description: >-
+    A Lean 4 formalization of the paper of the same name (arXiv:2509.26493). Call
+    a family A of vertices of the cube {0, ..., d}^n k-separated if any two
+    distinct comparable members x <= y of A differ on more than k coordinates.
+    The main theorem states that for 1 < k <= n and d in {1, 2}, the largest
+    k-separated families are exactly A_1 and A_2, the families of vertices whose
+    rank (coordinate sum) is congruent to floor(nd/2), respectively
+    ceil(nd/2), modulo dk + 1; the two coincide when nd is even. The proof
+    decomposes the cube into weighted chains, invariant under coordinate
+    permutation, and double counts against the weights; the same method gives
+    a new proof of Sperner's theorem (the case d = 1, k = 1), carried out in an
+    appendix. The formalization also proves that A_1 and A_2 are k-separated for every d,
+    that A_1 is largest for every d in the range n/2 <= k <= n via a symmetric
+    chain decomposition, and that the maximal density of a k-separated family
+    in {0, ..., d}^n tends to 1/(dk + 1) as n tends to infinity for every fixed
+    d, k >= 1. All four results are the compared theorems of the Palomar record
+    in WeightedChainsPalomar/. The compared theorems depend on propext,
+    Classical.choice and Quot.sound and on nothing else, and there is no sorry
+    outside the four deliberate holes in WeightedChainsPalomar/Challenge.lean.
+  authors:
+    - "Matthew Johnson"
+    - "Yaël Dillies"
+  responsible_maintainers:
+    - "Matthew Johnson"
+  license: "Apache-2.0"
+
+repository:
+  role: substantive-development
+
+classification:
+  arxiv: [math.CO]
+  msc2020: ["05D05", "06A07"]
+
+status:
+  scope: >-
+    Complete, with no unproved step, for each of the four compared theorems and
+    for the whole development in WeightedChains/. Every numbered environment of
+    the paper, the asymptotic conclusion and both appendix results have a Lean
+    counterpart; FORMALIZATION.md carries the item-by-item map and the
+    interactive blueprint under blueprint/ links each paper statement to its
+    declaration. Beyond the compared statements the library proves the
+    equality classification in the large-k appendix (LargeK.lowerResidueFinset_isMaximum,
+    LargeK.upperResidueFinset_isMaximum), an independent weighted proof of
+    Sperner's theorem with its equality case
+    (SpernerAppendix.cardinality_and_uniqueness), and a cuboid extension.
+    These are not compared because they are secondary to the paper's headline
+    claims, not because of any gap.
+  # The proof development contains no sorry. The only four in the repository
+  # are the deliberate placeholders in WeightedChainsPalomar/Challenge.lean,
+  # which these counts exclude by convention.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "WeightedChains.main_theorem"
+      file: "WeightedChainsPalomar/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "WeightedChains.residue_families_kSeparated"
+      file: "WeightedChainsPalomar/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "WeightedChains.large_k_bound"
+      file: "WeightedChainsPalomar/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "WeightedChains.asymptotic_density"
+      file: "WeightedChainsPalomar/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+
+fidelity:
+  divergences: >-
+    Faithful to the source, with the following points of translation, all
+    recorded in more detail in FORMALIZATION.md. The paper's k-separation must
+    be read as quantifying over distinct comparable vertices; the Lean
+    hypothesis makes x ≠ y explicit, since without it no nonempty family is
+    k-separated. The compared statements avoid every project definition: the
+    cube is Fin n → Fin (d + 1), the rank is ∑ i, (x i : ℕ), comparability is
+    ∀ i, x i ≤ y i, the number of differing coordinates is a Finset.filter
+    cardinality, and the residues floor(nd/2) and ceil(nd/2) are written with
+    natural-number division as n * d / 2 and n * d - n * d / 2. The paper's
+    range n/2 ≤ k for the appendix result is encoded as n ≤ 2 * k, which is
+    exact; truncated natural division would be one unit too weak for odd n.
+    The asymptotic statement characterises the maximum cardinality M n of a
+    k-separated family by an IsGreatest hypothesis rather than by a definition,
+    so that the Challenge module introduces no auxiliary constant; the library
+    proves this maximum exists (Asymptotics.exists_kSeparated_card_eq_maxKSeparatedCard)
+    and the two formulations are shown equal in WeightedChainsPalomar/Solution.lean.
+    The paper's asymptotic sketch argues along dimensions divisible by k; the
+    Lean proof establishes convergence along every natural dimension. The
+    formalization exposed a number of misstatements in the manuscript (sign
+    errors and index ranges in the Section 4 and 5 recurrences, the saturated
+    hypothesis in the width/length equivalence, the exceptional type (0, 0) in
+    the ternary positivity lemma, and others); these are listed under
+    "Clarifications exposed by formalisation" in FORMALIZATION.md and the
+    Lean statements follow the corrected forms.
+
+sources:
+  - title: "A generalisation of Sperner's theorem using weighted chain decomposition"
+    authors: ["Yaël Dillies", "Matthew Johnson", "Aleksandra Kowalska"]
+    type: "preprint"
+    id: "arXiv:2509.26493"
+    location: >-
+      Theorem 1.1 (WeightedChains.main_theorem); the remark following it
+      (WeightedChains.residue_families_kSeparated); the appendix on the range
+      n/2 ≤ k ≤ n (WeightedChains.large_k_bound); the conclusions
+      (WeightedChains.asymptotic_density).
+    relationship: formalizes
+    author_endorsement: participated
+    note: >-
+      The formalization was carried out by authors of the paper, and the paper
+      source main.tex is kept in this repository alongside the Lean code, with
+      the blueprint under blueprint/ linking each numbered statement to its
+      declaration.
+
+related_formalizations: []
+
+automation:
+  methods:
+    - method: other
+      # TODO(maintainer): replace with the actual method(s) used for the
+      # development in WeightedChains/ (manual | copilot | agent | autonomous),
+      # together with models, framework and cost where applicable.
+      role: >-
+        The development in WeightedChains/, the blueprint and the audit
+        tooling. The method, models and tooling used are to be recorded here
+        by the maintainer.
+    - method: agent
+      models: ["Claude (Anthropic)"]
+      framework: "Cursor"
+      role: >-
+        Wrote the two Palomar files WeightedChainsPalomar/Challenge.lean and
+        WeightedChainsPalomar/Solution.lean, comparator.json and this file,
+        under the direction and review of the responsible maintainer:
+        selecting which library results correspond to the headline claims of
+        the paper, restating them in Mathlib-only terms, and supplying the
+        bridging proofs from the library declarations. It did not modify the
+        mathematical development in WeightedChains/.
+
+review:
+  status: self-assessed
+  reviewers:
+    - "Matthew Johnson"
+  notes: >-
+    Every step is checked by Lean, and scripts/audit.sh rejects sorry, admit,
+    project axioms, opaque or unsafe declarations and decide-based shortcuts in
+    WeightedChains/, and checks every project theorem against the three
+    standard axioms. Paper-to-Lean correspondence is reviewed separately:
+    SEMANTIC_REVIEW.md is the sign-off ledger for the 21 results linked from
+    the manuscript, and its rows are pending author sign-off at the time of
+    writing. The Palomar files and the correspondence between the compared
+    statements and the paper were checked by the responsible maintainer, and
+    comparator.json has been run through leanprover/comparator, which accepts
+    the solution. No external body has certified the formalization.
+
+known_gaps: []
+
+limitations:
+  - >-
+    No novelty is claimed for the mathematics; the repository formalizes the
+    cited paper, whose authors also carried out the formalization.
+  - >-
+    The compared theorems depend on propext, Classical.choice and Quot.sound,
+    and on nothing else. The four sorries in
+    WeightedChainsPalomar/Challenge.lean are the deliberate Comparator holes,
+    one per compared theorem.
+  - >-
+    The lean_lib WeightedChainsPalomar is built with warn.sorry = false so
+    that lake build is silent about those four deliberate holes. It would be
+    equally silent about an accidental one in
+    WeightedChainsPalomar/Solution.lean; that case is caught by Comparator's
+    axiom check rather than by the build. The main library WeightedChains is
+    built with warnings as errors and is scanned for sorry by scripts/audit.sh.
+  - >-
+    The main theorem is compared only for d ∈ {1, 2} and 1 < k ≤ n, exactly
+    as the paper states it. For arbitrary d only the cardinality bound in the
+    range n/2 ≤ k ≤ n and the asymptotic density are proved; the paper does not
+    claim more.
+  - >-
+    The semantic review ledger in SEMANTIC_REVIEW.md is pending sign-off; kernel
+    acceptance and semantic correspondence are deliberately reported as
+    separate facts throughout the repository.
+
+alignment:
+  # The library lives in the namespace `WeightedChains`, with the cube
+  # vocabulary under `WeightedChains.Cube`, the two constructions under
+  # `WeightedChains.DOne` and `WeightedChains.Ternary`, and the appendices
+  # under `WeightedChains.LargeK` and `WeightedChains.SpernerAppendix`. The
+  # four compared declarations also live in `WeightedChains`, but are defined
+  # only in WeightedChainsPalomar/, not in the library.
+  namespace: "WeightedChains"
+  statements:
+    - source: "arXiv:2509.26493, Theorem 1.1: the largest k-separated families for d ∈ {1, 2}"
+      lean: "WeightedChains.main_theorem"
+      module: "WeightedChainsPalomar.Challenge (statement), WeightedChainsPalomar.Solution (proof)"
+      status: proved
+      note: >-
+        Discharged from main_cardinality_and_uniqueness
+        (WeightedChains/MainTheorem.lean), which packages
+        DOne.BooleanChain.cardinality_and_uniqueness and
+        Ternary.BasicChain.cardinality_and_uniqueness. Both the cardinality
+        bound and the classification of the extremal families as A_1 or A_2
+        are included; when nd is even the two families coincide
+        (Cube.lowerResidueFinset_eq_upperResidueFinset_of_even).
+
+    - source: "arXiv:2509.26493, remark after Theorem 1.1: A_1 and A_2 are k-separated"
+      lean: "WeightedChains.residue_families_kSeparated"
+      module: "WeightedChainsPalomar.Challenge (statement), WeightedChainsPalomar.Solution (proof)"
+      status: proved
+      note: >-
+        Discharged from Cube.lowerResidueFamily_kSeparated and
+        Cube.upperResidueFamily_kSeparated (WeightedChains/Preliminaries.lean),
+        for every n, d and k.
+
+    - source: "arXiv:2509.26493, appendix on the range n/2 ≤ k ≤ n: A_1 is largest for every d"
+      lean: "WeightedChains.large_k_bound"
+      module: "WeightedChainsPalomar.Challenge (statement), WeightedChainsPalomar.Solution (proof)"
+      status: proved
+      note: >-
+        Discharged from LargeK.kSeparated_card_le_lowerResidueFinset
+        (WeightedChains/Appendices/LargeK.lean), which proves the symmetric
+        chain decomposition it needs rather than assuming it. The paper's
+        n/2 ≤ k is encoded as n ≤ 2 * k. The library also proves that A_1 and
+        A_2 are maximum families in this range
+        (LargeK.lowerResidueFinset_isMaximum, LargeK.upperResidueFinset_isMaximum);
+        those are not compared.
+
+    - source: "arXiv:2509.26493, conclusions: the maximal density tends to 1/(dk + 1)"
+      lean: "WeightedChains.asymptotic_density"
+      module: "WeightedChainsPalomar.Challenge (statement), WeightedChainsPalomar.Solution (proof)"
+      status: proved
+      note: >-
+        Discharged from Asymptotics.maxKSeparatedCard_density_tendsto
+        (WeightedChains/Asymptotics.lean). The maximum is characterised by an
+        IsGreatest hypothesis in the compared statement and shown equal to the
+        library's Asymptotics.maxKSeparatedCard in the Solution module.
+
+    - source: "arXiv:2509.26493, appendix: a weighted proof of Sperner's theorem"
+      lean: "SpernerAppendix.cardinality_and_uniqueness"
+      module: "WeightedChains.Appendices.Sperner"
+      status: proved-not-compared
+      note: >-
+        The paper's independent weighted-chain proof of Sperner's theorem with
+        its equality case. Not compared, being a classical result recovered as
+        a special case rather than a headline claim.
+
+    - source: "arXiv:2509.26493, Sections 3-5: weighted chain decompositions and the two constructions"
+      lean: "WeightedCover.card_le_of_weighted_cover, DOne.BooleanChain.cardinality_and_uniqueness, Ternary.BasicChain.cardinality_and_uniqueness"
+      module: "WeightedChains.WeightedStrategy, WeightedChains.DOne, WeightedChains.DTwo"
+      status: proved
+      note: >-
+        The intermediate machinery. The full item-by-item map of the 18
+        numbered paper environments to Lean declarations is the table in
+        FORMALIZATION.md and the blueprint under blueprint/.
+
+acknowledgements: >-
+  Built on Mathlib. The blueprint uses Verso. Palomar registration follows the
+  layout of the PFR project (teorth/pfr).

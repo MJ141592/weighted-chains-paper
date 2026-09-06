@@ -29,7 +29,7 @@ lake build
 ./scripts/audit.sh
 ```
 
-The project pins Lean 4.33.0 and the matching mathlib release, including the
+The project pins Lean 4.33.1 and the matching mathlib release, including the
 exact transitive dependency graph in `lake-manifest.json`. Compiler warnings
 are errors. The audit rejects incomplete or trust-expanding project
 declarations, compiles every source module so an unimported draft cannot bypass
