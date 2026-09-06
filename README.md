@@ -62,8 +62,7 @@ The source is arranged in the order of the paper:
   result, including the internally proved symmetric-chain decomposition and
   cuboid extension.
 
-See `REPRODUCIBILITY.md` for the trust model and clean-room build instructions,
-and `FORMALIZATION.md` for the full theorem map and design decisions.
+See `FORMALIZATION.md` for the full theorem map and design decisions.
 
 ## Interactive paper companion
 
@@ -75,8 +74,8 @@ Build the Blueprint and its stable per-result links with:
 
 The generated multi-page site is under `blueprint/_out/site/html-multi/`.
 Publication links use `/theorems/<slug>/`, a stable redirect layer generated
-from Verso's manifest rather than its internal page layout. See
-`LATEX_INTEGRATION.md` for the ready-to-use PDF link macro and insertion map.
+from Verso's manifest rather than its internal page layout; the PDF link macro
+is in `blueprint/latex/lean-links.tex`.
 
 GitHub Pages deployment is intentionally gated by the repository variable
 `ENABLE_PAGES=true`; the site can therefore be checked in CI before a canonical
