@@ -35,8 +35,27 @@
 \usepackage[parfill]{parskip}
 \usepackage{hyperref}
 
+% Links from the statements below to their Lean formalisation in the
+% interactive blueprint.  Each linked statement carries \leanblueprint{slug},
+% which renders a small right-aligned badge pointing at
+% \leanblueprintbase/theorems/slug/ (a stable route that survives changes to
+% the blueprint's internal layout).  Put \leanlinksfalse after this block to
+% build without badges, for example for a journal version; the statements and
+% their labels are unaffected either way.
 \newcommand{\leanblueprintbase}{https://mj141592.github.io/weighted-chains-paper}
-% \input{blueprint/latex/lean-links.tex}
+\newif\ifleanlinks
+\leanlinkstrue
+\newcommand{\leanblueprint}[1]{%
+  \ifleanlinks
+    \leavevmode\unskip\penalty9999\hbox{}\nobreak\hfill\quad
+    \href{\leanblueprintbase/theorems/#1/}{%
+      \mbox{\normalfont\footnotesize\textcolor{blue}{[\textsf{Lean formalisation}]}}}%
+    \par\nobreak
+  \fi
+}
+% Lines of the form "% blueprint-begin: <label>" and "% blueprint-end: <label>"
+% delimit statements that are not their own theorem-like environment, so that
+% the blueprint can locate them by label rather than by line number.
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
@@ -118,7 +137,9 @@ In this paper, we consider a generalisation of Sperner's theorem which pursues b
 
 We may formulate a generalisation of Sperner's theorem which explores both of the mentioned notions at once as follows:
 
+% blueprint-begin: wc:def:k-separated
 Let us call a subset $A \subseteq \thehypercube$ `$k$-separated' if for any different $x, y \in A$ with $x \leqslant y$, $x$ and $y$ differ on strictly more than $k$ coordinates. What is the largest $k$-separated subset of the hypercube $\thehypercube$?
+% blueprint-end: wc:def:k-separated
 
 We now note in passing that the notion of $k$-separation is based on the $L_0$ metric (the number of coordinates which differ) rather than the $L_1$ metric (the sum of coordinate differences). It follows from Katona's proof in \cite{katona} (and in fact from many other techniques used to prove Sperner's theorem, for example a generalisation of Lubell's technique \cite{lubell} as presented in \cite{nagys}). On the other hand, the $L_0$ formulation resisted attempts at generalisations of existing proofs and seemed to require new ideas, and hence it drew our interest.
 
@@ -152,6 +173,7 @@ If $2 \mid nd$, we have $A_1=A_2$ and so there is only one largest such subset.
 \leanblueprint{main-theorem}
 \end{theorem}
 
+% blueprint-begin: wc:lem:residue-families-separated
 \begin{remark}
     For any $x, y \in A$ with $x \neq y$ and $x_i < y_i$ on at most $k$ coordinates, we have
     \begin{equation*}
@@ -163,6 +185,7 @@ If $2 \mid nd$, we have $A_1=A_2$ and so there is only one largest such subset.
 
     Since $x \in A_1$ if and only if $(d-x_1, \ldots, d-x_n) \in A_2$, so clearly $\vert A_1\vert =\vert A_2\vert $.
 \end{remark}
+% blueprint-end: wc:lem:residue-families-separated
 
 The case $d=1$ (in a different, but equivalent formulation) easily follows from Katona's \cite{katona} and from Grigg's \cite{griggs}. However, we present our (novel and arrived at independently) proof in this case, as we hope that it is of independent interest and as it generalises very naturally to the $d=2$ case.
 
@@ -287,7 +310,9 @@ or (for $2 \nmid nd$ ) pairs of vertices
     \{x, y\} \ \text{for} \ x \leqslant y, \ \vert x\vert =\fclass=\vert y\vert -1.
 \end{equation}
 
+% blueprint-begin: wc:lem:good-chain-residue-intersection
 Any good chain contains exactly one element from $A_1$ and exactly one from $A_2$.
+% blueprint-end: wc:lem:good-chain-residue-intersection
 
 \begin{definition}[A chain starting at $x$]
 \label{wc:def:chain-start}
@@ -942,8 +967,9 @@ Hence, if only $(a-1, n-a-c, c)$, $(a, n-1-a-c, c)$ and $(a, n-a-c, c-1)$ are pr
 We notice that for a proper lower inner type and $n>k$, we always have the following conditions satisfied: $a-1-k<c$, $c-1 \leqslant a$, $a, c, n-a-c < n$. We consider the remaining conditions being broken carefully in the full inductive proof below.
 
 \begin{lemma}
-\label{wc:lem:ternary-outer-weight}
+\label{wc:lem:ternary-inner-weight-positive}
     For $k \leqslant n$ and $(a, n-a-c, c)$ a proper lower inner type, i.e. $0 \leqslant a, c \leqslant n$, $0<a+c\leqslant n$ and $a-k<c\leqslant a$ we have $\wn(a, c)>0$.
+\leanblueprint{ternary-inner-weight-positive}
 \end{lemma}
 
 \begin{proof}
@@ -998,7 +1024,7 @@ We notice that for a proper lower inner type and $n>k$, we always have the follo
             \end{caseindent}
 \end{proof}
 
-Hence, from Lemmas \ref{wc:lem:ternary-inner-weight} and \ref{wc:lem:ternary-outer-weight} all the weights assigned to the basic chains in the course of the recursive procedure are positive (except for the weight of $\{\thespecialpoint\}$, which is $0$). As we shown in Lemma \ref{positive_basic_enough_lemma}, this ensures that the assignment of weights satisfies conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of Proposition \ref{the_weights_assigning_proposition}. Since the procedure also ensures that the sum of weights of chains passing through any point on the hypercube is $1$, all the conditions from Proposition \ref{the_weights_assigning_proposition} are satisfied and so, by Lemma \ref{weights_imply_theorem_lemma}, this proves Theorem \ref{the_main_theorem} for $d=2$.
+Hence, from Lemmas \ref{wc:lem:ternary-inner-weight} and \ref{wc:lem:ternary-inner-weight-positive} all the weights assigned to the basic chains in the course of the recursive procedure are positive (except for the weight of $\{\thespecialpoint\}$, which is $0$). As we shown in Lemma \ref{positive_basic_enough_lemma}, this ensures that the assignment of weights satisfies conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of Proposition \ref{the_weights_assigning_proposition}. Since the procedure also ensures that the sum of weights of chains passing through any point on the hypercube is $1$, all the conditions from Proposition \ref{the_weights_assigning_proposition} are satisfied and so, by Lemma \ref{weights_imply_theorem_lemma}, this proves Theorem \ref{the_main_theorem} for $d=2$.
 
 \section{Conclusions and further research}
 \label{section_conclusion}
@@ -1022,11 +1048,13 @@ However, the main drawback to simply generalising the construction with basic ch
 
 A potentially easier intermediate step would be to prove Theorem \ref{the_main_theorem} without the uniqueness, that is simply to construct an assignment of non-negative weights to good chains so that the sum of values of all chains passing through any vertex is $1$.
 
+% blueprint-begin: wc:thm:asymptotic-density
 It is easy to show by induction on $n$ (with the base cases $k \leqslant n \leqslant n-k+1$ and inductive step of size $k$) that Theorem \ref{the_main_theorem} holds asymptotically, i.e. that for any $d, k$ constant and $n \rightarrow \infty$ we have (denoting by $A_{k, d}(n)$ the size of the largest subsets satisfying the conditions of Theorem \ref{the_main_theorem} for the given $k, d, n$):
 \begin{equation*}
     \frac{A_{k, d}(n)}{(1+d)^n} = \frac{1}{dk+1} + o(1).
 \end{equation*}
 \leanblueprint{asymptotic-density}
+% blueprint-end: wc:thm:asymptotic-density
 An interesting additional question to ask (for $d=2$) would be what makes the family of basic good chains sufficient for an assignment of non-negative weights to them being possible? For example, a similar family of `anti-basic chains', i.e. chains that, if starting at type $(a, b, c)$, go through types
 \begin{multline*}
     (a, b, c), \ (a-1, b+1, c), \ (a-2, b+2, c), \ \ldots, \\
@@ -1040,6 +1068,7 @@ Another interesting line of investigation would be to try different methods for 
 
 \section{A new proof of Sperner's theorem}
 \label{appendix_sperner}
+% blueprint-begin: wc:thm:sperner-appendix
 
 Below we present a new proof of Sperner's theorem that we arrived at while working on this paper. It is the special case with $d=1$ and $k=n$. This section is self-contained and doesn't refer to the rest of the paper, allowing it to be read independently.
 
@@ -1055,6 +1084,7 @@ Hence, we will show that for any $n$, the unique largest antichains in $\mathcal
 \end{equation*}
 (where if $2 \mid n$, we have $A_1=A_2$).
 \leanblueprint{sperner-appendix}
+% blueprint-end: wc:thm:sperner-appendix
 
 Let us call a family of subsets $C = \{X_1, \ldots, X_l\}$ of $[n]$ a `symmetric chain' if:
 \begin{itemize}
@@ -1121,9 +1151,11 @@ We note that an interesting difference between this approach and the standard ch
 
 \section{A proof of Theorem \ref{the_main_theorem} for any \texorpdfstring{$d$}{d} and \texorpdfstring{$\frac{n}{2} \leqslant k$}{n/2 <= k}}
 \label{appendix_large_k}
+% blueprint-begin: wc:thm:large-k-appendix
 
 Below we present a simple proof that the sets $A_1, A_2$ from Theorem \ref{the_main_theorem} are optimal (but which doesn't show their uniqueness) for any $d$ and $\frac{n}{2} \leqslant k$ with an alternative method. This result also follows from \cite[Theorem 5.1]{tour_m_part_p_sperner_families}. We provide a proof at which we arrived independently. We note that the same proof would also work for cuboids $\{0, 1, \ldots, d_1\} \times \ldots \times \{0, 1, \ldots, d_n\}$.
 \leanblueprint{large-k-appendix}
+% blueprint-end: wc:thm:large-k-appendix
 
 The proof uses the decomposition of the hypercube into symmetric chains $S_1, S_2, \ldots, S_m$, i.e. sets $S_i=(x_i^1, \ldots, x_i^{l_i})$ such that $x_i^1 \leqslant \ldots \leqslant x_i^{l_i}$ and $\vert x_i^j\vert +\vert x_i^{l_i+1-j}\vert =dn$ for any $1 \leqslant j \leqslant l_i$. Its existence was shown by de Bruijn, Tengbergen and Kruyswijk in \cite{symmetric_chain_decomposition}.
 

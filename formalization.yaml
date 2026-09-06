@@ -13,7 +13,7 @@ project:
     ceil(nd/2), modulo dk + 1; the two coincide when nd is even. The proof
     decomposes the cube into weighted chains, invariant under coordinate
     permutation, and double counts against the weights; the same method gives
-    a new proof of Sperner's theorem (the case d = 1, k = 1), carried out in an
+    a new proof of Sperner's theorem (the case d = 1, k = n), carried out in an
     appendix. The formalization also proves that A_1 and A_2 are k-separated
     and equally large for every d, that both are largest for every d in the
     range n/2 <= k <= n via a symmetric chain decomposition (also for cuboids

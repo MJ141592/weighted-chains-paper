@@ -24,9 +24,9 @@ kind := .text
 Definitions and results stated in the introduction of the paper.
 :::
 
-:::theorem "wc:thm:main-theorem" (parent := "paper-introduction") (lean := "WeightedChains.main_cardinality_and_uniqueness, WeightedChains.Cube.lowerResidueFinset_eq_upperResidueFinset_of_even") (autoDeps := true) (uses := "wc:def:k-separated") (tags := "semantic-review-pending, corrected, encoding, numbered") (priority := "high")
+:::theorem "wc:thm:main-theorem" (parent := "paper-introduction") (lean := "WeightedChains.main_cardinality_and_uniqueness, WeightedChains.Cube.lowerResidueFinset_eq_upperResidueFinset_of_even") (autoDeps := true) (uses := "wc:def:k-separated") (priority := "high")
 %%%
-source := paperSource "Theorem 1.1" 121 139
+source := paperSource "wc:thm:main-theorem" "Theorem 1.1"
 %%%
 
 For $`1 < k \leq n` and $`d \in \{1,2\}`, every $`k`-separated family in
@@ -34,10 +34,8 @@ $`\{0,\ldots,d\}^n` has cardinality at most the lower middle rank-residue
 family. Equality holds exactly for the lower or upper middle rank-residue
 family; when $`nd` is even these two families agree.
 
-*Semantic review:* pending. *Correspondence:* corrected and encoding. The Lean
-theorem represents a family as a finite set, uses the explicit distinct-point
-version of k-separation, and packages the cardinality bound and equality
-classification together.
+The Lean theorem represents a family as a finite set and packages the
+cardinality bound and the equality classification together.
 :::
 
 :::proof "wc:thm:main-theorem"
@@ -47,29 +45,22 @@ declaration proves the stated even-parity identification of the two extremal
 families.
 :::
 
-:::definition "wc:def:k-separated" (parent := "paper-introduction") (lean := "WeightedChains.Cube.KSeparated") (autoDeps := true) (tags := "semantic-review-pending, corrected, unnumbered")
+:::definition "wc:def:k-separated" (parent := "paper-introduction") (lean := "WeightedChains.Cube.KSeparated") (autoDeps := true)
 %%%
-source := paperSource "Introduction, definition of k-separation" 105 111
+source := paperSource "wc:def:k-separated" "Introduction, definition of k-separation"
 %%%
 
 A family in the discrete cube is $`k`-separated when no two *distinct*
 comparable members differ in at most $`k` coordinates.
-
-*Semantic review:* pending. *Correspondence:* corrected. Lean makes the
-distinctness condition explicit; without it, no nonempty family would satisfy
-the definition.
 :::
 
-:::lemma_ "wc:lem:residue-families-separated" (parent := "paper-introduction") (lean := "WeightedChains.Cube.lowerResidueFamily_kSeparated, WeightedChains.Cube.upperResidueFamily_kSeparated") (autoDeps := true) (tags := "semantic-review-pending, direct, unnumbered")
+:::lemma_ "wc:lem:residue-families-separated" (parent := "paper-introduction") (lean := "WeightedChains.Cube.lowerResidueFamily_kSeparated, WeightedChains.Cube.upperResidueFamily_kSeparated") (autoDeps := true)
 %%%
-source := paperSource "Remark after Theorem 1.1" 141 151
+source := paperSource "wc:lem:residue-families-separated" "Remark after Theorem 1.1"
 %%%
 
 The lower and upper middle rank-residue families are $`k`-separated for every
 alphabet parameter $`d`.
-
-*Semantic review:* pending. *Correspondence:* direct, relative to Lean's
-corrected distinct-point definition of k-separation.
 :::
 
 :::proof "wc:lem:residue-families-separated"

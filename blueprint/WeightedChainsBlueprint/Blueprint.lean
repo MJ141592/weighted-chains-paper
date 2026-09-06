@@ -17,17 +17,12 @@ open Informal
 
 #doc (Manual) "Weighted chains: paper-to-Lean blueprint" =>
 
-This companion records the exact correspondence between the conventional
-mathematical paper and its kernel-checked Lean 4 formalisation. The paper
-remains the authoritative human-readable manuscript; this site exposes the
-associated declarations, their elaborated signatures, dependencies, proof
-status, and commit-pinned source locations.
-
-Every entry is currently marked *semantic-review-pending*. A completed Lean
-proof establishes its formal statement, while the separate claim that the
-formal statement faithfully expresses the paper requires author review. The
-labels *direct*, *corrected*, *factored*, and *encoding* describe the present
-shape of that correspondence and do not replace that review.
+This companion links each statement of the paper to its kernel-checked Lean 4
+formalisation. For every definition, lemma and theorem it shows the associated
+Lean declarations with their elaborated signatures, the dependency graph, the
+lines of the manuscript where the statement appears, and commit-pinned links to
+the Lean source. Where the Lean encoding of a statement differs in form from
+the paper, the entry says how.
 
 {include 0 WeightedChainsBlueprint.Chapters.Introduction}
 {include 0 WeightedChainsBlueprint.Chapters.Preliminaries}

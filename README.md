@@ -12,10 +12,9 @@ The publication has three complementary views:
 - `FORMALIZATION.md` records the detailed declaration map and corrections
   exposed by formalisation.
 
-The Lean kernel verifies the declarations linked by the Blueprint. A green
-proof status says that Lean accepted the displayed declaration; whether that
-declaration faithfully represents the paper is documented in
-`FORMALIZATION.md` and in the Blueprint's per-result correspondence notes.
+The Lean kernel verifies the declarations linked by the Blueprint; where the
+Lean encoding of a statement differs in form from the paper, the Blueprint
+entry and `FORMALIZATION.md` say how.
 
 ## Lean formalisation
 
@@ -74,8 +73,11 @@ Build the Blueprint and its stable per-result links with:
 
 The generated multi-page site is under `blueprint/_out/site/html-multi/`.
 Publication links use `/theorems/<slug>/`, a stable redirect layer generated
-from Verso's manifest rather than its internal page layout; the PDF link macro
-is in `blueprint/latex/lean-links.tex`.
+from Verso's manifest rather than its internal page layout. The PDF link macro
+`\leanblueprint` is defined in the preamble of `main.tex`, and the blueprint
+finds each linked statement by its `\label` or `% blueprint-begin/end` markers
+rather than by line number, so the manuscript can be edited freely (see
+`blueprint/README.md`).
 
 GitHub Pages deployment is intentionally gated by the repository variable
 `ENABLE_PAGES=true`; the site can therefore be checked in CI before a canonical
@@ -89,5 +91,7 @@ With a current TeX Live installation and `latexmk` on `PATH`, run:
 latexmk -pdf main.tex
 ```
 
-The Blueprint does not rewrite or preprocess the manuscript. Adding its small
-link markers to a submission copy remains an ordinary LaTeX edit.
+The Blueprint does not rewrite or preprocess the manuscript. `main.tex` is
+self-contained: the `[Lean formalisation]` badges are produced by the
+`\leanblueprint` macro in its preamble, and a journal build without them only
+needs `\leanlinksfalse` after that macro's definition.

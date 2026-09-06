@@ -30,11 +30,10 @@ library.
   accidentally root-namespaced declarations. There are no axioms declared by
   this project.
 
-The interactive companion under `blueprint/` presents the 18 numbered paper
+The interactive companion under `blueprint/` presents the 19 numbered paper
 items and the main unnumbered results with kernel-checked signatures and
-commit-pinned source links. Each of the 21 results linked directly from the PDF
-carries a correspondence note there; proof completion and paper-to-Lean
-correspondence are intentionally reported as distinct facts.
+commit-pinned source links. Each of the 22 results linked directly from the PDF
+notes there how its Lean encoding differs in form from the paper, where it does.
 
 ## Paper-to-Lean map
 

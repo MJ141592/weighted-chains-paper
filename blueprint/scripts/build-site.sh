@@ -25,6 +25,10 @@ if malformed_math="$(grep -RFn --include='*.lean' '`$' \
   exit 1
 fi
 
+# Locate every paper statement in ../main.tex by label and write the generated
+# (Git-ignored) module WeightedChainsBlueprint/PaperSources.lean.
+python3 "$blueprint_root/scripts/paper_sources.py"
+
 lake exe cache get
 lake env lake build WeightedChainsBlueprint
 lake env lake exe vbp build

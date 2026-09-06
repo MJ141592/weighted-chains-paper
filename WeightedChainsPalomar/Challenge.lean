@@ -156,8 +156,9 @@ that inclusion is the coordinatewise order.  An antichain `A` of subsets, that
 is a family in which `x ≤ y` forces `x = y`, has at most `n.choose (n / 2)`
 members, and has exactly that many members precisely when it is the layer of
 all `⌊n/2⌋`-element subsets or the layer of all `⌈n/2⌉`-element subsets (which
-coincide when `n` is even).  This is the case `d = 1`, `k = 1` of the paper's
-problem, for which `1`-separation of `{0, 1}ⁿ` is exactly the antichain
+coincide when `n` is even).  This is the case `d = 1`, `k = n` of the paper's
+problem: for `k ≥ n` no two distinct comparable vertices can differ on more
+than `k` coordinates, so `k`-separation of `{0, 1}ⁿ` is exactly the antichain
 condition. -/
 theorem sperner_theorem (n : ℕ) (A : Finset (Fin n → Fin 2))
     (hA : ∀ x ∈ A, ∀ y ∈ A, (∀ i, x i ≤ y i) → x = y) :

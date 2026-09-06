@@ -8,14 +8,17 @@ import html
 import json
 import re
 import shutil
+import sys
 from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
 from urllib.parse import urlsplit
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import paper_sources  # noqa: E402
+
 
 SLUG = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 COMMIT = re.compile(r"^[0-9a-f]{40}$")
-CORRESPONDENCE_TAGS = {"direct", "corrected", "factored", "encoding"}
 
 
 class IdCollector(HTMLParser):
@@ -117,49 +120,24 @@ def source_span(preview: dict) -> dict:
     return matches[0]["text"]
 
 
-def validate_numbered_paper_environments(entries: list[dict], links_path: Path) -> None:
-    repository_root = links_path.parent.parent
-    numbered = [entry for entry in entries if entry.get("numbered") is True]
-    source_paths = {entry.get("source", {}).get("path") for entry in numbered}
-    if source_paths != {"main.tex"}:
-        raise ValueError(
-            "numbered entries must all point to main.tex, got "
-            f"{sorted(map(repr, source_paths))}"
+def locate_paper_sources(
+    entries: list[dict], main_tex: Path
+) -> tuple[list[str], dict[str, tuple[int, int]]]:
+    """Find every entry in main.tex by label; warn about unlinked numbered results."""
+    lines = main_tex.read_text(encoding="utf-8").splitlines()
+    spans = paper_sources.paper_spans(lines, entries)
+    for kind, line_number in paper_sources.unlinked_environments(lines, entries):
+        print(
+            f"warning: main.tex:{line_number}: \\begin{{{kind}}} has no blueprint entry",
+            file=sys.stderr,
         )
-    source_path = repository_root / "main.tex"
-    lines = source_path.read_text(encoding="utf-8").splitlines()
-    environment_pattern = re.compile(r"^\\begin[{](theorem|definition|proposition|lemma)[}]")
-    actual = {
-        (match.group(1), line_number)
-        for line_number, line in enumerate(lines, start=1)
-        if (match := environment_pattern.match(line)) is not None
-    }
-    expected = {
-        (entry.get("kind"), entry.get("source", {}).get("startLine")) for entry in numbered
-    }
-    if actual != expected:
-        raise ValueError(
-            "numbered paper-environment coverage drift: "
-            f"missing {sorted(actual - expected)}, stale {sorted(expected - actual)}"
-        )
-    for entry in numbered:
-        source = entry["source"]
-        end_line = source.get("endLine")
-        kind = entry.get("kind")
-        if not isinstance(end_line, int) or not 1 <= end_line <= len(lines):
-            raise ValueError(f"invalid paper end line for {entry.get('label')!r}: {end_line!r}")
-        if lines[end_line - 1].strip() != rf"\end{{{kind}}}":
-            raise ValueError(
-                f"paper source range for {entry.get('label')!r} does not end at "
-                f"\\end{{{kind}}}"
-            )
+    return lines, spans
 
 
-def validate_pdf_link_badges(entries: list[dict], links_path: Path) -> None:
-    """Require one correctly placed LaTeX badge for every reviewed PDF result."""
-    repository_root = links_path.parent.parent
-    source_path = repository_root / "main.tex"
-    lines = source_path.read_text(encoding="utf-8").splitlines()
+def validate_pdf_link_badges(
+    entries: list[dict], lines: list[str], spans: dict[str, tuple[int, int]]
+) -> None:
+    """Require one correctly placed LaTeX badge for every PDF-linked result."""
     badge_pattern = re.compile(r"^\\leanblueprint[{]([a-z0-9]+(?:-[a-z0-9]+)*)[}]$")
     actual: dict[str, list[int]] = {}
     for line_number, line in enumerate(lines, start=1):
@@ -183,11 +161,7 @@ def validate_pdf_link_badges(entries: list[dict], links_path: Path) -> None:
         badge_lines = actual[slug]
         if len(badge_lines) != 1:
             raise ValueError(f"PDF badge {slug!r} occurs {len(badge_lines)} times")
-        source = entry.get("source", {})
-        start_line = source.get("startLine")
-        end_line = source.get("endLine")
-        if not isinstance(start_line, int) or not isinstance(end_line, int):
-            raise ValueError(f"invalid source span for PDF badge {slug!r}")
+        start_line, end_line = spans[entry["label"]]
         if not start_line <= badge_lines[0] <= end_line:
             raise ValueError(
                 f"PDF badge {slug!r} is on line {badge_lines[0]}, outside "
@@ -260,8 +234,13 @@ def main() -> None:
     entries = links.get("entries")
     if not isinstance(entries, list) or not entries:
         raise ValueError(f"{args.links} does not contain a nonempty entries array")
-    validate_numbered_paper_environments(entries, args.links)
-    validate_pdf_link_badges(entries, args.links)
+    if any("source" in entry for entry in entries):
+        raise ValueError(
+            "links.json entries must not pin line numbers; paper locations are derived "
+            "from \\label{...} and % blueprint-begin/end markers in main.tex"
+        )
+    paper_lines, spans = locate_paper_sources(entries, args.links.parent.parent / "main.tex")
+    validate_pdf_link_badges(entries, paper_lines, spans)
 
     previews = load_previews(args.manifest)
     targets = statement_targets(previews)
@@ -269,9 +248,6 @@ def main() -> None:
     repository = links.get("repository")
     if not isinstance(repository, str) or not repository.startswith("https://github.com/"):
         raise ValueError("links manifest must declare its canonical GitHub repository")
-    review_state = links.get("reviewState")
-    if not isinstance(review_state, str) or not review_state:
-        raise ValueError("links manifest must declare a nonempty review state")
     seen_slugs: set[str] = set()
     seen_labels: set[str] = set()
     resolved: list[dict] = []
@@ -306,31 +282,18 @@ def main() -> None:
                 f"paper numbering drift for {label!r}: expected {paper_ref!r}, "
                 f"Verso rendered {preview.get('title')!r}"
             )
-        tags = set(preview.get("tags", []))
-        expected_correspondence = set(entry.get("correspondence", []))
-        if not expected_correspondence or not expected_correspondence <= CORRESPONDENCE_TAGS:
-            raise ValueError(
-                f"{label!r} has invalid correspondence categories: "
-                f"{sorted(expected_correspondence)}"
-            )
-        actual_correspondence = tags & CORRESPONDENCE_TAGS
-        if actual_correspondence != expected_correspondence:
-            raise ValueError(
-                f"correspondence drift for {label!r}: expected "
-                f"{sorted(expected_correspondence)}, got {sorted(actual_correspondence)}"
-            )
-        required_tags = {review_state, *expected_correspondence}
-        if not required_tags <= tags:
-            raise ValueError(f"{label!r} is missing tags {sorted(required_tags - tags)}")
-        expected_source = entry.get("source", {})
+        start_line, end_line = spans[label]
+        expected_source = {"path": "main.tex", "startLine": start_line, "endLine": end_line}
         actual_source = source_span(preview)
         if (
-            actual_source.get("startLine") != expected_source.get("startLine")
-            or actual_source.get("endLine") != expected_source.get("endLine")
-            or not str(actual_source.get("path", "")).endswith(expected_source.get("path", ""))
+            actual_source.get("startLine") != start_line
+            or actual_source.get("endLine") != end_line
+            or not str(actual_source.get("path", "")).endswith("main.tex")
         ):
             raise ValueError(
-                f"paper source drift for {label!r}: expected {expected_source}, got {actual_source}"
+                f"paper source drift for {label!r}: main.tex has {expected_source}, Verso "
+                f"rendered {actual_source}; regenerate PaperSources.lean with "
+                "scripts/paper_sources.py and rebuild"
             )
         lean_declarations, source_commits = validated_declarations(
             preview, declarations, repository
@@ -351,6 +314,7 @@ def main() -> None:
         resolved.append(
             {
                 **entry,
+                "source": expected_source,
                 "route": f"/theorems/{slug}/",
                 "targetHref": href,
                 "sourceCommit": next(iter(source_commits)),

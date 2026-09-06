@@ -18,9 +18,9 @@ The general asymptotic result stated in the paper's discussion of further
 research.
 :::
 
-:::theorem "wc:thm:asymptotic-density" (parent := "paper-conclusion") (lean := "WeightedChains.Asymptotics.maxKSeparatedCard_density_tendsto, WeightedChains.Asymptotics.maxKSeparatedCard") (autoDeps := true) (tags := "semantic-review-pending, direct, factored, encoding, unnumbered")
+:::theorem "wc:thm:asymptotic-density" (parent := "paper-conclusion") (lean := "WeightedChains.Asymptotics.maxKSeparatedCard_density_tendsto, WeightedChains.Asymptotics.maxKSeparatedCard") (autoDeps := true)
 %%%
-source := paperSource "Conclusion: asymptotic maximum density" 949 953
+source := paperSource "wc:thm:asymptotic-density" "Conclusion: asymptotic maximum density"
 %%%
 
 For fixed positive $`d` and $`k`, let $`A_{k,d}(n)` be the maximum cardinality
@@ -29,11 +29,9 @@ of a $`k`-separated family in $`\{0,\ldots,d\}^n`. Then
 $`\displaystyle \frac{A_{k,d}(n)}{(d+1)^n}\longrightarrow
 \frac{1}{dk+1}`.
 
-*Semantic review:* pending. *Correspondence:* direct, factored, and encoded.
 Lean defines the maximum over the finite collection of candidate finsets and
-states the displayed $`o(1)` assertion as a real-valued `Tendsto` theorem.
-The positive hypotheses make the manuscript's intended parameter domain
-explicit.
+states the displayed $`o(1)` assertion as a real-valued `Tendsto` theorem for
+positive $`d` and $`k`.
 :::
 
 :::proof "wc:thm:asymptotic-density"
