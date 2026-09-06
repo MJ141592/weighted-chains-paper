@@ -133,7 +133,7 @@ There are a couple of intuitive ways to generalise this result. The first one is
 
 Another possible way of generalising Sperner's result is to work on multisets instead of sets. In this case, we wish to find the largest family of multisubsets of a multiset $\{1^{d_1}, \ldots, n^{d_n}\}$ (i.e., a multiset containing $d_i$ copies of $i$ for $1 \leqslant i \leqslant n$) such that for no two $X, Y \in A$ we may have $X \subsetneq Y$ (i.e., $Y$ containing at least as many copies of each number as $X$). This problem (under an equivalent formulation) was studied and solved by de Bruijn, Tengbergen and Kruyswijk \cite{symmetric_chain_decomposition}.
 
-In this paper, we consider a generalisation of Sperner's theorem which pursues both these directions at once. Before we state it, let us note that Sperner's theorem may be reformulated in a more geometric language as follows: what is the largest subset of $\{0, 1\}^n$ which has no elements $x, y$ with $x \leqslant y$ coordinatewise? (Let us call such a subset of $\{0, 1\}^n$ or $\thehypercube$ an antichain.)
+In this paper, we consider a generalisation of Sperner's theorem which pursues both these directions at once. Before we state it, let us note that Sperner's theorem may be reformulated in a more geometric language as follows: what is the largest subset of $\{0, 1\}^n$ which has no elements $x, y$ with $x \leqslant y$ coordinatewise? (Let us call such a subset of $\{0, 1\}^n$ or $\thehypercube$ an \emph{antichain}.)
 
 We may formulate a generalisation of Sperner's theorem which explores both of the mentioned notions at once as follows:
 
@@ -295,7 +295,7 @@ Let us call the layer $L_{\frac{nd}{2}}$ (if $2 \mid nd$) or the layers $L_{\fcl
 \begin{definition}[Good chains]
 \label{wc:def:good-chain}
 \label{good_chain_definition}
-    For given $n, k, d$ let us call a chain $C=(x_1, \ldots, x_l) \subseteq \thehypercube$ good if it is saturated, of width at most $k$ and either symmetric or of length exactly $dk+1$.
+    For given $n, k, d$ let us call a chain $C=(x_1, \ldots, x_l) \subseteq \thehypercube$ \emph{good} if it is saturated, of width at most $k$ and either symmetric or of length exactly $dk+1$.
 \leanblueprint{good-chain}
 \end{definition}
 
@@ -432,7 +432,7 @@ Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 \begin{proof}
     First let us show the first part of the lemma, and then the uniqueness part.
 
-    Let $w: \mathcal{C} \rightarrow [0, 1]$ be an assignment of non-negative weights to the family $\mathcal{C}$ of `good' chains, satisfying the conditions of Proposition \ref{the_weights_assigning_proposition}. Hence, for $x \in \thehypercube$, we have:
+    Let $w: \mathcal{C} \rightarrow [0, 1]$ be an assignment of non-negative weights to the family $\mathcal{C}$ of good chains, satisfying the conditions of Proposition \ref{the_weights_assigning_proposition}. Hence, for $x \in \thehypercube$, we have:
     \begin{equation*}
         \sum_{C \in \mathcal{C}: \ x \in C} w(C) = 1.
     \end{equation*}
@@ -495,7 +495,7 @@ In the following two sections, we will define an assignment of weights to good c
 
 \subsection{Assigning weights and showing that chains starting at the outer layers have positive weights}
 
-We will assign weights to saturated (see Definition \ref{saturated_definition}) chains that are either of length exactly $k+1$ (and so of width $k$) or symmetric and shorter than $k+1$. As in Definition \ref{good_chain_definition}, let us call such chains good.
+We will assign weights to saturated (see Definition \ref{saturated_definition}) chains that are either of length exactly $k+1$ (and so of width $k$) or symmetric and shorter than $k+1$. As in Definition \ref{good_chain_definition}, let us call such chains \emph{good}.
 
 Figures \ref{d1_drawing1} and \ref{d1_drawing2} below illustrate good chains in two representative cases. On each, we have a number of dots, representing layers. The black dots represent the middle layer (for $2 \mid n$) or layers (for $2 \nmid n$).
 
@@ -1074,7 +1074,7 @@ Below we present a new proof of Sperner's theorem that we arrived at while worki
 
 In what follows, we will use letters $X, Y, \ldots$ to refer to subsets of $[n]$ and $A, B, C, \ldots$ to refer to families of subsets. $\mathcal{A}, \mathcal{B}, \mathcal{C}, \ldots$ will denote collections of such families.
 
-Let us call a family of subsets of $[n]$ an antichain if it contains no two elements $X \neq Y$ with $X \subseteq Y$.
+Let us call a family of subsets of $[n]$ an \emph{antichain} if it contains no two elements $X \neq Y$ with $X \subseteq Y$.
 
 Hence, we will show that for any $n$, the unique largest antichains in $\mathcal{P}([n])$ are
 \begin{equation*}
