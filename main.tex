@@ -91,8 +91,16 @@
 \newcommand{\thehypercube}{\{0, 1, \ldots, d\}^n}
 \newcommand\modd{\operatorname{mod}}
 \newcommand\new{\operatorname{new}}
-\newcommand{\fclass}{\big\lfloor \frac{nd}{2} \big\rfloor}
-\newcommand{\cclass}{\big\lceil \frac{nd}{2} \big\rceil}
+\newcommand{\fclass}{\mathchoice
+  {\left\lfloor \frac{nd}{2} \right\rfloor}
+  {\big\lfloor \frac{nd}{2} \big\rfloor}
+  {\big\lfloor \frac{nd}{2} \big\rfloor}
+  {\big\lfloor \frac{nd}{2} \big\rfloor}}
+\newcommand{\cclass}{\mathchoice
+  {\left\lceil \frac{nd}{2} \right\rceil}
+  {\big\lceil \frac{nd}{2} \big\rceil}
+  {\big\lceil \frac{nd}{2} \big\rceil}
+  {\big\lceil \frac{nd}{2} \big\rceil}}
 \newcommand{\fclassmod}{\fclass \ (\modd dk+1)}
 \newcommand{\cclassmod}{\cclass \ (\modd dk+1)}
 \newcommand{\thespecialpoint}{(\frac{d}{2}, \ldots, \frac{d}{2})}
@@ -127,7 +135,7 @@
 
 Sperner's theorem \cite{sperner} says that the largest family $A$ of subsets of $[n]$, without two subsets where one contains the other, is of size $\binom{n}{\lfloor n/2 \rfloor}$, and the families
 \begin{equation*}
-    \big\{X \subseteq [n]: \vert X\vert = \big\lfloor \frac{n}{2} \big\rfloor\big\} \ \text{and} \ \big\{X \subseteq [n]: \vert X\vert = \big\lceil \frac{n}{2} \big\rceil\big\}
+    \big\{X \subseteq [n]: \vert X\vert = \left\lfloor \frac{n}{2} \right\rfloor\big\} \ \text{and} \ \big\{X \subseteq [n]: \vert X\vert = \left\lceil \frac{n}{2} \right\rceil\big\}
 \end{equation*}
 are the unique such families (where for $2 \mid n$ they are equal).
 
@@ -1080,9 +1088,9 @@ Let us call a family of subsets of $[n]$ an \emph{antichain} if it contains no t
 
 Hence, we will show that for any $n$, the unique largest antichains in $\mathcal{P}([n])$ are
 \begin{equation*}
-    A_1 := \big\{X \subseteq [n]: \vert X\vert  = \big\lfloor\frac{n}{2}\big\rfloor\big\}
+    A_1 := \big\{X \subseteq [n]: \vert X\vert  = \left\lfloor\frac{n}{2}\right\rfloor\big\}
     \ \text{and} \
-    A_2 := \big\{X \subseteq [n]: \vert X\vert  = \big\lceil\frac{n}{2}\big\rceil\big\}
+    A_2 := \big\{X \subseteq [n]: \vert X\vert  = \left\lceil\frac{n}{2}\right\rceil\big\}
 \end{equation*}
 (where if $2 \mid n$, we have $A_1=A_2$).
 \leanblueprint{sperner-appendix}
