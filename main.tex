@@ -123,9 +123,9 @@
 
 \section{Introduction}
 
-Sperner's theorem \cite{sperner} says that the largest family $A$ of subsets of $[n]$, without two subsets where one contains the other, is of size $\binom{n}{\lfloor \frac{n}{2} \rfloor}$, and the families
+Sperner's theorem \cite{sperner} says that the largest family $A$ of subsets of $[n]$, without two subsets where one contains the other, is of size $\binom{n}{\lfloor n/2 \rfloor}$, and the families
 \begin{equation*}
-    \{X \subseteq [n]: \vert X\vert = \lfloor \frac{n}{2} \rfloor\} \ \text{and} \ \{X \subseteq [n]: \vert X\vert = \lceil \frac{n}{2} \rceil\}
+    \big\{X \subseteq [n]: \vert X\vert = \big\lfloor \frac{n}{2} \big\rfloor\big\} \ \text{and} \ \big\{X \subseteq [n]: \vert X\vert = \big\lceil \frac{n}{2} \big\rceil\big\}
 \end{equation*}
 are the unique such families (where for $2 \mid n$ they are equal).
 
@@ -138,7 +138,7 @@ In this paper, we consider a generalisation of Sperner's theorem which pursues b
 We may formulate a generalisation of Sperner's theorem which explores both of the mentioned notions at once as follows:
 
 % blueprint-begin: wc:def:k-separated
-Let us call a subset $A \subseteq \thehypercube$ `$k$-separated' if for any different $x, y \in A$ with $x \leqslant y$, $x$ and $y$ differ on strictly more than $k$ coordinates. What is the largest $k$-separated subset of the hypercube $\thehypercube$?
+Let us call a subset $A \subseteq \thehypercube$ \emph{$k$-separated} if for any different $x, y \in A$ with $x \leqslant y$, $x$ and $y$ differ on strictly more than $k$ coordinates. What is the largest $k$-separated subset of the hypercube $\thehypercube$?
 % blueprint-end: wc:def:k-separated
 
 We now note in passing that the notion of $k$-separation is based on the $L_0$ metric (the number of coordinates which differ) rather than the $L_1$ metric (the sum of coordinate differences). It follows from Katona's proof in \cite{katona} (and in fact from many other techniques used to prove Sperner's theorem, for example a generalisation of Lubell's technique \cite{lubell} as presented in \cite{nagys}). On the other hand, the $L_0$ formulation resisted attempts at generalisations of existing proofs and seemed to require new ideas, and hence it drew our interest.
@@ -232,7 +232,7 @@ Finally, in \cite{on_error_detection_in_asymmetric_channels}, Kovačević introd
 
 This section discusses the general weighted chains strategy for proving Theorem \ref{the_main_theorem}. The results here hold for any $d \geqslant 1$.
 
-We will call the elements of $\thehypercube$ `points' and `vertices' (of the hypercube) interchangeably.
+We will call the elements of $\thehypercube$ \emph{points} and \emph{vertices} (of the hypercube) interchangeably.
 
 \begin{definition}[Chain]
 \label{wc:def:chain}
@@ -273,7 +273,7 @@ Let us also note that no chain of width at most $k$ may contain two elements of 
     A saturated chain is symmetric if and only if the condition $\vert x_1\vert +\vert x_l\vert =nd$ holds.
 \end{remark}
 
-It is often convenient to think of the points in the cube as grouped into diagonal `layers':
+It is often convenient to think of the points in the cube as grouped into diagonal \emph{layers}:
 
 \begin{definition}[A layer]
 \label{wc:def:layer}
@@ -290,7 +290,7 @@ We note that the sizes of layers are symmetric ($\vert L_i \vert = \vert L_{nd-i
 \end{equation*}
 which can be shown by induction on $d$ with base case $d=1$ (when $L_i=\binom{n}{i}$ and so the unimodality follows from the unimodality of binomial coefficients).
 
-Let us call the layer $L_{\frac{nd}{2}}$ (if $2 \mid nd$) or the layers $L_{\fclass}$ and $L_{\cclass}$ (if $2 \nmid nd$) the middle layers or `the middle of the cube'.
+Let us call the layer $L_{\frac{nd}{2}}$ (if $2 \mid nd$) or the layers $L_{\fclass}$ and $L_{\cclass}$ (if $2 \nmid nd$) the \emph{middle layers} or \emph{the middle of the cube}.
 
 \begin{definition}[Good chains]
 \label{wc:def:good-chain}
@@ -376,7 +376,7 @@ Analogously to the binomial coefficient, we have the following recursive formula
 
 Clearly, all vertices of the same type belong to the same layer. For $d=1$, the type of a vertex is determined by its layer (all elements of $L_i$ must have exactly $i$ ones and $n-i$ zeroes, so are of type $(i, n-i)$). For $d>1$, most layers contain multiple types.
 
-Similarly to calling layers lower/upper, outer/inner, we can call a type `lower' if it belongs to a lower layer, etc.
+Similarly to calling layers lower/upper, outer/inner, we can call a type \emph{lower} if it belongs to a lower layer, etc.
 
 \section{The proof strategy - weighted chains}
 \label{section_assigning_preliminary}
@@ -416,7 +416,7 @@ For $d=1$, conditions $(\ref{positive_non_A_condition})$ and $(\ref{positive_A_c
 
 For $d=2$ (handled in Section \ref{section_d2}) first we show in Lemma \ref{positive_basic_enough_lemma} that conditions $(\ref{positive_non_A_condition})$ and $(\ref{positive_A_condition})$ hold not only for good chains, but also for their certain subset called `basic chains', which is a bit simpler and so easier to analyse. Then we show that there exists an assignment of non-negative weights to basic chains which satisfies conditions (\ref{sum_1_condition}) and (\ref{short_chains_positive_condition}).
 
-We note that the Proposition cannot hold for $d > 2$, as in this case there exist points in the cube at which no good chains start. For example, consider an even $d=2d'>2$, any $k$ and $n$ large enough divisible by $(dk+1)$. Let $x$ be a point with all coordinates equal $d'-1$. Then $x$ is a lower point and since $dk+1 \mid n$, $|x|=n(d'-1)$, which is equivalent to $nd' = \lfloor \frac{nd}{2} \rfloor$ modulo $dk+1$. Then $x \in A_1=A_2$ but there is no chain of width $k$ and length $kd+1$ starting at $x$ (as $x$ has no coordinate $0$) and also, for $n$ large enough, no symmetric chain starting at $x$ and of width at most $d$. Hence, there are no good chains starting at $x$, and so condition $(\ref{positive_A_condition})$ cannot be satisfied. We could analogously construct counterexamples for odd $d$.
+We note that the Proposition cannot hold for $d > 2$, as in this case there exist points in the cube at which no good chains start. For example, consider an even $d=2d'>2$, any $k$ and $n$ large enough divisible by $(dk+1)$. Let $x$ be a point with all coordinates equal $d'-1$. Then $x$ is a lower point and since $dk+1 \mid n$, $|x|=n(d'-1)$, which is equivalent to $nd' = \fclass$ modulo $dk+1$. Then $x \in A_1=A_2$ but there is no chain of width $k$ and length $kd+1$ starting at $x$ (as $x$ has no coordinate $0$) and also, for $n$ large enough, no symmetric chain starting at $x$ and of width at most $d$. Hence, there are no good chains starting at $x$, and so condition $(\ref{positive_A_condition})$ cannot be satisfied. We could analogously construct counterexamples for odd $d$.
 
 Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 
@@ -470,7 +470,7 @@ Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
     Let us suppose that $B_{i-1} \cap A' = B_{i-1} \cap A_1$. We'd like to show that the same holds for $i$.
 
     \begin{caseindent}
-        $1:$ First, let us consider the case when $i$ is s.t. neither $L_{\fclass} - i$ nor $L_{\cclass + i}$ is a subset of $A_1$. But then for any $x \in B_i \setminus B_{i-1} = L_{\lfloor \frac{nd}{2} \rfloor - i} \cup L_{\lceil \frac{nd}{2} \rceil + i}$, from condition (\ref{positive_non_A_condition}) there is a chain of positive weight passing through $x$ and through some $y \in A_1 \setminus \{\thespecialpoint\}$, $y$ closer to the middle of the hypercube than $x$ (that is, $y \in B_{i-1}$). But then by induction, $y \in A'$, and so we must have $x \notin A'$. Applying this reasoning to every $x \in L_{\lfloor \frac{nd}{2} \rfloor - i} \cup L_{\lceil \frac{nd}{2} \rceil + i}$, we conclude that $B_i \cap A'=B_i \cap A_1$.
+        $1:$ First, let us consider the case when $i$ is s.t. neither $L_{\fclass} - i$ nor $L_{\cclass + i}$ is a subset of $A_1$. But then for any $x \in B_i \setminus B_{i-1} = L_{\fclass - i} \cup L_{\cclass + i}$, from condition (\ref{positive_non_A_condition}) there is a chain of positive weight passing through $x$ and through some $y \in A_1 \setminus \{\thespecialpoint\}$, $y$ closer to the middle of the hypercube than $x$ (that is, $y \in B_{i-1}$). But then by induction, $y \in A'$, and so we must have $x \notin A'$. Applying this reasoning to every $x \in L_{\fclass - i} \cup L_{\cclass + i}$, we conclude that $B_i \cap A'=B_i \cap A_1$.
 
         $2:$ Now, let us consider $i$ s.t. $L_{\fclass - i} \subseteq A_1$, $L_{\cclass + i} \not\subseteq A_1$ (the case when $L_{\fclass - i} \not\subseteq A_1$ and $L_{\cclass + i} \subseteq A_1$ can be considered analogously). Then for any $x \in L_{\fclass - i}$, there exists a chain of positive weight starting at $x$. But this chain can only pass through elements not belonging to $A_1$ that are closer to the middle of the hypercube than $x$ (so are in $B_{i-1}$), and so by induction not belonging to $A'$. Hence, we must have $x \in A'$. Moreover, just as in case $1$ for any $x \in L_{\cclass + i}$ we have $x \not\in A'$. 
 
@@ -524,11 +524,11 @@ Hence, if we assign equal weights to all good chains starting at the same layer,
 
 For a given $n$, let $W_n(a)$ denote the total weight assigned to all good chains starting at layer $a$.
 
-Starting at $a=0$ and proceeding through $a=1, \ldots, \lfloor \frac{n}{2} \rfloor$, we will recursively choose $W_n(a)=W_n(n-a)$ so that the total weight of all chains passing through $L_a$ (and $L_{n-a}$) is $\binom{n}{a}$ (so that the induced weight of each vertex is $1$). By symmetry, this will ensure that the weight of each vertex from the upper side of the cube is also $1$. This ensures condition (\ref{sum_1_condition}) of Proposition \ref{the_weights_assigning_proposition}.
+Starting at $a=0$ and proceeding through $a=1, \ldots, \big\lfloor \frac{n}{2} \big\rfloor$, we will recursively choose $W_n(a)=W_n(n-a)$ so that the total weight of all chains passing through $L_a$ (and $L_{n-a}$) is $\binom{n}{a}$ (so that the induced weight of each vertex is $1$). By symmetry, this will ensure that the weight of each vertex from the upper side of the cube is also $1$. This ensures condition (\ref{sum_1_condition}) of Proposition \ref{the_weights_assigning_proposition}.
 
 Then, we will verify that all weights $W_n(a)$ assigned this way are positive, i.e. that conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of the Proposition hold.
 
-We must have $W_n(0)=1$ (as there is exactly one vertex in layer $0$, $(0, \ldots, 0)$). To assign weights to chains starting at further layers, we note that (for $a \leqslant \lfloor \frac{n}{2} \rfloor$, so $L_a$ in the lower side of the cube) the chains passing through $L_a$ are exactly the chains passing though $L_{a-1}$, except for:
+We must have $W_n(0)=1$ (as there is exactly one vertex in layer $0$, $(0, \ldots, 0)$). To assign weights to chains starting at further layers, we note that (for $a \leqslant \big\lfloor \frac{n}{2} \big\rfloor$, so $L_a$ in the lower side of the cube) the chains passing through $L_a$ are exactly the chains passing though $L_{a-1}$, except for:
 \begin{itemize}
     \item The chains starting at $L_a$.
     \item The chains starting at $L_{a-k-1}$ (as they finish exactly at $L_{a-1}$).
@@ -711,9 +711,9 @@ A useful property of the set of basic chains is that all basic chains of a given
 \end{equation*}
 Hence, the set of all basic good chains starting at a given type is one of the orbits of the action of permuting coordinates on the set of chains. Therefore, it will be natural to assign the same weights to all basic good chains starting at the same type.
 
-Given the symmetry (under permuting coordinates) of all vertices in the same type (and all basic good chains), we will think of all basic good chains starting at vertices from the same type together, as one `metachain'.
+Given the symmetry (under permuting coordinates) of all vertices in the same type (and all basic good chains), we will think of all basic good chains starting at vertices from the same type together, as one \emph{metachain}.
 
-It may be helpful to visualise the types of $\{0, 1, 2\}^n$ on a `staircase plot', as shown on Figure \ref{figure_chain}. It shows the unit squares in the coordinate system (with the horizontal axis labelled as $a$ and the vertical axis labelled as $c$) whose coordinates satisfy $0 \leqslant a, c$ and $a+c \leqslant n$ (hence a staircase shape).
+It may be helpful to visualise the types of $\{0, 1, 2\}^n$ on a \emph{staircase plot}, as shown on Figure \ref{figure_chain}. It shows the unit squares in the coordinate system (with the horizontal axis labelled as $a$ and the vertical axis labelled as $c$) whose coordinates satisfy $0 \leqslant a, c$ and $a+c \leqslant n$ (hence a staircase shape).
 
 A square at position $(a, c)$ represents all points of type $(a, n-a-c, c)$ in $\{0, 1, 2\}^n$.
 
@@ -830,7 +830,7 @@ We note that if $n=a+b+c$, the three $\uno$s above correspond to types $(a-1, b,
 
 We will show that for $(a, b, c)$ a lower type different from $(0, n, 0)$ (i.e. $n=a+b+c$, $0 \leqslant c \leqslant a,$ $0 < a+c \leqslant n$), $U_n(a, c)$ is positive. We do this in Lemma \ref{wc:lem:ternary-auxiliary-positive}. Before we prove this formally in the lemma, let us first discuss the proof strategy.
 
-Let us call all lower types in the hypercube, except for $(0, n, 0)$, `proper' lower types.
+Let us call all lower types in the hypercube, except for $(0, n, 0)$, \emph{proper} lower types.
 
 From Equation \ref{d2_u_n1}, for any triple $(n, a, c)$ if we know that $\uno(a-1, c), \uno(a, c)$ and $\uno(a, c-1)$ are all positive, then clearly $\un(a, c)$ is also positive. We may hope that the three $\uno$ terms can be naturally shown positive by induction.
 
@@ -1055,7 +1055,7 @@ It is easy to show by induction on $n$ (with the base cases $k \leqslant n \leqs
 \end{equation*}
 \leanblueprint{asymptotic-density}
 % blueprint-end: wc:thm:asymptotic-density
-An interesting additional question to ask (for $d=2$) would be what makes the family of basic good chains sufficient for an assignment of non-negative weights to them being possible? For example, a similar family of `anti-basic chains', i.e. chains that, if starting at type $(a, b, c)$, go through types
+An interesting additional question to ask (for $d=2$) would be what makes the family of basic good chains sufficient for an assignment of non-negative weights to them being possible? For example, a similar family of \emph{anti-basic chains}, i.e. chains that, if starting at type $(a, b, c)$, go through types
 \begin{multline*}
     (a, b, c), \ (a-1, b+1, c), \ (a-2, b+2, c), \ \ldots, \\
     (a-k, b+k, c), \ (a-k, b+k-1, c+1), \ (a-k, b+k-2, c+2), \ \ldots, \ (a-k, b, c+k)
@@ -1078,15 +1078,15 @@ Let us call a family of subsets of $[n]$ an antichain if it contains no two elem
 
 Hence, we will show that for any $n$, the unique largest antichains in $\mathcal{P}([n])$ are
 \begin{equation*}
-    A_1 := \big\{X \subseteq [n]: \vert X\vert  = \lfloor\frac{n}{2}\rfloor\big\}
+    A_1 := \big\{X \subseteq [n]: \vert X\vert  = \big\lfloor\frac{n}{2}\big\rfloor\big\}
     \ \text{and} \
-    A_2 := \big\{X \subseteq [n]: \vert X\vert  = \lceil\frac{n}{2}\rceil\big\}
+    A_2 := \big\{X \subseteq [n]: \vert X\vert  = \big\lceil\frac{n}{2}\big\rceil\big\}
 \end{equation*}
 (where if $2 \mid n$, we have $A_1=A_2$).
 \leanblueprint{sperner-appendix}
 % blueprint-end: wc:thm:sperner-appendix
 
-Let us call a family of subsets $C = \{X_1, \ldots, X_l\}$ of $[n]$ a `symmetric chain' if:
+Let us call a family of subsets $C = \{X_1, \ldots, X_l\}$ of $[n]$ a \emph{symmetric chain} if:
 \begin{itemize}
     \item $X_1 \subseteq \ldots \subseteq X_l$.
     \item $\vert X_{i+1}\vert =\vert X_i\vert +1$ for any $1 \leqslant i \leqslant l-1$.
@@ -1106,7 +1106,7 @@ For $2 \mid n$ we have
 and for $2 \nmid n$ we have
 \begin{equation}
 \label{n_odd_cn2_equation}
-    \mathcal{C}_{\lfloor \frac{n}{2} \rfloor} = \big\{ \{X, Y\} : \ \vert X\vert  = \frac{n-1}{2}, \ \vert Y\vert =\frac{n+1}{2}, \ X \subseteq Y \big\}.
+    \mathcal{C}_{\lfloor n/2 \rfloor} = \big\{ \{X, Y\} : \ \vert X\vert  = \frac{n-1}{2}, \ \vert Y\vert =\frac{n+1}{2}, \ X \subseteq Y \big\}.
 \end{equation}
 
 Let us notice that for any $i$, $\{X \subseteq [n]: \vert X\vert =i\}$ is an orbit under the group action of permuting $[n]$. Similarly, so is $\mathcal{C}_i$ for any $i$. It follows that for any $X, Y \subseteq [n]$ with $\vert X\vert =\vert Y\vert $ and any $i$ exactly the same number of symmetric chains from $\mathcal{C}_i$ contain $X$ and $Y$.
@@ -1124,7 +1124,7 @@ Since $0 \leqslant i \leqslant \frac{n}{2}$, $w(C)$ is positive for any $C \in \
 \end{claim}
 
 \begin{proof}
-    Let $L_i := \{X \subseteq [n]: \vert X\vert =i\}$ be called `layer $i$'. For $0 \leqslant i \leqslant \frac{n}{2}$, the symmetric chains containing an element of $L_i$ are exactly those from $\mathcal{C}_0 \cup \ldots \cup \mathcal{C}_i$. Hence, the sum of weights of chains containing any element of $L_i$ is
+    Let $L_i := \{X \subseteq [n]: \vert X\vert =i\}$ be called \emph{layer $i$}. For $0 \leqslant i \leqslant \frac{n}{2}$, the symmetric chains containing an element of $L_i$ are exactly those from $\mathcal{C}_0 \cup \ldots \cup \mathcal{C}_i$. Hence, the sum of weights of chains containing any element of $L_i$ is
     \begin{equation*}
         \sum_{j=0}^i \vert \mathcal{C}_j\vert  \cdot \frac{1}{\vert \mathcal{C}_j\vert } \cdot \Big( \binom{n}{j}-\binom{n}{j-1} \Big)=\binom{n}{i}.
     \end{equation*}
@@ -1159,7 +1159,7 @@ Below we present a simple proof that the sets $A_1, A_2$ from Theorem \ref{the_m
 
 The proof uses the decomposition of the hypercube into symmetric chains $S_1, S_2, \ldots, S_m$, i.e. sets $S_i=(x_i^1, \ldots, x_i^{l_i})$ such that $x_i^1 \leqslant \ldots \leqslant x_i^{l_i}$ and $\vert x_i^j\vert +\vert x_i^{l_i+1-j}\vert =dn$ for any $1 \leqslant j \leqslant l_i$. Its existence was shown by de Bruijn, Tengbergen and Kruyswijk in \cite{symmetric_chain_decomposition}.
 
-Let $A'$ be any largest possible $k$-separated subset of the hypercube. Let $X=\{0, \ldots, d\}^{\lfloor \frac{n}{2} \rfloor}, Y=\{0, \ldots, d\}^{\lceil \frac{n}{2} \rceil}$ and let us consider the decomposition $\{0, \ldots, d\}^n=X \times Y$. For any two tuples $(x, y), (x', y') \in \{0, \ldots, d\}^n$ (where $x, x' \in X,$ $y, y' \in Y$), if $x=x'$ and $y \leqslant y'$ or $y=y'$ and $x \leqslant x'$, both cannot belong to $A'$.
+Let $A'$ be any largest possible $k$-separated subset of the hypercube. Let $X=\{0, \ldots, d\}^{\lfloor n/2 \rfloor}, Y=\{0, \ldots, d\}^{\lceil n/2 \rceil}$ and let us consider the decomposition $\{0, \ldots, d\}^n=X \times Y$. For any two tuples $(x, y), (x', y') \in \{0, \ldots, d\}^n$ (where $x, x' \in X,$ $y, y' \in Y$), if $x=x'$ and $y \leqslant y'$ or $y=y'$ and $x \leqslant x'$, both cannot belong to $A'$.
 
 Let us decompose $X$ and $Y$ into symmetric chains:
 \begin{equation*}
