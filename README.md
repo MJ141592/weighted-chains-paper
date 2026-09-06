@@ -1,9 +1,11 @@
-# Weighted chains
+#
 
-This repository contains the paper source and Lean 4 formalisation of *A
-generalisation of Sperner's theorem using weighted chain decomposition*. The
+This repository contains the paper source and Lean 4 formalisation of
+[*A generalisation of Sperner's theorem using weighted chain decomposition*](). The
 formalisation is a standalone project built on mathlib; it is not intended for
 direct inclusion in mathlib.
+
+## Structure of the repository
 
 The publication has four complementary views:
 

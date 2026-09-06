@@ -10,3 +10,13 @@ rev = "v4.33.1"
 [[lean_lib]]
 name = "WeightedChains"
 moreLeanArgs = ["-DwarningAsError=true"]
+
+# Comparator (https://github.com/leanprover/comparator) targets; see
+# `comparator.json`.  The challenge is deliberately kept out of
+# `defaultTargets`: it contains the placeholder `sorry` that the solution has
+# to discharge, and `-DwarningAsError=true` would reject it.
+[[lean_lib]]
+name = "Challenge"
+
+[[lean_lib]]
+name = "Solution"
