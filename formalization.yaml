@@ -122,14 +122,15 @@ fidelity:
     so that the Challenge module introduces no auxiliary constant; the library
     proves this maximum exists (Asymptotics.exists_kSeparated_card_eq_maxKSeparatedCard)
     and the two formulations are shown equal in WeightedChainsPalomar/Solution.lean.
-    The paper's asymptotic sketch argues along dimensions divisible by k; the
-    Lean proof establishes convergence along every natural dimension. The
-    formalization exposed a number of misstatements in the manuscript (sign
-    errors and index ranges in the Section 4 and 5 recurrences, the saturated
-    hypothesis in the width/length equivalence, the exceptional type (0, 0) in
-    the ternary positivity lemma, and others); these are listed under
-    "Clarifications exposed by formalisation" in FORMALIZATION.md and the
-    Lean statements follow the corrected forms.
+    The paper's asymptotic sketch argues along dimensions reached by steps of
+    size k; the Lean proof establishes convergence along every natural
+    dimension. Lemma 5.5 is proved under the hypothesis 1 < k of Theorem 1.1
+    in addition to the stated k ≤ n. The misstatements that the formalization
+    exposed in earlier drafts of the manuscript (sign errors and index ranges
+    in the Section 4 and 5 recurrences, the saturated hypothesis in the
+    width/length equivalence, the exceptional type (0, 0) in the ternary
+    positivity lemma, and others) have been corrected in the paper; the Lean
+    statements follow the corrected forms.
 
 sources:
   - title: "A generalisation of Sperner's theorem using weighted chain decomposition"
@@ -165,8 +166,8 @@ automation:
         under the direction and review of the formalization authors, who are
         also authors of the paper. Every declaration is checked by Lean and by
         scripts/audit.sh; the correspondence with the paper was checked by the
-        authors, and the corrections to the manuscript it exposed are listed in
-        FORMALIZATION.md.
+        authors, and the misstatements in earlier drafts that it exposed have
+        been corrected in the manuscript.
     - method: agent
       models: ["Claude (Anthropic)"]
       framework: "Cursor"
@@ -189,8 +190,8 @@ review:
     WeightedChains/, and checks every project theorem against the three
     standard axioms. Paper-to-Lean correspondence was checked by the authors,
     who wrote both the paper and the formalization; FORMALIZATION.md and the
-    blueprint record the correspondence for each paper statement and the
-    corrections the formalization exposed. The Palomar files and the
+    blueprint record the Lean counterpart of each paper statement and the
+    places where its encoding differs in form. The Palomar files and the
     correspondence between the compared statements and the paper were checked
     by the responsible maintainer, and comparator.json has been run through
     leanprover/comparator, which accepts the solution. No external body has
@@ -325,7 +326,7 @@ alignment:
       module: "WeightedChains.WeightedStrategy, WeightedChains.DOne, WeightedChains.DTwo"
       status: proved
       note: >-
-        The intermediate machinery. The full item-by-item map of the 18
+        The intermediate machinery. The full item-by-item map of the 19
         numbered paper environments to Lean declarations is the table in
         FORMALIZATION.md and the blueprint under blueprint/.
 

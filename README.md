@@ -9,8 +9,8 @@ The publication has three complementary views:
 
 - `main.tex` is the authoritative journal manuscript;
 - `blueprint/` builds an interactive, theorem-level paper-to-Lean companion;
-- `FORMALIZATION.md` records the detailed declaration map and corrections
-  exposed by formalisation.
+- `FORMALIZATION.md` records the detailed declaration map and the places where
+  the Lean encoding is phrased differently from the paper.
 
 The Lean kernel verifies the declarations linked by the Blueprint; where the
 Lean encoding of a statement differs in form from the paper, the Blueprint
