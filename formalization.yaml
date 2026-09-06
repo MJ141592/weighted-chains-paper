@@ -122,10 +122,10 @@ fidelity:
     so that the Challenge module introduces no auxiliary constant; the library
     proves this maximum exists (Asymptotics.exists_kSeparated_card_eq_maxKSeparatedCard)
     and the two formulations are shown equal in WeightedChainsPalomar/Solution.lean.
-    The paper's asymptotic sketch argues along dimensions reached by steps of
-    size k; the Lean proof establishes convergence along every natural
-    dimension. Lemma 5.5 is proved under the hypothesis 1 < k of Theorem 1.1
-    in addition to the stated k ≤ n. The misstatements that the formalization
+    The paper's asymptotic sketch is an induction on n with step k from the
+    base cases k <= n <= 2k - 1; the Lean proof runs the same recurrence from
+    the trivial bound at n mod k, giving convergence along every natural
+    dimension. The misstatements that the formalization
     exposed in earlier drafts of the manuscript (sign errors and index ranges
     in the Section 4 and 5 recurrences, the saturated hypothesis in the
     width/length equivalence, the exceptional type (0, 0) in the ternary

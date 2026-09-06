@@ -91,13 +91,12 @@ outer contributions in the pointwise incidence recurrence.
 source := paperSource "wc:lem:ternary-inner-weight-positive" "Lemma 5.5"
 %%%
 
-For $`k \le n` and a proper lower inner type $`(a,n-a-c,c)`, that is
+For $`1 < k \le n` and a proper lower inner type $`(a,n-a-c,c)`, that is
 $`0 \le a, c \le n`, $`0 < a+c \le n` and $`a-k < c \le a`, the starting
 weight $`W_n(a,c)` is positive.
 
 Lean proves the positivity of the difference $`U_n(a,c)-U_n(c+k,a-k)` that
-Lemma 5.4 identifies with $`W_n(a,c)`, under the additional hypothesis
-$`1 < k` of Theorem 1.1, which is needed on the diagonal inner types.
+Lemma 5.4 identifies with $`W_n(a,c)`.
 :::
 
 :::proof "wc:lem:ternary-inner-weight-positive"

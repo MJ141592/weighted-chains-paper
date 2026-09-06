@@ -94,7 +94,7 @@ notes there how its Lean encoding differs in form from the paper, where it does.
 | Section 5, dimension-Pascal identity on valid lower types | `Ternary.auxiliaryWeightPascal_of_valid_lower` | proved, including ghost boundaries |
 | Section 5, inner starting-weight difference and dimension recurrence | `Ternary.innerStartingWeight`, `Ternary.innerStartingWeight_succ_of_valid_inner` | proved |
 | Section 5, positivity of `U_n(a,c)` (Lemma 5.3) | `Ternary.auxiliaryWeight_pos_of_valid_lower` | proved |
-| Section 5, positivity of inner starting weights (Lemma 5.5) | `Ternary.innerStartingWeight_pos_of_valid_lower_inner` | proved for `1 < k` |
+| Section 5, positivity of inner starting weights (Lemma 5.5) | `Ternary.innerStartingWeight_pos_of_valid_lower_inner` | proved |
 | Section 5, full reflected start-type total and positivity | `Ternary.startTypeWeight`, `Ternary.startTypeWeight_pos` | proved |
 | Section 5, the three pointwise `W_n(a,c)` recurrences | `Ternary.startTypeWeight_recurrence_lower_outer`, `Ternary.startTypeWeight_recurrence_lowest_lower_inner`, `Ternary.startTypeWeight_recurrence_lower_inner` | proved with integer zero-extension |
 | Section 5, concrete distributed weighting covers every ternary vertex | `Ternary.BasicChain.inducedWeight_startTypeTotal_eq_one` | proved |
@@ -115,19 +115,16 @@ hypothesis that the manuscript leaves implicit.
 1. The paper's rational inequality `n/2 ≤ k` in Appendix B is encoded as
    `n ≤ 2k`, which is exact; writing `n / 2 ≤ k` with truncated natural-number
    division would be one unit too weak when `n` is odd.
-2. Lemma 5.5 (positivity of the inner starting weights `W_n(a,c)`) is proved
-   under the hypothesis `1 < k` of Theorem 1.1, in addition to the stated
-   `k ≤ n`. The hypothesis is needed on the diagonal inner types and is in
-   force throughout Section 5, but the printed statement of the lemma does not
-   repeat it.
-3. The asymptotic result in the conclusion is proved as a real-valued limit
-   along every natural dimension `n`, handling each remainder class modulo `k`,
-   rather than only along dimensions reached from a single base case by steps of
-   size `k`.
-4. The uniqueness induction of Lemma 3.2 is carried out by well-founded
+2. The asymptotic result in the conclusion is proved as a real-valued limit
+   along every natural dimension `n`. The recurrence
+   `A(n+k) ≤ (d+1)^n + ((d+1)^k - (dk+1)) A(n)` is proved for every `n ≥ 0`,
+   so the induction starts from the trivial bound `A(r) ≤ (d+1)^r` for the
+   remainder `r = n mod k` rather than from the paper's base cases
+   `k ≤ n ≤ 2k-1`; the two choices differ only by one step of the recurrence.
+3. The uniqueness induction of Lemma 3.2 is carried out by well-founded
    induction on the distance from the middle of the cube
    (`DOne.EqualityPropagation`, `DTwo.Uniqueness`).
-5. The Palomar `Challenge` statements avoid every project definition: the cube
+4. The Palomar `Challenge` statements avoid every project definition: the cube
    is `Fin n → Fin (d + 1)`, the rank is `∑ i, (x i : ℕ)`, comparability is
    `∀ i, x i ≤ y i`, the number of differing coordinates is a `Finset.filter`
    cardinality, and the residues `⌊nd/2⌋`, `⌈nd/2⌉` are written with
