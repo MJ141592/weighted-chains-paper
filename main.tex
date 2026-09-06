@@ -968,7 +968,7 @@ We notice that for a proper lower inner type and $n>k$, we always have the follo
 
 \begin{lemma}
 \label{wc:lem:ternary-inner-weight-positive}
-    For $k \leqslant n$ and $(a, n-a-c, c)$ a proper lower inner type, i.e. $0 \leqslant a, c \leqslant n$, $0<a+c\leqslant n$ and $a-k<c\leqslant a$ we have $\wn(a, c)>0$.
+    For $1 < k \leqslant n$ and $(a, n-a-c, c)$ a proper lower inner type, i.e. $0 \leqslant a, c \leqslant n$, $0<a+c\leqslant n$ and $a-k<c\leqslant a$ we have $\wn(a, c)>0$.
 \leanblueprint{ternary-inner-weight-positive}
 \end{lemma}
 
@@ -1049,7 +1049,7 @@ However, the main drawback to simply generalising the construction with basic ch
 A potentially easier intermediate step would be to prove Theorem \ref{the_main_theorem} without the uniqueness, that is simply to construct an assignment of non-negative weights to good chains so that the sum of values of all chains passing through any vertex is $1$.
 
 % blueprint-begin: wc:thm:asymptotic-density
-It is easy to show by induction on $n$ (with the base cases $k \leqslant n \leqslant n-k+1$ and inductive step of size $k$) that Theorem \ref{the_main_theorem} holds asymptotically, i.e. that for any $d, k$ constant and $n \rightarrow \infty$ we have (denoting by $A_{k, d}(n)$ the size of the largest subsets satisfying the conditions of Theorem \ref{the_main_theorem} for the given $k, d, n$):
+It is easy to show by induction on $n$ (with the base cases $k \leqslant n \leqslant 2k - 1$ and inductive step of size $k$) that Theorem \ref{the_main_theorem} holds asymptotically, i.e. that for any $d, k$ constant and $n \rightarrow \infty$ we have (denoting by $A_{k, d}(n)$ the size of the largest subsets satisfying the conditions of Theorem \ref{the_main_theorem} for the given $k, d, n$):
 \begin{equation*}
     \frac{A_{k, d}(n)}{(1+d)^n} = \frac{1}{dk+1} + o(1).
 \end{equation*}
