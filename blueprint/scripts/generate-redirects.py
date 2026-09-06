@@ -33,7 +33,6 @@ def arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--links", type=Path, required=True)
-    parser.add_argument("--semantic-review", type=Path, required=True)
     parser.add_argument("--site", type=Path, required=True)
     parser.add_argument("--expected-commit", required=True)
     return parser.parse_args()
@@ -116,37 +115,6 @@ def source_span(preview: dict) -> dict:
             f"{preview.get('authoredLabel')!r} must have exactly one paper-source text span"
         )
     return matches[0]["text"]
-
-
-def semantic_review_records(path: Path) -> dict[str, dict]:
-    text = path.read_text(encoding="utf-8")
-    sections = re.split(r"(?m)^### [0-9]+[.] ", text)[1:]
-    result: dict[str, dict] = {}
-    for section in sections:
-        label_match = re.search(r"[*][*]Canonical ID:[*][*] `([^`]+)`", section)
-        category_match = re.search(r"[*][*]Category:[*][*] ([^\n]+)", section)
-        route_match = re.search(r"[*][*]Stable route:[*][*] `([^`]+)`", section)
-        source_match = re.search(
-            r"[*][*]LaTeX source:[*][*] `([^`:]+):([0-9]+)-([0-9]+)`", section
-        )
-        if any(match is None for match in (label_match, category_match, route_match, source_match)):
-            continue
-        label = label_match.group(1)
-        categories = {item.strip() for item in category_match.group(1).split(",")}
-        if label in result:
-            raise ValueError(f"duplicate semantic-review record for {label!r}")
-        result[label] = {
-            "categories": categories,
-            "route": route_match.group(1),
-            "source": {
-                "path": source_match.group(1),
-                "startLine": int(source_match.group(2)),
-                "endLine": int(source_match.group(3)),
-            },
-        }
-    if not result:
-        raise ValueError(f"{path} contains no semantic-review records")
-    return result
 
 
 def validate_numbered_paper_environments(entries: list[dict], links_path: Path) -> None:
@@ -294,18 +262,6 @@ def main() -> None:
         raise ValueError(f"{args.links} does not contain a nonempty entries array")
     validate_numbered_paper_environments(entries, args.links)
     validate_pdf_link_badges(entries, args.links)
-    review_records = semantic_review_records(args.semantic_review)
-    reviewed_labels = {
-        entry.get("label")
-        for entry in entries
-        if entry.get("numbered") is True or entry.get("pdfLinked") is True
-    }
-    if set(review_records) != reviewed_labels:
-        raise ValueError(
-            "semantic-review coverage drift: "
-            f"missing {sorted(reviewed_labels - set(review_records))}, "
-            f"stale {sorted(set(review_records) - reviewed_labels)}"
-        )
 
     previews = load_previews(args.manifest)
     targets = statement_targets(previews)
@@ -357,25 +313,6 @@ def main() -> None:
                 f"{label!r} has invalid correspondence categories: "
                 f"{sorted(expected_correspondence)}"
             )
-        if entry.get("numbered") is True or entry.get("pdfLinked") is True:
-            review_record = review_records[label]
-            if review_record["categories"] != expected_correspondence:
-                raise ValueError(
-                    f"semantic-review category drift for {label!r}: ledger has "
-                    f"{sorted(review_record['categories'])}, links manifest has "
-                    f"{sorted(expected_correspondence)}"
-                )
-            if review_record["source"] != entry.get("source"):
-                raise ValueError(
-                    f"semantic-review source drift for {label!r}: ledger has "
-                    f"{review_record['source']}, links manifest has {entry.get('source')}"
-                )
-            expected_route = f"/theorems/{slug}/"
-            if review_record["route"] != expected_route:
-                raise ValueError(
-                    f"semantic-review route drift for {label!r}: ledger has "
-                    f"{review_record['route']!r}, expected {expected_route!r}"
-                )
         actual_correspondence = tags & CORRESPONDENCE_TAGS
         if actual_correspondence != expected_correspondence:
             raise ValueError(

@@ -28,12 +28,14 @@ project definition:
 
 The `≡ … [MOD …]` notation is Mathlib's `Nat.ModEq`.
 
-Four results are compared (see `comparator.json`).  Together they state the
-paper's main theorem for `d ∈ {1, 2}` (Theorem 1.1), the elementary fact from
+Seven results are compared (see `comparator.json`).  Together they state the
+paper's main theorem for `d ∈ {1, 2}` (Theorem 1.1), the elementary facts from
 the introduction that the residue families are `k`-separated in every
-dimension, the cardinality bound for arbitrary `d` in the range
-`n / 2 ≤ k ≤ n` (the paper's appendix on that range), and the asymptotic
-density statement from the paper's conclusions.
+dimension and have the same cardinality, the cardinality bound for arbitrary
+`d` in the range `n / 2 ≤ k ≤ n` (the paper's appendix on that range) together
+with its extension to cuboids `{0, …, d₁} × ⋯ × {0, …, dₙ}`, the paper's
+weighted-chain proof of Sperner's theorem with its equality case (the other
+appendix), and the asymptotic density statement from the paper's conclusions.
 
 Every declaration below is deliberately left with a `sorry` placeholder; that
 is the Comparator convention.  The proofs are supplied by
@@ -62,6 +64,21 @@ theorem residue_families_kSeparated (n d k : ℕ) :
       ∑ i, (y i : ℕ) ≡ (n * d - n * d / 2) [MOD d * k + 1] →
       (∀ i, x i ≤ y i) → x ≠ y →
       k < (Finset.univ.filter fun i ↦ x i ≠ y i).card) := by
+  sorry
+
+/-- **The residue families have the same cardinality** (the introduction).
+
+For every `n`, `d`, and `k`, the families `A₁` and `A₂` have the same number
+of members: coordinatewise reflection `x ↦ d - x` of the cube maps one onto
+the other.  Together with `main_theorem` this says that when `n * d` is odd
+the paper's two extremal families are distinct and equally large, and
+together with `large_k_bound` it says that `A₂` is also a largest
+`k`-separated family in the range `n / 2 ≤ k ≤ n`. -/
+theorem residue_families_card_eq (n d k : ℕ) :
+    (Finset.univ.filter fun x : Fin n → Fin (d + 1) ↦
+      ∑ i, (x i : ℕ) ≡ n * d / 2 [MOD d * k + 1]).card =
+    (Finset.univ.filter fun x : Fin n → Fin (d + 1) ↦
+      ∑ i, (x i : ℕ) ≡ (n * d - n * d / 2) [MOD d * k + 1]).card := by
   sorry
 
 /-- **The main theorem** (Theorem 1.1 of the paper).
@@ -106,6 +123,48 @@ theorem large_k_bound (n d k : ℕ) (hhalf : n ≤ 2 * k) (hkn : k ≤ n)
       k < (Finset.univ.filter fun i ↦ x i ≠ y i).card) :
     A.card ≤ (Finset.univ.filter fun x : Fin n → Fin (d + 1) ↦
       ∑ i, (x i : ℕ) ≡ n * d / 2 [MOD d * k + 1]).card := by
+  sorry
+
+/-- **The cardinality bound for cuboids when `n / 2 ≤ k ≤ n`** (the closing
+remark of the paper's appendix on this range).
+
+The same argument applies to a cuboid `{0, …, d₁} × ⋯ × {0, …, dₙ}` with
+arbitrary coordinate bounds `dᵢ = bounds i`, whose vertices are the dependent
+functions `(i : Fin n) → Fin (bounds i + 1)` and whose rank is again the
+coordinate sum.  If `n ≤ 2 * k` and `k ≤ n`, every `k`-separated family `A` in
+the cuboid has at most as many members as the lower central layer, the
+vertices of rank `⌊(∑ dᵢ)/2⌋`, and likewise at most as many members as the
+upper central layer, the vertices of rank `⌈(∑ dᵢ)/2⌉`.  The two layers have
+the same cardinality by reflection; the cube case `bounds = fun _ ↦ d`
+recovers `large_k_bound`. -/
+theorem cuboid_large_k_bound (n k : ℕ) (bounds : Fin n → ℕ)
+    (hhalf : n ≤ 2 * k) (hkn : k ≤ n)
+    (A : Finset ((i : Fin n) → Fin (bounds i + 1)))
+    (hA : ∀ x ∈ A, ∀ y ∈ A, (∀ i, x i ≤ y i) → x ≠ y →
+      k < (Finset.univ.filter fun i ↦ x i ≠ y i).card) :
+    A.card ≤ (Finset.univ.filter fun x : (i : Fin n) → Fin (bounds i + 1) ↦
+        ∑ i, (x i : ℕ) = (∑ i, bounds i) / 2).card ∧
+      A.card ≤ (Finset.univ.filter fun x : (i : Fin n) → Fin (bounds i + 1) ↦
+        ∑ i, (x i : ℕ) = ∑ i, bounds i - (∑ i, bounds i) / 2).card := by
+  sorry
+
+/-- **Sperner's theorem, with its equality case** (the paper's appendix giving
+a weighted-chain proof of Sperner's theorem).
+
+Identify a subset of `{1, …, n}` with its indicator vector in `{0, 1}ⁿ`, so
+that inclusion is the coordinatewise order.  An antichain `A` of subsets, that
+is a family in which `x ≤ y` forces `x = y`, has at most `n.choose (n / 2)`
+members, and has exactly that many members precisely when it is the layer of
+all `⌊n/2⌋`-element subsets or the layer of all `⌈n/2⌉`-element subsets (which
+coincide when `n` is even).  This is the case `d = 1`, `k = 1` of the paper's
+problem, for which `1`-separation of `{0, 1}ⁿ` is exactly the antichain
+condition. -/
+theorem sperner_theorem (n : ℕ) (A : Finset (Fin n → Fin 2))
+    (hA : ∀ x ∈ A, ∀ y ∈ A, (∀ i, x i ≤ y i) → x = y) :
+    A.card ≤ n.choose (n / 2) ∧
+      (A.card = n.choose (n / 2) ↔
+        A = (Finset.univ.filter fun x : Fin n → Fin 2 ↦ ∑ i, (x i : ℕ) = n / 2) ∨
+          A = (Finset.univ.filter fun x : Fin n → Fin 2 ↦ ∑ i, (x i : ℕ) = n - n / 2)) := by
   sorry
 
 /-- **Asymptotic density of the largest `k`-separated family** (the

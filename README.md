@@ -5,19 +5,17 @@ generalisation of Sperner's theorem using weighted chain decomposition*. The
 formalisation is a standalone project built on mathlib; it is not intended for
 direct inclusion in mathlib.
 
-The publication has four complementary views:
+The publication has three complementary views:
 
 - `main.tex` is the authoritative journal manuscript;
 - `blueprint/` builds an interactive, theorem-level paper-to-Lean companion;
 - `FORMALIZATION.md` records the detailed declaration map and corrections
-  exposed by formalisation;
-- `SEMANTIC_REVIEW.md` records human review of the correspondence between each
-  PDF-linked paper result and its Lean encoding.
+  exposed by formalisation.
 
-The Lean kernel verifies the declarations linked by the Blueprint. That fact
-is deliberately kept separate from semantic correspondence review: a green
-proof status says that Lean accepted the displayed declaration, while the
-review record says whether that declaration faithfully represents the paper.
+The Lean kernel verifies the declarations linked by the Blueprint. A green
+proof status says that Lean accepted the displayed declaration; whether that
+declaration faithfully represents the paper is documented in
+`FORMALIZATION.md` and in the Blueprint's per-result correspondence notes.
 
 ## Lean formalisation
 

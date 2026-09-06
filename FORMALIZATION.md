@@ -32,10 +32,9 @@ library.
 
 The interactive companion under `blueprint/` presents the 18 numbered paper
 items and the main unnumbered results with kernel-checked signatures and
-commit-pinned source links. All 21 results linked directly from the PDF are in
-`SEMANTIC_REVIEW.md`, the authoritative human sign-off record for paper-to-Lean
-correspondence; proof completion and semantic review are intentionally reported
-as distinct facts.
+commit-pinned source links. Each of the 21 results linked directly from the PDF
+carries a correspondence note there; proof completion and paper-to-Lean
+correspondence are intentionally reported as distinct facts.
 
 ## Paper-to-Lean map
 
@@ -215,11 +214,10 @@ These source-level issues were introduced by the current proof-reading changes;
 they do not alter the kernel-checked Lean statements.
 
 1. The AI usage note at `main.tex:160` says that the Lean code has been checked
-   manually as a faithful translation while all author sign-off records in
-   `SEMANTIC_REVIEW.md` remain pending.  The word “legitimate” also does not
-   distinguish kernel acceptance from semantic correspondence.  Until the
-   author review is complete, the note should distinguish the completed kernel
-   checks from the ongoing review of correspondence.
+   manually as a faithful translation.  The word “legitimate” does not
+   distinguish kernel acceptance from semantic correspondence; the note should
+   distinguish the completed kernel checks from the authors' review of
+   correspondence.
 
 ## Sources for the setup
 

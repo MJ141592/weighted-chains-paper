@@ -6,7 +6,7 @@ results—link to their stable Blueprint pages. The integration changes only
 link metadata and canonical labels; it does not change mathematical prose or
 formulas.
 
-The canonical labels and slugs are coordinated with `SEMANTIC_REVIEW.md`.
+The canonical labels and slugs are coordinated with `blueprint/links.json`.
 Existing labels are aliases: keep them alongside the new canonical labels so
 existing `\ref` uses and external links continue to work.
 
@@ -30,9 +30,9 @@ than the PDF, should carry the versioned Git commit, declaration source link,
 kernel/audit result, and semantic-review state.
 
 Do not change the badge to `[Lean checked]`, `[Lean verified]`, or a check mark
-until the corresponding row in `SEMANTIC_REVIEW.md` has a human reviewer,
-review date, reviewed commit, and positive sign-off. Kernel checking alone is
-not semantic correspondence review.
+until the authors have reviewed the correspondence of the linked result and
+recorded that in `blueprint/links.json`. Kernel checking alone is not semantic
+correspondence review.
 
 ## Environment insertion pattern
 

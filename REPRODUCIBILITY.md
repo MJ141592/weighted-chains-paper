@@ -10,7 +10,7 @@ The build establishes that Lean accepts the formal declarations and that the
 automated completeness and axiom policy passes. It does not, by itself,
 establish that an informal paper statement and a Lean statement express the
 same proposition. That correspondence is described in `FORMALIZATION.md` and
-signed off item-by-item in `SEMANTIC_REVIEW.md`.
+in the Blueprint's per-result notes.
 
 ## Requirements
 

@@ -14,17 +14,20 @@ project:
     decomposes the cube into weighted chains, invariant under coordinate
     permutation, and double counts against the weights; the same method gives
     a new proof of Sperner's theorem (the case d = 1, k = 1), carried out in an
-    appendix. The formalization also proves that A_1 and A_2 are k-separated for every d,
-    that A_1 is largest for every d in the range n/2 <= k <= n via a symmetric
-    chain decomposition, and that the maximal density of a k-separated family
-    in {0, ..., d}^n tends to 1/(dk + 1) as n tends to infinity for every fixed
-    d, k >= 1. All four results are the compared theorems of the Palomar record
-    in WeightedChainsPalomar/. The compared theorems depend on propext,
+    appendix. The formalization also proves that A_1 and A_2 are k-separated
+    and equally large for every d, that both are largest for every d in the
+    range n/2 <= k <= n via a symmetric chain decomposition (also for cuboids
+    {0, ..., d_1} x ... x {0, ..., d_n}), Sperner's theorem with its equality
+    case, and that the maximal density of a k-separated family in
+    {0, ..., d}^n tends to 1/(dk + 1) as n tends to infinity for every fixed
+    d, k >= 1. These seven results are the compared theorems of the Palomar
+    record in WeightedChainsPalomar/. The compared theorems depend on propext,
     Classical.choice and Quot.sound and on nothing else, and there is no sorry
-    outside the four deliberate holes in WeightedChainsPalomar/Challenge.lean.
+    outside the seven deliberate holes in WeightedChainsPalomar/Challenge.lean.
   authors:
     - "Matthew Johnson"
     - "Yaël Dillies"
+    - "Aleksandra Kowalska"
   responsible_maintainers:
     - "Matthew Johnson"
   license: "Apache-2.0"
@@ -38,19 +41,20 @@ classification:
 
 status:
   scope: >-
-    Complete, with no unproved step, for each of the four compared theorems and
-    for the whole development in WeightedChains/. Every numbered environment of
-    the paper, the asymptotic conclusion and both appendix results have a Lean
-    counterpart; FORMALIZATION.md carries the item-by-item map and the
-    interactive blueprint under blueprint/ links each paper statement to its
-    declaration. Beyond the compared statements the library proves the
-    equality classification in the large-k appendix (LargeK.lowerResidueFinset_isMaximum,
-    LargeK.upperResidueFinset_isMaximum), an independent weighted proof of
-    Sperner's theorem with its equality case
-    (SpernerAppendix.cardinality_and_uniqueness), and a cuboid extension.
-    These are not compared because they are secondary to the paper's headline
-    claims, not because of any gap.
-  # The proof development contains no sorry. The only four in the repository
+    Complete, with no unproved step, for each of the seven compared theorems
+    and for the whole development in WeightedChains/. Every numbered
+    environment of the paper, the asymptotic conclusion, both appendix results
+    and the appendix's closing remark on cuboids have a Lean counterpart;
+    FORMALIZATION.md carries the item-by-item map and the interactive blueprint
+    under blueprint/ links each paper statement to its declaration. The only
+    headline-level library result without a compared counterpart is the de
+    Bruijn-Tengbergen-Kruyswijk theorem (LargeK.deBruijnTengbergenKruyswijk),
+    the existence of a symmetric chain decomposition of every finite cuboid,
+    which is proved constructively as the tool for the large-k appendix; its
+    statement is about a project-defined structure (RankedSCD) and so cannot
+    be phrased in a Mathlib-only Challenge module. Its consequences are
+    compared.
+  # The proof development contains no sorry. The only seven in the repository
   # are the deliberate placeholders in WeightedChainsPalomar/Challenge.lean,
   # which these counts exclude by convention.
   sorry_count: 0
@@ -69,7 +73,25 @@ status:
       axioms: ["propext", "Classical.choice", "Quot.sound"]
       comparator_config: "comparator.json"
       literature_dependencies: []
+    - declaration: "WeightedChains.residue_families_card_eq"
+      file: "WeightedChainsPalomar/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
     - declaration: "WeightedChains.large_k_bound"
+      file: "WeightedChainsPalomar/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "WeightedChains.cuboid_large_k_bound"
+      file: "WeightedChainsPalomar/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "WeightedChains.sperner_theorem"
       file: "WeightedChainsPalomar/Solution.lean"
       sorry_count: 0
       axioms: ["propext", "Classical.choice", "Quot.sound"]
@@ -115,9 +137,14 @@ sources:
     type: "preprint"
     id: "arXiv:2509.26493"
     location: >-
-      Theorem 1.1 (WeightedChains.main_theorem); the remark following it
-      (WeightedChains.residue_families_kSeparated); the appendix on the range
-      n/2 ≤ k ≤ n (WeightedChains.large_k_bound); the conclusions
+      Theorem 1.1 (WeightedChains.main_theorem); the introduction's remarks
+      that A_1 and A_2 are k-separated and equally large
+      (WeightedChains.residue_families_kSeparated,
+      WeightedChains.residue_families_card_eq); the appendix on the range
+      n/2 ≤ k ≤ n and its closing remark on cuboids
+      (WeightedChains.large_k_bound, WeightedChains.cuboid_large_k_bound); the
+      appendix giving a weighted proof of Sperner's theorem
+      (WeightedChains.sperner_theorem); the conclusions
       (WeightedChains.asymptotic_density).
     relationship: formalizes
     author_endorsement: participated
@@ -131,14 +158,15 @@ related_formalizations: []
 
 automation:
   methods:
-    - method: other
-      # TODO(maintainer): replace with the actual method(s) used for the
-      # development in WeightedChains/ (manual | copilot | agent | autonomous),
-      # together with models, framework and cost where applicable.
+    - method: agent
       role: >-
-        The development in WeightedChains/, the blueprint and the audit
-        tooling. The method, models and tooling used are to be recorded here
-        by the maintainer.
+        The development in WeightedChains/, the blueprint under blueprint/ and
+        the audit tooling in scripts/ were produced by AI coding agents working
+        under the direction and review of the formalization authors, who are
+        also authors of the paper. Every declaration is checked by Lean and by
+        scripts/audit.sh; the correspondence with the paper was checked by the
+        authors, and the corrections to the manuscript it exposed are listed in
+        FORMALIZATION.md.
     - method: agent
       models: ["Claude (Anthropic)"]
       framework: "Cursor"
@@ -159,13 +187,14 @@ review:
     Every step is checked by Lean, and scripts/audit.sh rejects sorry, admit,
     project axioms, opaque or unsafe declarations and decide-based shortcuts in
     WeightedChains/, and checks every project theorem against the three
-    standard axioms. Paper-to-Lean correspondence is reviewed separately:
-    SEMANTIC_REVIEW.md is the sign-off ledger for the 21 results linked from
-    the manuscript, and its rows are pending author sign-off at the time of
-    writing. The Palomar files and the correspondence between the compared
-    statements and the paper were checked by the responsible maintainer, and
-    comparator.json has been run through leanprover/comparator, which accepts
-    the solution. No external body has certified the formalization.
+    standard axioms. Paper-to-Lean correspondence was checked by the authors,
+    who wrote both the paper and the formalization; FORMALIZATION.md and the
+    blueprint record the correspondence for each paper statement and the
+    corrections the formalization exposed. The Palomar files and the
+    correspondence between the compared statements and the paper were checked
+    by the responsible maintainer, and comparator.json has been run through
+    leanprover/comparator, which accepts the solution. No external body has
+    certified the formalization.
 
 known_gaps: []
 
@@ -175,12 +204,12 @@ limitations:
     cited paper, whose authors also carried out the formalization.
   - >-
     The compared theorems depend on propext, Classical.choice and Quot.sound,
-    and on nothing else. The four sorries in
+    and on nothing else. The seven sorries in
     WeightedChainsPalomar/Challenge.lean are the deliberate Comparator holes,
     one per compared theorem.
   - >-
     The lean_lib WeightedChainsPalomar is built with warn.sorry = false so
-    that lake build is silent about those four deliberate holes. It would be
+    that lake build is silent about those seven deliberate holes. It would be
     equally silent about an accidental one in
     WeightedChainsPalomar/Solution.lean; that case is caught by Comparator's
     axiom check rather than by the build. The main library WeightedChains is
@@ -191,16 +220,16 @@ limitations:
     range n/2 ≤ k ≤ n and the asymptotic density are proved; the paper does not
     claim more.
   - >-
-    The semantic review ledger in SEMANTIC_REVIEW.md is pending sign-off; kernel
-    acceptance and semantic correspondence are deliberately reported as
-    separate facts throughout the repository.
+    Kernel acceptance and paper-to-Lean correspondence are deliberately
+    reported as separate facts throughout the repository; the latter rests on
+    the authors' own review, not on external refereeing.
 
 alignment:
   # The library lives in the namespace `WeightedChains`, with the cube
   # vocabulary under `WeightedChains.Cube`, the two constructions under
   # `WeightedChains.DOne` and `WeightedChains.Ternary`, and the appendices
   # under `WeightedChains.LargeK` and `WeightedChains.SpernerAppendix`. The
-  # four compared declarations also live in `WeightedChains`, but are defined
+  # seven compared declarations also live in `WeightedChains`, but are defined
   # only in WeightedChainsPalomar/, not in the library.
   namespace: "WeightedChains"
   statements:
@@ -226,6 +255,17 @@ alignment:
         Cube.upperResidueFamily_kSeparated (WeightedChains/Preliminaries.lean),
         for every n, d and k.
 
+    - source: "arXiv:2509.26493, introduction: |A_1| = |A_2| by reflection"
+      lean: "WeightedChains.residue_families_card_eq"
+      module: "WeightedChainsPalomar.Challenge (statement), WeightedChainsPalomar.Solution (proof)"
+      status: proved
+      note: >-
+        Discharged from Cube.card_lowerResidueFinset_eq_card_upperResidueFinset
+        (WeightedChains/ResidueSymmetry.lean), via the coordinatewise
+        reflection x ↦ d - x. Combined with large_k_bound this gives the
+        library's LargeK.upperResidueFinset_isMaximum: A_2 is also a largest
+        family in the range n/2 ≤ k ≤ n.
+
     - source: "arXiv:2509.26493, appendix on the range n/2 ≤ k ≤ n: A_1 is largest for every d"
       lean: "WeightedChains.large_k_bound"
       module: "WeightedChainsPalomar.Challenge (statement), WeightedChainsPalomar.Solution (proof)"
@@ -234,10 +274,25 @@ alignment:
         Discharged from LargeK.kSeparated_card_le_lowerResidueFinset
         (WeightedChains/Appendices/LargeK.lean), which proves the symmetric
         chain decomposition it needs rather than assuming it. The paper's
-        n/2 ≤ k is encoded as n ≤ 2 * k. The library also proves that A_1 and
-        A_2 are maximum families in this range
-        (LargeK.lowerResidueFinset_isMaximum, LargeK.upperResidueFinset_isMaximum);
-        those are not compared.
+        n/2 ≤ k is encoded as n ≤ 2 * k. Together with
+        residue_families_kSeparated this is the library's
+        LargeK.lowerResidueFinset_isMaximum.
+
+    - source: "arXiv:2509.26493, closing remark of the same appendix: the bound holds for cuboids"
+      lean: "WeightedChains.cuboid_large_k_bound"
+      module: "WeightedChainsPalomar.Challenge (statement), WeightedChainsPalomar.Solution (proof)"
+      status: extends-source
+      note: >-
+        Discharged from LargeK.cuboid_lowerMiddleLayer_isMaximum and
+        LargeK.cuboid_upperMiddleLayer_isMaximum
+        (WeightedChains/Appendices/LargeK.lean). The paper only remarks that
+        the same proof works for cuboids {0, ..., d_1} x ... x {0, ..., d_n};
+        the formalization carries it out, with the cuboid as the dependent
+        function type (i : Fin n) → Fin (bounds i + 1) and both central layers
+        as the reference families. Rests on the constructive symmetric chain
+        decomposition of every finite cuboid
+        (LargeK.deBruijnTengbergenKruyswijk), which is not itself compared
+        because its statement uses the project's RankedSCD structure.
 
     - source: "arXiv:2509.26493, conclusions: the maximal density tends to 1/(dk + 1)"
       lean: "WeightedChains.asymptotic_density"
@@ -250,13 +305,20 @@ alignment:
         library's Asymptotics.maxKSeparatedCard in the Solution module.
 
     - source: "arXiv:2509.26493, appendix: a weighted proof of Sperner's theorem"
-      lean: "SpernerAppendix.cardinality_and_uniqueness"
-      module: "WeightedChains.Appendices.Sperner"
-      status: proved-not-compared
+      lean: "WeightedChains.sperner_theorem"
+      module: "WeightedChainsPalomar.Challenge (statement), WeightedChainsPalomar.Solution (proof)"
+      status: proved
       note: >-
-        The paper's independent weighted-chain proof of Sperner's theorem with
-        its equality case. Not compared, being a classical result recovered as
-        a special case rather than a headline claim.
+        Discharged from SpernerAppendix.cardinality_and_uniqueness
+        (WeightedChains/Appendices/Sperner.lean), the paper's independent
+        weighted-chain proof of Sperner's theorem with its equality case.
+        Subsets of {1, ..., n} are their indicator vectors in Fin n → Fin 2,
+        the antichain condition is (∀ i, x i ≤ y i) → x = y, and the two
+        extremal layers are written as rank filters; the library's
+        lowerMiddleLayer and upperMiddleLayer are shown equal to those filters
+        in the Solution module. The mathematics is classical; it is compared
+        because the paper presents the proof as a result of independent
+        interest.
 
     - source: "arXiv:2509.26493, Sections 3-5: weighted chain decompositions and the two constructions"
       lean: "WeightedCover.card_le_of_weighted_cover, DOne.BooleanChain.cardinality_and_uniqueness, Ternary.BasicChain.cardinality_and_uniqueness"

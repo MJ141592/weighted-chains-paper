@@ -40,7 +40,6 @@ lake env lake exe vbp check --site "$site_dir"
 python3 "$blueprint_root/scripts/generate-redirects.py" \
   --manifest "$manifest" \
   --links "$blueprint_root/links.json" \
-  --semantic-review "$repository_root/SEMANTIC_REVIEW.md" \
   --site "$site_dir" \
   --expected-commit "$source_commit"
 
