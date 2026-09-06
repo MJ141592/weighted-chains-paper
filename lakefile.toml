@@ -15,9 +15,13 @@ moreLeanArgs = ["-DwarningAsError=true"]
 # Palomar Challenge/Solution record, checked by `leanprover/comparator`
 # following `comparator.json`.  `Challenge` imports only Mathlib and
 # deliberately leaves every proof as `sorry`, which is why sorry warnings are
-# switched off for this library only; `Solution` proves the same statements
-# from the `WeightedChains` library.
+# switched off for this library only (as a `leanOptions` entry so that the
+# editor's language server honours it too); `Solution` proves the same
+# statements from the `WeightedChains` library.
 [[lean_lib]]
 name = "WeightedChainsPalomar"
 roots = ["WeightedChainsPalomar.Challenge", "WeightedChainsPalomar.Solution"]
-moreLeanArgs = ["-DwarningAsError=true", "-Dwarn.sorry=false"]
+moreLeanArgs = ["-DwarningAsError=true"]
+
+[lean_lib.leanOptions]
+warn.sorry = false
