@@ -209,12 +209,12 @@ limitations:
     WeightedChainsPalomar/Challenge.lean are the deliberate Comparator holes,
     one per compared theorem.
   - >-
-    The lean_lib WeightedChainsPalomar is built with warn.sorry = false so
-    that lake build is silent about those seven deliberate holes. It would be
-    equally silent about an accidental one in
-    WeightedChainsPalomar/Solution.lean; that case is caught by Comparator's
-    axiom check rather than by the build. The main library WeightedChains is
-    built with warnings as errors and is scanned for sorry by scripts/audit.sh.
+    WeightedChainsPalomar/Challenge.lean sets warn.sorry to false for itself so
+    that lake build is silent about those seven deliberate holes. Everything
+    else, including WeightedChainsPalomar/Solution.lean and the main library
+    WeightedChains, is built with warnings as errors, so an accidental sorry
+    fails the build; the compared theorems are additionally checked for
+    sorryAx by Comparator's axiom check and by scripts/audit.sh.
   - >-
     The main theorem is compared only for d ∈ {1, 2} and 1 < k ≤ n, exactly
     as the paper states it. For arbitrary d only the cardinality bound in the

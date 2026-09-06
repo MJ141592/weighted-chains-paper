@@ -43,6 +43,11 @@ is the Comparator convention.  The proofs are supplied by
 discharges it from the corresponding result of the `WeightedChains` library.
 -/
 
+-- The seven `sorry`s below are the deliberate Comparator holes; this file is the
+-- only one in the project where they are expected, so the warning is silenced
+-- here and nowhere else.
+set_option warn.sorry false
+
 namespace WeightedChains
 
 /-- **The residue families are `k`-separated** (Remark after Theorem 1.1).
