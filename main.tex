@@ -288,7 +288,7 @@ We note that the sizes of layers are symmetric ($\vert L_i \vert = \vert L_{nd-i
 \begin{equation*}
     1=\vert L_0\vert  \leqslant \vert L_1\vert  \leqslant \ldots \leqslant \vert L_{\fclass}\vert =\vert L_{\cclass}\vert  \geqslant \ldots \geqslant \vert L_{nd-1}\vert  \geqslant \vert L_{nd}\vert =1,
 \end{equation*}
-which can be shown by induction on $d$ with base case $d=1$ (when $L_i=\binom{n}{i}$ and so the unimodality follows from the unimodality of binomial coefficients).
+which can be shown by induction on $d$ with base case $d=1$ (when $\vert L_i\vert=\binom{n}{i}$ and so the unimodality follows from the unimodality of binomial coefficients).
 
 Let us call the layer $L_{\frac{nd}{2}}$ (if $2 \mid nd$) or the layers $L_{\fclass}$ and $L_{\cclass}$ (if $2 \nmid nd$) the \emph{middle layers} or \emph{the middle of the cube}.
 
@@ -416,7 +416,7 @@ For $d=1$, conditions $(\ref{positive_non_A_condition})$ and $(\ref{positive_A_c
 
 For $d=2$ (handled in Section \ref{section_d2}) first we show in Lemma \ref{positive_basic_enough_lemma} that conditions $(\ref{positive_non_A_condition})$ and $(\ref{positive_A_condition})$ hold not only for good chains, but also for their certain subset called `basic chains', which is a bit simpler and so easier to analyse. Then we show that there exists an assignment of non-negative weights to basic chains which satisfies conditions (\ref{sum_1_condition}) and (\ref{short_chains_positive_condition}).
 
-We note that the Proposition cannot hold for $d > 2$, as in this case there exist points in the cube at which no good chains start. For example, consider an even $d=2d'>2$, any $k$ and $n$ large enough divisible by $(dk+1)$. Let $x$ be a point with all coordinates equal $d'-1$. Then $x$ is a lower point and since $dk+1 \mid n$, $|x|=n(d'-1)$, which is equivalent to $nd' = \fclass$ modulo $dk+1$. Then $x \in A_1=A_2$ but there is no chain of width $k$ and length $kd+1$ starting at $x$ (as $x$ has no coordinate $0$) and also, for $n$ large enough, no symmetric chain starting at $x$ and of width at most $d$. Hence, there are no good chains starting at $x$, and so condition $(\ref{positive_A_condition})$ cannot be satisfied. We could analogously construct counterexamples for odd $d$.
+We note that the Proposition cannot hold for $d > 2$, as in this case there exist points in the cube at which no good chains start. For example, consider an even $d=2d'>2$, any $k$ and $n$ large enough divisible by $(dk+1)$. Let $x$ be a point with all coordinates equal $d'-1$. Then $x$ is a lower point and since $dk+1 \mid n$, $|x|=n(d'-1)$, which is equivalent to $nd' = \fclass$ modulo $dk+1$. Then $x \in A_1=A_2$ but there is no chain of width $k$ and length $kd+1$ starting at $x$ (as $x$ has no coordinate $0$) and also, for $n$ large enough, no symmetric chain starting at $x$ and of width at most $k$. Hence, there are no good chains starting at $x$, and so condition $(\ref{positive_A_condition})$ cannot be satisfied. We could analogously construct counterexamples for odd $d$.
 
 Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 
@@ -470,11 +470,11 @@ Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
     Let us suppose that $B_{i-1} \cap A' = B_{i-1} \cap A_1$. We'd like to show that the same holds for $i$.
 
     \begin{caseindent}
-        $1:$ First, let us consider the case when $i$ is s.t. neither $L_{\fclass} - i$ nor $L_{\cclass + i}$ is a subset of $A_1$. But then for any $x \in B_i \setminus B_{i-1} = L_{\fclass - i} \cup L_{\cclass + i}$, from condition (\ref{positive_non_A_condition}) there is a chain of positive weight passing through $x$ and through some $y \in A_1 \setminus \{\thespecialpoint\}$, $y$ closer to the middle of the hypercube than $x$ (that is, $y \in B_{i-1}$). But then by induction, $y \in A'$, and so we must have $x \notin A'$. Applying this reasoning to every $x \in L_{\fclass - i} \cup L_{\cclass + i}$, we conclude that $B_i \cap A'=B_i \cap A_1$.
+        $1:$ First, let us consider the case when $i$ is s.t. neither $L_{\fclass - i}$ nor $L_{\cclass + i}$ is a subset of $A_1$. But then for any $x \in B_i \setminus B_{i-1} = L_{\fclass - i} \cup L_{\cclass + i}$, from condition (\ref{positive_non_A_condition}) there is a chain of positive weight passing through $x$ and through some $y \in A_1 \setminus \{\thespecialpoint\}$, $y$ closer to the middle of the hypercube than $x$ (that is, $y \in B_{i-1}$). But then by induction, $y \in A'$, and so we must have $x \notin A'$. Applying this reasoning to every $x \in L_{\fclass - i} \cup L_{\cclass + i}$, we conclude that $B_i \cap A'=B_i \cap A_1$.
 
         $2:$ Now, let us consider $i$ s.t. $L_{\fclass - i} \subseteq A_1$, $L_{\cclass + i} \not\subseteq A_1$ (the case when $L_{\fclass - i} \not\subseteq A_1$ and $L_{\cclass + i} \subseteq A_1$ can be considered analogously). Then for any $x \in L_{\fclass - i}$, there exists a chain of positive weight starting at $x$. But this chain can only pass through elements not belonging to $A_1$ that are closer to the middle of the hypercube than $x$ (so are in $B_{i-1}$), and so by induction not belonging to $A'$. Hence, we must have $x \in A'$. Moreover, just as in case $1$ for any $x \in L_{\cclass + i}$ we have $x \not\in A'$. 
 
-        $3:$ Finally, let us suppose that $L_{\fclass - i} \subseteq A_1$ and $L_{\cclass} + i \subseteq A_1$. Since also $L_{\fclass} \subseteq A_1$, from the definition of $A_1$ it follows that $dk+1 \mid i$ and $2 \mid nd$ (i.e., $\fclass=\cclass$). However, then the distance between $L_{\fclass - i}$ and $L_{\cclass + i}$ is at least $2(dk+1)$ and so there is no good chain passing through elements from both these layers. A reasoning analogous to that in case $2$ leads us to a conclusion that $L_{\fclass - i}, L_{\cclass + i} \subseteq A'$ and so again $B_i \cap A'=B_i \cap A_1$.
+        $3:$ Finally, let us suppose that $L_{\fclass - i} \subseteq A_1$ and $L_{\cclass + i} \subseteq A_1$. Since also $L_{\fclass} \subseteq A_1$, from the definition of $A_1$ it follows that $dk+1 \mid i$ and $2 \mid nd$ (i.e., $\fclass=\cclass$). However, then the distance between $L_{\fclass - i}$ and $L_{\cclass + i}$ is at least $2(dk+1)$ and so there is no good chain passing through elements from both these layers. A reasoning analogous to that in case $2$ leads us to a conclusion that $L_{\fclass - i}, L_{\cclass + i} \subseteq A'$ and so again $B_i \cap A'=B_i \cap A_1$.
         \end{caseindent}
 \end{proof}
 
@@ -560,7 +560,7 @@ Now it only remains to show that the weights of chains starting at the inner lay
 
 \subsection{Showing that chains starting at the inner layers have positive weights}
 
-For $a \leqslant \frac{n}{2}$, the layer $a$ is inner if and only if $\big(\frac{n}{2}-a\big)+1$ (the length of a symmetric chain starting at $a$) is smaller than $k+1$, that is if $n-k<2a$.
+For $a \leqslant \frac{n}{2}$, the layer $a$ is inner if and only if $n-2a+1$ (the length of a symmetric chain starting at $a$) is smaller than $k+1$, that is if $n-k<2a$.
 
 We note that it is possible to do it in a more direct way than presented here, but the proof presented below adapts more naturally to $d=2$. 
 
@@ -645,7 +645,7 @@ and
     \begin{equation*}
         W_n(a)=U_n(a)-U_n(n-a-k)=\uno(a-1)-\uno((n-1)-(a-1)-k)=W_{n-1}(a-1),
     \end{equation*}
-    which by induction is positive (since $0<2(a-1)<n-1$).
+    which by induction is positive (since $(n-1)-k<2(a-1)=n-2 \leqslant n-1$, using $k>1$, so $a-1$ is a lower inner layer of $\{0,1\}^{n-1}$).
     
     $2.3:$ If $(n-1)-k \geqslant 2(a-1)$, then (since also $n-k<2a$), we must have $2a+k-1=n$. But then $U_{n-1}(a-1)=U_{n-1}(n-a-k)$ and hence
     \begin{multline*}
@@ -975,7 +975,7 @@ We notice that for a proper lower inner type and $n>k$, we always have the follo
 \begin{proof}
     We prove the lemma by induction on $n$, with $n=k$ being the base case.
 
-    $1:$ If $n=k$, since for an inner layer $a-n<c\leqslant n$ we cannot have $a=n$ (as then $0<c$, but we also need $a+c \leqslant n$). Hence, we have $\un(c+n, a-n)=0$ and so $W_n(a, c)=U_n(a, c)>0$.
+    $1:$ If $n=k$, since for an inner type $a-n<c\leqslant a$ we cannot have $a=n$ (as then $0<c$, but we also need $a+c \leqslant n$). Hence, we have $\un(c+n, a-n)=0$ and so $W_n(a, c)=U_n(a, c)>0$.
 
     $2:$ Let us now suppose that $n>k$.
         \begin{caseindent}
@@ -1031,7 +1031,7 @@ Hence, from Lemmas \ref{wc:lem:ternary-inner-weight} and \ref{wc:lem:ternary-inn
 
 In this paper, we have shown that the unique largest subset $A \subseteq \{0, 1, 2\}^n$ such that there are no distinct elements $x, y \in A$ with $x \leqslant y$ and $x_i < y_i$ for at most $k$ coordinates $i$ is
 \begin{equation}
-    A = \Big\{ x \in \{0,1, 2\} : \vert x\vert  \equiv n \ (\modd 2k+1) \Big\}.
+    A = \Big\{ x \in \{0,1, 2\}^n : \vert x\vert  \equiv n \ (\modd 2k+1) \Big\}.
 \end{equation}
 The main contribution of this paper is the decomposition of the cube $\cube$ into weighted chains of width at most $k$ that are either of maximal length $2k+1$ or symmetric. This is a novel approach compared to those used for other generalisations of Sperner's theorem. 
 
