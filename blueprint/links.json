@@ -102,6 +102,13 @@
       "paperRef": "Lemma 4.1"
     },
     {
+      "slug": "boolean-inner-weight-positive",
+      "label": "wc:lem:boolean-inner-weight-positive",
+      "kind": "lemma",
+      "numbered": true,
+      "paperRef": "Lemma 4.2"
+    },
+    {
       "slug": "basic-chain",
       "label": "wc:def:basic-chain",
       "kind": "definition",
