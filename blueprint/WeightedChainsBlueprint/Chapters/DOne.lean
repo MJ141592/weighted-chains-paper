@@ -34,3 +34,24 @@ The outer contributions on the two sides are identified with the auxiliary
 weight and its reflected argument, and the defining incidence recurrence is
 then rearranged.
 :::
+
+:::lemma_ "wc:lem:boolean-inner-weight-positive" (parent := "paper-boolean") (lean := "WeightedChains.DOne.innerWeight_pos") (autoDeps := true)
+%%%
+source := paperSource "wc:lem:boolean-inner-weight-positive" "Lemma 4.2"
+%%%
+
+For $`1<k\leq n` and a lower inner Boolean layer $`a`, that is
+$`n-k<2a\leq n`, the difference $`U_n(a)-U_n(n-a-k)` is positive.
+
+Lean states this as the positivity of `innerWeight`, the difference defined for
+Lemma 4.1. The hypothesis $`1<k` is essential: for $`k=1` the central
+difference can vanish.
+:::
+
+:::proof "wc:lem:boolean-inner-weight-positive"
+Fix $`k` and induct on $`n` from the base case $`n=k`, where the reflected term
+vanishes. In the inductive step the Pascal-type recurrence for the auxiliary
+weight splits the difference into the two corresponding differences one
+dimension lower; each is either positive by induction or vanishes because its
+argument is the central or boundary layer.
+:::
