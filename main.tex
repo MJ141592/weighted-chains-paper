@@ -180,7 +180,7 @@ where we denote
     \vert x\vert  := \sum_i x_i.
 \end{equation*}
 
-If $2 \mid nd$, we have $A_1=A_2$ and so there is only one largest such subset.
+If $2 \mid nd$, we have $A_1=A_2$ and so there is only one such largest subset.
 \leanblueprint{main-theorem}
 \end{theorem}
 
@@ -198,7 +198,7 @@ If $2 \mid nd$, we have $A_1=A_2$ and so there is only one largest such subset.
 \end{remark}
 % blueprint-end: wc:lem:residue-families-separated
 
-The case $d=1$ (in a different, but equivalent formulation) easily follows from the results of Katona \cite{katona} and Griggs \cite{griggs}. However, we present our (novel and arrived at independently) proof in this case, as we hope that it is of independent interest and as it generalises very naturally to the $d=2$ case.
+The case $d=1$ (in a different, but equivalent formulation) easily follows from the results of Katona \cite{katona} and Griggs \cite{griggs}. However, we present our (novel and arrived at independently) proof of this case, as we hope that it is of independent interest and as it generalises very naturally to the $d=2$ case.
 
 The case $d=1, k=n$ is simply Sperner's theorem. Our proof simplifies in this special case, and we present it in Appendix \ref{appendix_sperner}, which may be read independently from the rest of the paper.
 
@@ -488,7 +488,7 @@ Let us now show how the Proposition implies Theorem \ref{the_main_theorem}.
 
         $2:$ Now, let us consider $i$ such that $L_{\fclass - i} \subseteq A_1$, $L_{\cclass + i} \not\subseteq A_1$ (the case when $L_{\fclass - i} \not\subseteq A_1$ and $L_{\cclass + i} \subseteq A_1$ can be considered analogously). Then for any $x \in L_{\fclass - i}$, there exists a chain of positive weight starting at $x$. But this chain can only (except for $x$) pass through elements not belonging to $A_1$ that are closer to the middle of the hypercube than $x$ (so are in $B_{i-1}$), and so by induction not belonging to $A'$. Hence, we must have $x \in A'$. Moreover, just as in case $1$ for any $x \in L_{\cclass + i}$ we have $x \not\in A'$. 
 
-        $3:$ Finally, let us suppose that $L_{\fclass - i} \subseteq A_1$ and $L_{\cclass + i} \subseteq A_1$. Since also $L_{\fclass} \subseteq A_1$, from the definition of $A_1$ it follows that $dk+1 \mid i$ and $2 \mid nd$ (i.e., $\fclass=\cclass$). However, then the distance between $L_{\fclass - i}$ and $L_{\cclass + i}$ is at least $2(dk+1)$ and so there is no good chain passing through elements from both these layers. A reasoning analogous to that in case $2$ leads us to a conclusion that $L_{\fclass - i}, L_{\cclass + i} \subseteq A'$ and so again $B_i \cap A'=B_i \cap A_1$. \qedhere
+        $3:$ Finally, let us suppose that $L_{\fclass - i} \subseteq A_1$ and $L_{\cclass + i} \subseteq A_1$. Since also $L_{\fclass} \subseteq A_1$, from the definition of $A_1$ it follows that $dk+1 \mid i$ and $2 \mid nd$ (i.e., $\fclass=\cclass$). However, then the distance between $L_{\fclass - i}$ and $L_{\cclass + i}$ is at least $2(dk+1)$ and so there is no good chain passing through elements of both these layers. A reasoning analogous to that in case $2$ leads us to a conclusion that $L_{\fclass - i}, L_{\cclass + i} \subseteq A'$ and so again $B_i \cap A'=B_i \cap A_1$. \qedhere
         \end{caseindent}
 \end{proof}
 
@@ -540,13 +540,13 @@ For a given $n$, let $W_n(a)$ denote the total weight assigned to all good chain
 
 Starting at $a=0$ and proceeding through $a=1, \ldots, \big\lfloor \frac{n}{2} \big\rfloor$, we will recursively choose $W_n(a)=W_n(n-a)$ so that the total weight of all chains passing through $L_a$ (and $L_{n-a}$) is $\binom{n}{a}$ (so that the induced weight of each vertex is $1$). By symmetry, this will ensure that the weight of each vertex from the upper side of the cube is also $1$. This ensures condition (\ref{sum_1_condition}) of Proposition \ref{the_weights_assigning_proposition}.
 
-Then, we will verify that all weights $W_n(a)$ assigned this way are positive, i.e. that conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of the Proposition hold.
+Then, we will verify that all weights $W_n(a)$ assigned this way are positive. This clearly ensures conditions (\ref{non_negative_condition}) and (\ref{short_chains_positive_condition}) of the Proposition. Since we may easily check that for any point in $\{0, 1\}^n$ there exists a good chain starting at it (and any good chain passes through a point from $A_1$ and a point from $A_2$), this also ensures that conditions (\ref{positive_non_A_condition}) and (\ref{positive_A_condition}) hold.
 
 We must have $W_n(0)=1$ (as there is exactly one vertex in layer $0$, $(0, \ldots, 0)$). To assign weights to chains starting at further layers, we note that (for $a \leqslant \big\lfloor \frac{n}{2} \big\rfloor$, so $L_a$ in the lower side of the cube) the chains passing through $L_a$ are exactly the chains passing through $L_{a-1}$, except for:
 \begin{itemize}
     \item The chains starting at $L_a$.
     \item The chains starting at $L_{a-k-1}$ (as they finish exactly at $L_{a-1}$).
-    \item If $L_a$ is an inner layer, the chains starting at $L_{a+k}$ pass through $L_a$ but not through $L_{a-1}$.
+    \item If $L_a$ is an inner layer (we defined inner and outer layers in Definition \ref{wc:def:inner-outer-layers}), the chains starting at $L_{a+k}$ pass through $L_a$ but not through $L_{a-1}$.
 \end{itemize}
 Hence, for $a$ a lower outer layer the difference between the total weight of chains passing through $L_a$ and $L_{a-1}$ can be written in two ways as:
 \begin{equation*}
@@ -677,7 +677,7 @@ and
         =(\uno(a) + \uno(a-1))-(\uno(n-a-k) + \uno(n-a-k-1))\\
         =U_{n-1}(a)-U_{n-1}((n-1)-a-k)=W_{n-1}(a),
     \end{multline*}
-    which by induction is positive. \qedhere
+    which by induction is positive (since $(n-1)-k<2a \leqslant n-1$, so $a$ is a lower inner layer of $\{0, 1\}^{n-1}$). \qedhere
 \end{caseindent}
 \end{proof}
 
@@ -731,7 +731,9 @@ In what follows, we will show that (for $d=2$) it is possible to assign weights 
     At first sight it is by no means obvious that taking only basic good chains should be enough. We noticed this after making simulations in Python. We also tried some other subsets of chains, which turned out to require negative weights.
 \end{remark}
 
-A useful property of the set of basic chains is that all basic chains of a given width $w$ starting at vertices of the same type (e.g. $(a, b, c)$ for $d=2$ and $b+2c<n$ so in the lower half of the cube) pass through exactly the same types, e.g.
+Let us recall Definition \ref{wc:def:type}, where we defined types. We note that for $d=2$, the type $(a, b, c)$ lies in layer $b+2c=n-a+c$, and $L_n$ is the middle layer of the hypercube (hence, a type $(a, b, c)$ is lower if $a \geqslant c$ and upper if $a \leqslant c$).
+
+A useful property of the set of basic chains is that all basic chains of a given width $w$ starting at vertices of the same type (e.g. $(a, b, c)$ with $a>c$ for $d=2$) pass through exactly the same types, e.g.
 \begin{equation*}
     (a, b, c), (a-1, b+1, c), (a-1, b, c+1), (a-2, b+1, c+1), (a-2, b, c+2), \ldots, (a-w, b, c+w).
 \end{equation*}
@@ -787,7 +789,7 @@ It turns out that for $d=2$ it is possible to assign positive weights only to ba
     Finally, the only vertices left to consider are those of type $(1, n-1, 0)$ (which are not in $A_1$ for $k>0$). However, for any of them there is a chain (actually, multiple chains) starting at a vertex of type $(2, n-2, 0)$ and passing through a vertex from the middle layer of type $(1, n-2, 1)$.
 \end{proof}
 
-Similarly to the case $d=1$, we will assign weights to basic good chains, first to those starting at types $(n, 0, 0)$ and $(0, 0, n)$, and then consider types increasingly closer to the middle of the cube. At each point we will assign the same weight to all basic good chains starting at a given type, so that the total weight of all chains passing through that type equals its size (as then, from the symmetry of vertices from the same type, the weight of all chains passing through any vertex from that type is $1$).
+Similarly to the case $d=1$, we will assign weights to basic good chains, first to those starting at types $(n, 0, 0)$ and $(0, 0, n)$, and then consider types increasingly closer to the middle of the cube. At each point we will assign the same weight to all basic good chains starting at a given type, so that the total weight of all chains passing through that type equals its size (as then, from the symmetry of vertices of the same type, the weight of all chains passing through any vertex of that type is $1$).
 
 This ensures condition (\ref{sum_1_condition}) of Proposition \ref{the_weights_assigning_proposition}, and leaves us to show that conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) are satisfied. We will do this at once by showing that the weight of all basic chains is positive, except for the singleton chain $\{(1, \dots, 1)\}$, which has weight $0$. By Lemma \ref{positive_basic_enough_lemma}, this implies that conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of the Proposition are satisfied.
 
@@ -797,7 +799,7 @@ Let us denote by $W_n(a, c)$ the total weight of basic good chains starting at t
 
 We will first show that the weights of chains starting at the outer types are positive and then that the weights of chains starting at the inner types are positive. We will show this for vertices from the lower half of the cube, as thanks to the symmetry the same will apply to the upper half of the cube. Hence, from now on $(a, b, c)$ will denote a lower type (i.e. with $a \geqslant c$).
 
-It may be easily checked that a lower type is outer if and only if $c+k \leqslant a$ and inner otherwise. Moreover, the vertices of type $(a, b, c)$ lie in layer $b+2c=n-a+c$.
+It may be easily checked that a lower type is outer if and only if $c+k \leqslant a$ and inner otherwise. Moreover, as mentioned above, the vertices of type $(a, b, c)$ lie in layer $b+2c=n-a+c$. Finally, let us recall that a type $(a, b, c)$ with any of $a, b$ or $c$ negative is just an empty set.
 
 The key observation for calculating the weights of chains is that basic good chains pass through a lower type $(a, b, c)$ if and only if they pass through type $(a+1, b, c-1)$, except for:
 \begin{itemize}
@@ -827,7 +829,7 @@ and (for $c>a-k+1$):
     W_n(a, c) = \binom{n}{a, c} - \binom{n}{a+1, c-1} - W_n(a+1, c)\\ + W_n(a+k+1, c-k) + W_n(a+k+1, c-k-1) - W_n(a-k, c+k) - \wn(a-k+1, c+k).
 \end{multline}
 
-Of course, $W_n(n, 0)=1$ (as there is exactly one vertex of type $(n, 0, 0)$) and $W_n(a, c)=0$ if $a<0, c<0$ or $n-a-c<0$. These starting conditions and Equations \ref{the_key_recursive_equation}, \ref{the_key_recursion_lowest_inner} and \ref{the_key_recursion_inner} allow us to recursively compute $W_n(a, c)$.
+Of course, $W_n(n, 0)=1$ (as there is exactly one vertex of type $(n, 0, 0)$) and $W_n(a, c)=0$ if $a<0, c<0$ or $n-a-c<0$. These starting conditions and Equations \ref{the_key_recursive_equation}, \ref{the_key_recursion_lowest_inner} and \ref{the_key_recursion_inner} allow us to recursively compute $W_n(a, c)$ for lower types, i.e. with $a \geqslant c$. For upper types (i.e. with $a \leqslant c$) by symmetry we have $W_n(a, c)=W_n(c, a)$.
 
 Finally, let us introduce an auxiliary function $U_n$ (for $n \geqslant k$) defined as follows:
 \begin{itemize}
@@ -854,9 +856,9 @@ We note that for $b=n-a-c$, the three $\uno$s above correspond to types $(a-1, b
 \subsection{Showing that chains starting at the outer types have positive weights}
 \label{d2_outer_positive}
 
-We will show that for $(a, b, c)$ a proper lower type (i.e. with $n=a+b+c$, $0 \leqslant c \leqslant a,$ $0 < a+c \leqslant n$), $U_n(a, c)$ is positive. We do this in Lemma \ref{wc:lem:ternary-auxiliary-positive}. Before we prove this formally in the lemma, let us first discuss the proof strategy.
+Let us call all the types in $\{0, 1, 2\}^n$, except for $(0, n, 0)$ (which is the singleton type with point $(1, \dots, 1)$), \emph{proper} types. We will call the type $(0, n, 0)$ improper.
 
-Let us call all lower types in the hypercube, except for $(0, n, 0)$, \emph{proper} lower types.
+In Lemma \ref{wc:lem:ternary-auxiliary-positive} We will show that for $(a, b, c)$ a proper lower type (i.e. with $n=a+b+c$, $0 \leqslant c \leqslant a,$ $0 < a+c \leqslant n$), $U_n(a, c)$ is positive. Since for lower outer types $W_n(a, c)=U_n(a, c)$ and for upper outer types $W_n(a, c)=U_n(c, a)$, this immediately implies that the weights of chains starting at the outer types are positive. Before we state and prove the lemma, let us first discuss the proof strategy.
 
 From Equation \ref{d2_u_n1}, for any triple $(n, a, c)$ if we know that $\uno(a-1, c), \uno(a, c)$ and $\uno(a, c-1)$ are all positive, then clearly $\un(a, c)$ is also positive. We may hope that the three $\uno$ terms can be naturally assumed positive by induction.
 
@@ -869,13 +871,17 @@ The three types $(a-1, b, c)$, $(a, b-1, c)$ and $(a, b, c-1)$ are all lower pro
     \item $1 < a+c$. Otherwise, if $a+c=1$, either $(a-1, b, c)$ or $(a, b, c-1)$ is the improper type $(0, n-1, 0)$.
     \item $c \leqslant a-1$. Otherwise, if $c=a$, the type $(a-1, b, c)$ is be an upper type.
 \end{itemize}
-Hence, we will need to consider the cases when one of the above conditions doesn't hold. For $(a, b, c)$ a proper lower type, this can happen in the following cases: $c=0$, $a=0$, $b=0$, $a=c$. These are the special cases considered separately in the proof of Lemma \ref{wc:lem:ternary-auxiliary-positive}.
+Hence, we will need to consider the cases when one of the above conditions doesn't hold. For $(a, b, c)$ a proper lower type, this can happen in the following cases: $c=0$, $a=0$, $b=0$ or $a=c$. These are the special cases considered separately in the proof of Lemma \ref{wc:lem:ternary-auxiliary-positive}, where $U_n$ is also (more directly) shown to be positive.
 
 \begin{lemma}
 \label{wc:lem:ternary-auxiliary-positive}
-    For $n \geqslant k$, $0 \leqslant c \leqslant a$, $0 \leqslant n-a-c$ and $0 < a+c$ we have $U_n(a, c)>0$.
+    For $n \geqslant k$ and $(a, n-a-c, c)$ a proper lower type (i.e. with $0 \leqslant c \leqslant a$, $0 \leqslant n-a-c$ and $0 < a+c$) we have $U_n(a, c)>0$.
 \leanblueprint{ternary-auxiliary-positive}
 \end{lemma}
+
+\begin{remark}
+    We note that since for $a=c=0$ (this follows from the case 2.2 of the proof below), $a<0$, $c<0$ or $n-a-c<0$ we have $U_n(a, c)=0$, it follows that $U_n(a, c) \geqslant 0$ whenever $a \geqslant c$.
+\end{remark}
 
 \begin{proof}
     Similarly to the $d=1$ case, we will induct on $n$, starting from $n=k$.
@@ -924,7 +930,7 @@ Hence, we will need to consider the cases when one of the above conditions doesn
                 \un(a, a) = \uno(a-1, a) + \uno(a, a) + \uno(a, a-1)\\
                 = \uno(a+k+1, a-k) + \uno(a+k+1, a-k-1) + \uno(a, a-1).
             \end{multline*}
-            Since $(n-1)-a-(a-1)=n-2a=n-a-c \geqslant 0$, $a > 0$, $a>a-1$ and finally $a+k+1>a-k$, we have $\un(a, a) \geqslant \uno(a, a-1)>0$ by induction. \qedhere
+            Since $a+k+1 \geqslant a-k$ and $a+k+1 \geqslant a-k-1$, we have $\un(a, a) \geqslant \uno(a, a-1)$. Since also $(n-1)-a-(a-1)=n-2a=n-a-c \geqslant 0$, $a > 0$ and $a>a-1$ we have $\uno(a, a-1) \geqslant 0$ by induction. \qedhere
     \end{caseindent}
 \end{caseindent}
 \end{proof}
@@ -965,9 +971,18 @@ As in the case when $d=1$, to find the weights of the chains starting at the inn
     as required.
 \end{proof}
 
-Now we need to show that for any proper lower inner type $(a, n-a-c, c)$ we have $U_n(a, c) - U_n(c+k, a-k) > 0.$ 
+For the improper type with $a=c=0$, we have
+\begin{equation*}
+    W_n(0, 0)=U_n(0, 0)-U_n(k, -k)=U_n(0, 0)=0.
+\end{equation*}
+Now we need to show that for any proper lower inner type $(a, n-a-c, c)$ we have $U_n(a, c) - U_n(c+k, a-k) > 0$. The spirit of the proof is very similar to that for the outer types.
 
-Let us recall Equation \ref{d2_u_n1}:
+Let us recall that a type $(a, n-a-c, c)$ is proper lower inner if
+\begin{equation}
+\label{proper_lower_inner_conditions}
+    0 \leqslant a, c \leqslant n, \ 0<a+c\leqslant n \ \text{and} \ a-k<c\leqslant a.
+\end{equation}
+Let us also recall Equation \ref{d2_u_n1}:
 \begin{equation*}
     U_n(a, c)=\uno(a-1, c) + \uno(a, c)+\uno(a, c-1).
 \end{equation*}
@@ -980,15 +995,16 @@ Putting these together, we have:
 \label{d2_w_recursive}
     W_n(a, c)=\wno(a-1, c)+\wno(a, c)+\wno(a, c-1).
 \end{equation}
-Hence, if $(a-1, n-a-c, c)$, $(a, n-a-c-1, c)$ and $(a, n-a-c, c-1)$ are all proper lower inner types, then clearly $\un(a, c)-\un(c+k, a-k)>0$. We will induct on $n$ (with $n=k$ the base case). For any $n>k$, we will need to carefully consider the cases when $(a, n-a-c, c)$ is a proper lower inner type (i.e. $0 \leqslant a, c \leqslant n$, $0<a+c\leqslant n$ and $a-k<c\leqslant a$) but one of $(a-1, n-a-c, c)$, $(a, n-a-c-1, c)$ and $(a, n-a-c, c-1)$ is not a proper lower inner type. This may happen if one of the following conditions is broken:
-\begin{enumerate}
-    \item $(a-1)-k < c \leqslant a-1$. Otherwise, $(a-1, n-a-c, c)$ is an outer type.
-    \item $a-k < c-1 \leqslant a$. Otherwise, $(a, n-a-c, c-1)$ is an outer type.
+We will fix $k$ and induct on $n$ (with $n=k$ the base case). If $(a, b, c)$ (with $b=n-a-c$) is a proper lower inner type such that the types $(a-1, b, c)$, $(a, b-1, c)$ and $(a, b, c-1)$ are also proper lower inner, then by induction and Equation \ref{d2_w_recursive} $\wn(a, c)$ is positive. This happens if all the following conditions are met:
+\begin{itemize}
+    \item $0 \leqslant a-1, b-1, c-1$. Otherwise, one of the types $(a-1, b, c)$, $(a, b-1, c)$ and $(a, b, c-1)$ is an empty type.
     \item $1 < a+c$. Otherwise, $(a-1, n-a-c, c)$ or $(a, n-a-c, c-1)$ is the improper type $(0, n-1, 0)$.
-    \item $a, c, n-a-c < n$. Otherwise, we get an empty type.
-    \item $0 < a-1, n-1-a-c, c-1$. Otherwise, we get an empty type.
-\end{enumerate}
-We notice that for a proper lower inner type and $n>k$, we always have the following conditions satisfied: $a-1-k<c$, $c-1 \leqslant a$, $a, c, n-a-c < n$. We consider the remaining conditions being broken carefully in the full inductive proof below.
+    \item $(a-1)-k < c \leqslant a-1$. Otherwise, $(a-1, b, c)$ is an outer type. We note that for $(a, b, c)$ a lower inner type the first inequality always holds.
+    \item $a-k < c-1 \leqslant a$. Otherwise, $(a, b, c-1)$ is an outer type. We note that for $(a, b, c)$ a lower type the second inequality always holds.
+\end{itemize}
+We note that we also require $a, b, c < n$, but this is ensured by the first condition.
+
+We notice that for a proper lower inner type $(a, b, c)$ (i.e. satisfying all the inequalities from Equation \ref{proper_lower_inner_conditions}) and $n>k$, the above conditions may not hold only in one of the following five cases: $a=c$, $a=c+k-1$, $b=0$ or $c=0$. As we will see in the proof of the lemma, showing that $\wn(a, c)$ is positive in these cases is pretty straightforward (it only requires care with handling the cases).
 
 \begin{lemma}
 \label{wc:lem:ternary-inner-weight-positive}
@@ -999,13 +1015,15 @@ We notice that for a proper lower inner type and $n>k$, we always have the follo
 \begin{proof}
     We prove the lemma by induction on $n$, with $n=k$ the base case.
 
-    $1:$ If $n=k$, since for an inner type $a-n<c\leqslant a$ we cannot have $a=n$ (as then $0<c$, but we also need $a+c \leqslant n$). Hence, we have $\un(c+n, a-n)=0$ and so $W_n(a, c)=U_n(a, c)>0$.
+    $1:$ If $n=k$, since for a proper lower inner type $a-n<c\leqslant a$ we cannot have $a=n$ (as then $0<c$, but we also need $a+c \leqslant n$). Hence, we have $\un(c+n, a-n)=0$ and so $W_n(a, c)=U_n(a, c)>0$.
 
     $2:$ Let us now suppose that $n>k$.
         \begin{caseindent}
-        $2.1:$ If all of the conditions $(1)-(4)$ are satisfied, then $(a-1, n-a-c, c),$ $(a, n-a-c-1, c)$ and $(a, n-a-c, c-1)$ are all lower inner types in $\{0, 1, 2\}^{n-1}$ (or empty, if one of $a$, $c$ or $n-a-c$ is $0$). Let us recall Equation \ref{d2_w_recursive} and the fact that at least one of $a, c, n-a-c$ is strictly positive. Hence, at least one of the three types $(a-1, n-a-c, c),$ $(a, n-1-a-c, c)$ and $(a, n-a-c, c-1)$ is a lower inner type in $\{0, 1, 2\}^{n-1}$, and so by induction its $\wno$ is positive, and so is $\wn(a, c)$.
-        
-        $2.2:$ If $c > a-1$ (i.e. condition $(1)$ is broken), then (since $c \leqslant a$) we must have $a=c$. From the recursive definition of $U_n$ we have:
+        $2.1:$ If all the types $(a-1, n-a-c, c),$ $(a, n-a-c-1, c)$ and $(a, n-a-c, c-1)$ are proper lower inner in $\{0, 1, 2\}^{n-1}$, then by induction and Equation \ref{d2_w_recursive} $\wn(a, c)$ is positive.
+
+        $2.2:$ We recall that if one of $(a-1, n-a-c, c),$ $(a, n-a-c-1, c)$ and $(a, n-a-c, c-1)$ is not a proper lower inner type, then we must have: $a=c$, $a=c+k-1$, $a=0$, $b=0$ or $c=0$. We now consider these case by case.
+        \begin{caseindent}
+        $2.2.1:$ $a=c$. From the recursive definition of $U_n$ we have:
             \begin{equation*}
                 U_{n-1}(a-1, a)=\binom{n-1}{a-1, a}-\binom{n-1}{a, a-1}-\uno(a, a) + \uno(a+k, a-k-1)+\uno(a+k, a-k).
             \end{equation*}
@@ -1024,7 +1042,7 @@ We notice that for a proper lower inner type and $n>k$, we always have the follo
             \end{multline*}
             From the induction, this is positive unless $c=a=0$ (when it equals $0$).
     
-        $2.3:$ If $a-k \geqslant c-1$ (i.e. condition $(2)$ is broken), then (since $a-k<c$) we must have $a=c+k-1$. In this case we have
+        $2.2.2:$ $a=c+k-1$. In this case we have
             \begin{equation*}
                 \uno(a, c-1)=\uno(c+k-1, a-k)
             \end{equation*}
@@ -1038,17 +1056,20 @@ We notice that for a proper lower inner type and $n>k$, we always have the follo
             \end{multline*}
             From the inductive hypothesis, the only case when these two could both be non-positive is when $a=0$ and $a+c=n$. However, this would imply $c=n>a$, which cannot happen.
 
-            $2.4: 0 \geqslant a+c-1$, i.e. $a+c=1$. In this case (since $(a, n-a-c, c)$ is a lower type) we must have $a=1$ and $c=0$. However, then the type we consider is $(1, n-1, 0)$ and we have:
+        $2.2.3:$ $n-a-c=0$. We may assume that $a>c$ (as we have considered $a=c$ in $2.2.1$) and that $a>0$ (as we have considered $a=0$ in $2.2.2$). We clearly have $\wno(a, c)=0$ (as this is an empty type). Moreover, $\wno(a, c-1) \geqslant 0$ (as $a \geqslant c-1$). Finally, we notice that $0 \leqslant a-1, c \leqslant n-1$ (as $a>c\geqslant 0$), $0<(a-1)+c \leqslant n-1$ (as $a+c=n$) and $(a-1)-k<c \leqslant a-1$, so $(a-1, n-a-c, c)$ is a proper lower inner type in $\{0, 1, 2\}^{n-1}$. Hence, $\wn(a, c) \geqslant \wno(a-1, c) > 0$.
+
+        $2.2.4:$ $c=0$. Since $(a, n-a-c, c)$ is proper lower inner, $a>0$. If $a>1$, similarly to above we have $\wno(a, c-1)=0$, $\wno(a, c) \geqslant 0$ and $\wno(a-1, c)>0$ (as we may easily check that $(a-1, n-a-c, c)$ is a proper lower inner type in $\{0, 1, 2\}^{n-1}$.
+
+        Let us now suppose that $a=1$. However, then the type we consider is $(1, n-1, 0)$ and we have:
             \begin{equation*}
                 \wn(1, 0) = \wno(0, 0) + \wno(1, 0) + \wno(1, -1).
             \end{equation*}
-            We have $\wno(0,0)=0$ (as this is the improper type $(0, n-1,0)$) and $\wno(1, -1)=0$ (as this is an empty type). However, for $k \geqslant 2$ the type $(1, n-2, 0)$ is a proper lower inner type, and so $\wn(1, 0)=\wno(1, 0)>0$.
-    
-            We recall that condition $(4)$ is always satisfied, so we do not need to consider the (`empty') case when it is broken. \qedhere
-            \end{caseindent}
+        We have $\wno(0,0)=0$ (as this is the improper type $(0, n-1,0)$) and $\wno(1, -1)=0$ (as this is an empty type). However, for $k \geqslant 2$ the type $(1, n-2, 0)$ is a proper lower inner type, and so $\wn(1, 0)=\wno(1, 0)>0$. \qedhere
+        \end{caseindent}
+    \end{caseindent}
 \end{proof}
 
-Hence, from Lemmas \ref{wc:lem:ternary-inner-weight} and \ref{wc:lem:ternary-inner-weight-positive} all the weights assigned to the basic chains in the course of the recursive procedure are positive (except for the weight of $\{\theonepoint\}$, which is $0$). As shown in Lemma \ref{positive_basic_enough_lemma}, this ensures that the assignment of weights satisfies conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of Proposition \ref{the_weights_assigning_proposition}. Since the procedure also ensures that the sum of weights of chains passing through any point on the hypercube is $1$, all the conditions from Proposition \ref{the_weights_assigning_proposition} are satisfied and so, by Lemma \ref{weights_imply_theorem_lemma}, this proves Theorem \ref{the_main_theorem} for $d=2$.
+Hence, from Lemmas \ref{wc:lem:ternary-inner-weight} and \ref{wc:lem:ternary-inner-weight-positive} all the weights assigned to the basic chains in the course of the recursive procedure are positive (except for the weight of $\{\theonepoint\}$, which is $0$). As shown in Lemma \ref{positive_basic_enough_lemma}, this ensures that the assignment of weights satisfies conditions (\ref{non_negative_condition})-(\ref{positive_A_condition}) of Proposition \ref{the_weights_assigning_proposition}. Since the procedure also ensures that the sum of weights of chains passing through any point on the hypercube is $1$, all the conditions of Proposition \ref{the_weights_assigning_proposition} are satisfied and so, by Lemma \ref{weights_imply_theorem_lemma}, this proves Theorem \ref{the_main_theorem} for $d=2$.
 
 \section{Conclusions and further research}
 \label{section_conclusion}
@@ -1059,7 +1080,7 @@ In this paper, we have shown that the unique largest subset $A \subseteq \{0, 1,
 \end{equation}
 The main contribution of this paper is the decomposition of the cube $\cube$ into weighted chains of width at most $k$ that are either of maximal length $2k+1$ or symmetric. This is a novel approach compared to those used for other generalisations of Sperner's theorem. 
 
-Weighted chain decomposition is preserved under a permutation of coordinates, allowing us to consider only `types' of points instead of points themselves.
+Weighted chain decomposition is preserved under permuting coordinates, allowing us to consider only `types' of points instead of points themselves.
 
 Moreover, the decomposition is explicit and allows us to shift focus from the construction of such a decomposition to proving its properties (i.e., positive weights) with binomial coefficients.
 
