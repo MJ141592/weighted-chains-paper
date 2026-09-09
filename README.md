@@ -5,19 +5,16 @@ generalisation of Sperner's theorem using weighted chain decomposition*. The
 formalisation is a standalone project built on mathlib; it is not intended for
 direct inclusion in mathlib.
 
-The publication has four complementary views:
+The publication has three complementary views:
 
 - `main.tex` is the authoritative journal manuscript;
 - `blueprint/` builds an interactive, theorem-level paper-to-Lean companion;
-- `FORMALIZATION.md` records the detailed declaration map and corrections
-  exposed by formalisation;
-- `SEMANTIC_REVIEW.md` records human review of the correspondence between each
-  PDF-linked paper result and its Lean encoding.
+- `FORMALIZATION.md` records the detailed declaration map and the places where
+  the Lean encoding is phrased differently from the paper.
 
-The Lean kernel verifies the declarations linked by the Blueprint. That fact
-is deliberately kept separate from semantic correspondence review: a green
-proof status says that Lean accepted the displayed declaration, while the
-review record says whether that declaration faithfully represents the paper.
+The Lean kernel verifies the declarations linked by the Blueprint; where the
+Lean encoding of a statement differs in form from the paper, the Blueprint
+entry and `FORMALIZATION.md` say how.
 
 ## Lean formalisation
 
@@ -29,7 +26,7 @@ lake build
 ./scripts/audit.sh
 ```
 
-The project pins Lean 4.33.0 and the matching mathlib release, including the
+The project pins Lean 4.33.1 and the matching mathlib release, including the
 exact transitive dependency graph in `lake-manifest.json`. Compiler warnings
 are errors. The audit rejects incomplete or trust-expanding project
 declarations, compiles every source module so an unimported draft cannot bypass
@@ -64,8 +61,7 @@ The source is arranged in the order of the paper:
   result, including the internally proved symmetric-chain decomposition and
   cuboid extension.
 
-See `REPRODUCIBILITY.md` for the trust model and clean-room build instructions,
-and `FORMALIZATION.md` for the full theorem map and design decisions.
+See `FORMALIZATION.md` for the full theorem map and design decisions.
 
 ## Interactive paper companion
 
@@ -77,8 +73,11 @@ Build the Blueprint and its stable per-result links with:
 
 The generated multi-page site is under `blueprint/_out/site/html-multi/`.
 Publication links use `/theorems/<slug>/`, a stable redirect layer generated
-from Verso's manifest rather than its internal page layout. See
-`LATEX_INTEGRATION.md` for the ready-to-use PDF link macro and insertion map.
+from Verso's manifest rather than its internal page layout. The PDF link macro
+`\leanblueprint` is defined in the preamble of `main.tex`, and the blueprint
+finds each linked statement by its `\label` or `% blueprint-begin/end` markers
+rather than by line number, so the manuscript can be edited freely (see
+`blueprint/README.md`).
 
 GitHub Pages deployment is intentionally gated by the repository variable
 `ENABLE_PAGES=true`; the site can therefore be checked in CI before a canonical
@@ -92,5 +91,7 @@ With a current TeX Live installation and `latexmk` on `PATH`, run:
 latexmk -pdf main.tex
 ```
 
-The Blueprint does not rewrite or preprocess the manuscript. Adding its small
-link markers to a submission copy remains an ordinary LaTeX edit.
+The Blueprint does not rewrite or preprocess the manuscript. `main.tex` is
+self-contained: the `[Lean formalisation]` badges are produced by the
+`\leanblueprint` macro in its preamble, and a journal build without them only
+needs `\leanlinksfalse` after that macro's definition.

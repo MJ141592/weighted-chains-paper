@@ -1,12 +1,24 @@
 name = "weighted-chains"
 version = "0.1.0"
-defaultTargets = ["WeightedChains"]
+defaultTargets = ["WeightedChains", "WeightedChainsPalomar"]
 
 [[require]]
 name = "mathlib"
 scope = "leanprover-community"
-rev = "v4.33.0"
+rev = "v4.33.1"
 
+# The formalisation proper.
 [[lean_lib]]
 name = "WeightedChains"
+moreLeanArgs = ["-DwarningAsError=true"]
+
+# Palomar Challenge/Solution record, checked by `leanprover/comparator`
+# following `comparator.json`.  `Challenge` imports only Mathlib and
+# deliberately leaves every proof as `sorry` and switches off the sorry warning
+# for itself with `set_option warn.sorry false`; `Solution` proves the same
+# statements from the `WeightedChains` library, and any `sorry` there fails the
+# build because warnings are errors.
+[[lean_lib]]
+name = "WeightedChainsPalomar"
+roots = ["WeightedChainsPalomar.Challenge", "WeightedChainsPalomar.Solution"]
 moreLeanArgs = ["-DwarningAsError=true"]

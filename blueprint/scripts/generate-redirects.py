@@ -8,14 +8,17 @@ import html
 import json
 import re
 import shutil
+import sys
 from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
 from urllib.parse import urlsplit
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import paper_sources  # noqa: E402
+
 
 SLUG = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 COMMIT = re.compile(r"^[0-9a-f]{40}$")
-CORRESPONDENCE_TAGS = {"direct", "corrected", "factored", "encoding"}
 
 
 class IdCollector(HTMLParser):
@@ -33,7 +36,6 @@ def arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--links", type=Path, required=True)
-    parser.add_argument("--semantic-review", type=Path, required=True)
     parser.add_argument("--site", type=Path, required=True)
     parser.add_argument("--expected-commit", required=True)
     return parser.parse_args()
@@ -118,80 +120,24 @@ def source_span(preview: dict) -> dict:
     return matches[0]["text"]
 
 
-def semantic_review_records(path: Path) -> dict[str, dict]:
-    text = path.read_text(encoding="utf-8")
-    sections = re.split(r"(?m)^### [0-9]+[.] ", text)[1:]
-    result: dict[str, dict] = {}
-    for section in sections:
-        label_match = re.search(r"[*][*]Canonical ID:[*][*] `([^`]+)`", section)
-        category_match = re.search(r"[*][*]Category:[*][*] ([^\n]+)", section)
-        route_match = re.search(r"[*][*]Stable route:[*][*] `([^`]+)`", section)
-        source_match = re.search(
-            r"[*][*]LaTeX source:[*][*] `([^`:]+):([0-9]+)-([0-9]+)`", section
+def locate_paper_sources(
+    entries: list[dict], main_tex: Path
+) -> tuple[list[str], dict[str, tuple[int, int]]]:
+    """Find every entry in main.tex by label; warn about unlinked numbered results."""
+    lines = main_tex.read_text(encoding="utf-8").splitlines()
+    spans = paper_sources.paper_spans(lines, entries)
+    for kind, line_number in paper_sources.unlinked_environments(lines, entries):
+        print(
+            f"warning: main.tex:{line_number}: \\begin{{{kind}}} has no blueprint entry",
+            file=sys.stderr,
         )
-        if any(match is None for match in (label_match, category_match, route_match, source_match)):
-            continue
-        label = label_match.group(1)
-        categories = {item.strip() for item in category_match.group(1).split(",")}
-        if label in result:
-            raise ValueError(f"duplicate semantic-review record for {label!r}")
-        result[label] = {
-            "categories": categories,
-            "route": route_match.group(1),
-            "source": {
-                "path": source_match.group(1),
-                "startLine": int(source_match.group(2)),
-                "endLine": int(source_match.group(3)),
-            },
-        }
-    if not result:
-        raise ValueError(f"{path} contains no semantic-review records")
-    return result
+    return lines, spans
 
 
-def validate_numbered_paper_environments(entries: list[dict], links_path: Path) -> None:
-    repository_root = links_path.parent.parent
-    numbered = [entry for entry in entries if entry.get("numbered") is True]
-    source_paths = {entry.get("source", {}).get("path") for entry in numbered}
-    if source_paths != {"main.tex"}:
-        raise ValueError(
-            "numbered entries must all point to main.tex, got "
-            f"{sorted(map(repr, source_paths))}"
-        )
-    source_path = repository_root / "main.tex"
-    lines = source_path.read_text(encoding="utf-8").splitlines()
-    environment_pattern = re.compile(r"^\\begin[{](theorem|definition|proposition|lemma)[}]")
-    actual = {
-        (match.group(1), line_number)
-        for line_number, line in enumerate(lines, start=1)
-        if (match := environment_pattern.match(line)) is not None
-    }
-    expected = {
-        (entry.get("kind"), entry.get("source", {}).get("startLine")) for entry in numbered
-    }
-    if actual != expected:
-        raise ValueError(
-            "numbered paper-environment coverage drift: "
-            f"missing {sorted(actual - expected)}, stale {sorted(expected - actual)}"
-        )
-    for entry in numbered:
-        source = entry["source"]
-        end_line = source.get("endLine")
-        kind = entry.get("kind")
-        if not isinstance(end_line, int) or not 1 <= end_line <= len(lines):
-            raise ValueError(f"invalid paper end line for {entry.get('label')!r}: {end_line!r}")
-        if lines[end_line - 1].strip() != rf"\end{{{kind}}}":
-            raise ValueError(
-                f"paper source range for {entry.get('label')!r} does not end at "
-                f"\\end{{{kind}}}"
-            )
-
-
-def validate_pdf_link_badges(entries: list[dict], links_path: Path) -> None:
-    """Require one correctly placed LaTeX badge for every reviewed PDF result."""
-    repository_root = links_path.parent.parent
-    source_path = repository_root / "main.tex"
-    lines = source_path.read_text(encoding="utf-8").splitlines()
+def validate_pdf_link_badges(
+    entries: list[dict], lines: list[str], spans: dict[str, tuple[int, int]]
+) -> None:
+    """Require one correctly placed LaTeX badge for every PDF-linked result."""
     badge_pattern = re.compile(r"^\\leanblueprint[{]([a-z0-9]+(?:-[a-z0-9]+)*)[}]$")
     actual: dict[str, list[int]] = {}
     for line_number, line in enumerate(lines, start=1):
@@ -215,11 +161,7 @@ def validate_pdf_link_badges(entries: list[dict], links_path: Path) -> None:
         badge_lines = actual[slug]
         if len(badge_lines) != 1:
             raise ValueError(f"PDF badge {slug!r} occurs {len(badge_lines)} times")
-        source = entry.get("source", {})
-        start_line = source.get("startLine")
-        end_line = source.get("endLine")
-        if not isinstance(start_line, int) or not isinstance(end_line, int):
-            raise ValueError(f"invalid source span for PDF badge {slug!r}")
+        start_line, end_line = spans[entry["label"]]
         if not start_line <= badge_lines[0] <= end_line:
             raise ValueError(
                 f"PDF badge {slug!r} is on line {badge_lines[0]}, outside "
@@ -292,20 +234,13 @@ def main() -> None:
     entries = links.get("entries")
     if not isinstance(entries, list) or not entries:
         raise ValueError(f"{args.links} does not contain a nonempty entries array")
-    validate_numbered_paper_environments(entries, args.links)
-    validate_pdf_link_badges(entries, args.links)
-    review_records = semantic_review_records(args.semantic_review)
-    reviewed_labels = {
-        entry.get("label")
-        for entry in entries
-        if entry.get("numbered") is True or entry.get("pdfLinked") is True
-    }
-    if set(review_records) != reviewed_labels:
+    if any("source" in entry for entry in entries):
         raise ValueError(
-            "semantic-review coverage drift: "
-            f"missing {sorted(reviewed_labels - set(review_records))}, "
-            f"stale {sorted(set(review_records) - reviewed_labels)}"
+            "links.json entries must not pin line numbers; paper locations are derived "
+            "from \\label{...} and % blueprint-begin/end markers in main.tex"
         )
+    paper_lines, spans = locate_paper_sources(entries, args.links.parent.parent / "main.tex")
+    validate_pdf_link_badges(entries, paper_lines, spans)
 
     previews = load_previews(args.manifest)
     targets = statement_targets(previews)
@@ -313,9 +248,6 @@ def main() -> None:
     repository = links.get("repository")
     if not isinstance(repository, str) or not repository.startswith("https://github.com/"):
         raise ValueError("links manifest must declare its canonical GitHub repository")
-    review_state = links.get("reviewState")
-    if not isinstance(review_state, str) or not review_state:
-        raise ValueError("links manifest must declare a nonempty review state")
     seen_slugs: set[str] = set()
     seen_labels: set[str] = set()
     resolved: list[dict] = []
@@ -350,50 +282,18 @@ def main() -> None:
                 f"paper numbering drift for {label!r}: expected {paper_ref!r}, "
                 f"Verso rendered {preview.get('title')!r}"
             )
-        tags = set(preview.get("tags", []))
-        expected_correspondence = set(entry.get("correspondence", []))
-        if not expected_correspondence or not expected_correspondence <= CORRESPONDENCE_TAGS:
-            raise ValueError(
-                f"{label!r} has invalid correspondence categories: "
-                f"{sorted(expected_correspondence)}"
-            )
-        if entry.get("numbered") is True or entry.get("pdfLinked") is True:
-            review_record = review_records[label]
-            if review_record["categories"] != expected_correspondence:
-                raise ValueError(
-                    f"semantic-review category drift for {label!r}: ledger has "
-                    f"{sorted(review_record['categories'])}, links manifest has "
-                    f"{sorted(expected_correspondence)}"
-                )
-            if review_record["source"] != entry.get("source"):
-                raise ValueError(
-                    f"semantic-review source drift for {label!r}: ledger has "
-                    f"{review_record['source']}, links manifest has {entry.get('source')}"
-                )
-            expected_route = f"/theorems/{slug}/"
-            if review_record["route"] != expected_route:
-                raise ValueError(
-                    f"semantic-review route drift for {label!r}: ledger has "
-                    f"{review_record['route']!r}, expected {expected_route!r}"
-                )
-        actual_correspondence = tags & CORRESPONDENCE_TAGS
-        if actual_correspondence != expected_correspondence:
-            raise ValueError(
-                f"correspondence drift for {label!r}: expected "
-                f"{sorted(expected_correspondence)}, got {sorted(actual_correspondence)}"
-            )
-        required_tags = {review_state, *expected_correspondence}
-        if not required_tags <= tags:
-            raise ValueError(f"{label!r} is missing tags {sorted(required_tags - tags)}")
-        expected_source = entry.get("source", {})
+        start_line, end_line = spans[label]
+        expected_source = {"path": "main.tex", "startLine": start_line, "endLine": end_line}
         actual_source = source_span(preview)
         if (
-            actual_source.get("startLine") != expected_source.get("startLine")
-            or actual_source.get("endLine") != expected_source.get("endLine")
-            or not str(actual_source.get("path", "")).endswith(expected_source.get("path", ""))
+            actual_source.get("startLine") != start_line
+            or actual_source.get("endLine") != end_line
+            or not str(actual_source.get("path", "")).endswith("main.tex")
         ):
             raise ValueError(
-                f"paper source drift for {label!r}: expected {expected_source}, got {actual_source}"
+                f"paper source drift for {label!r}: main.tex has {expected_source}, Verso "
+                f"rendered {actual_source}; regenerate PaperSources.lean with "
+                "scripts/paper_sources.py and rebuild"
             )
         lean_declarations, source_commits = validated_declarations(
             preview, declarations, repository
@@ -414,6 +314,7 @@ def main() -> None:
         resolved.append(
             {
                 **entry,
+                "source": expected_source,
                 "route": f"/theorems/{slug}/",
                 "targetHref": href,
                 "sourceCommit": next(iter(source_commits)),

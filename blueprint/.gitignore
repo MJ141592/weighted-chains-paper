@@ -2,3 +2,5 @@
 _out/
 __pycache__/
 *.pyc
+# Generated from ../main.tex by scripts/paper_sources.py.
+WeightedChainsBlueprint/PaperSources.lean

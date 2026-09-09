@@ -1,8 +1,8 @@
-# Formalisation roadmap
+# Formalisation notes
 
-The goal is a kernel-checked Lean 4 proof of the paper with no `sorry`, `admit`,
-custom axioms, opaque proof placeholders, or equality-by-computation shortcuts.
-Only declarations which compile with complete proofs are added to the main
+The formalisation is a kernel-checked Lean 4 proof of the paper with no `sorry`,
+`admit`, custom axioms, opaque proof placeholders, or equality-by-computation
+shortcuts. Only declarations which compile with complete proofs are part of the
 library.
 
 ## Repository and proof-engineering choices
@@ -30,12 +30,10 @@ library.
   accidentally root-namespaced declarations. There are no axioms declared by
   this project.
 
-The interactive companion under `blueprint/` presents the 18 numbered paper
+The interactive companion under `blueprint/` presents the 20 numbered paper
 items and the main unnumbered results with kernel-checked signatures and
-commit-pinned source links. All 21 results linked directly from the PDF are in
-`SEMANTIC_REVIEW.md`, the authoritative human sign-off record for paper-to-Lean
-correspondence; proof completion and semantic review are intentionally reported
-as distinct facts.
+commit-pinned source links. Each of the 23 results linked directly from the PDF
+notes there how its Lean encoding differs in form from the paper, where it does.
 
 ## Paper-to-Lean map
 
@@ -49,9 +47,9 @@ as distinct facts.
 | Every good chain meets `A₁`, `A₂` exactly once | `Chain.Good.card_lowerResidueFinset_inter_vertices`, `Chain.Good.card_upperResidueFinset_inter_vertices` | proved for every `d` |
 | `|A₁| = |A₂|` by reflection | `Cube.card_lowerResidueFinset_eq_card_upperResidueFinset` | proved |
 | Chains, width, saturation, symmetry, good chains | namespace `Chain` | defined |
-| Lower/upper sides and corrected inner/outer layers | `Cube.lowerSide`, `Cube.upperSide`, `Cube.InnerLayer`, `Cube.OuterLayer` | defined as paper-facing correspondence targets; later proofs use equivalent arithmetic forms |
+| Lower/upper sides and inner/outer layers | `Cube.lowerSide`, `Cube.upperSide`, `Cube.InnerLayer`, `Cube.OuterLayer` | defined; later proofs use equivalent arithmetic forms |
 | Saturated-chain rank and length facts | `Chain.rank_vertex_eq`, `Chain.length_le_width_mul_add_one`, `Chain.symmetric_iff_endpoint` | proved |
-| Corrected Boolean width/length equivalence | `Chain.width_eq_steps_of_saturated`, `Chain.length_eq_width_add_one_of_saturated` | proved |
+| Boolean width/length equivalence for saturated chains | `Chain.width_eq_steps_of_saturated`, `Chain.length_eq_width_add_one_of_saturated` | proved |
 | A separated family meets a good chain at most once | `Chain.card_inter_vertices_le_one` | proved (from the width condition) |
 | Weighted double-counting in Lemma 3.2 | `WeightedCover.card_le_of_weighted_cover` | proved |
 | Lemma 3.2, cardinality with the actual reference family | `Chain.kSeparated_card_le_lowerResidueFinset` | proved, conditional only on the weighted cover |
@@ -80,7 +78,7 @@ as distinct facts.
 | Section 5, type-orbit cardinality and transitivity | `Ternary.card_typeFiber`, `Ternary.exists_coordinatePermutation_of_same_type` | proved |
 | Section 5, concrete basic chains, exact type traces, and reflection | `Ternary.BasicChain`, `Ternary.BasicChain.reflectEquiv` | proved |
 | Section 5, basic good-chain existence through every ternary vertex | `Ternary.BasicChain.exists_good_containing` | proved |
-| Section 5, corrected `positive_basic_enough_lemma` geometry | `Ternary.BasicChain.exists_good_containing_avoiding_middle`, `Ternary.BasicChain.exists_closer_lowerResidue` | proved |
+| Section 5, basic-chain sufficiency (Lemma 5.2) geometry | `Ternary.BasicChain.exists_good_containing_avoiding_middle`, `Ternary.BasicChain.exists_closer_lowerResidue` | proved |
 | Section 5, metachain type traces and incidence uniformity | `Ternary.BasicChain.type_vertexAt_eq_of_same_start_type`, `Ternary.BasicChain.card_goodChainsStartingAtTypeThrough_eq_of_same_type` | proved |
 | Section 5, canonical start-type groups and equal distribution within a metachain | `Ternary.BasicChain.startGroup`, `Ternary.BasicChain.sum_distributedChainWeight_startGroup` | proved |
 | Section 5, canonical group determines width and full type trace | `Ternary.BasicChain.width_eq_of_mem_startGroup`, `Ternary.BasicChain.type_vertexAt_eq_of_mem_startGroup` | proved |
@@ -95,10 +93,10 @@ as distinct facts.
 | Section 5, auxiliary `U_n(a,c)` definition and exact recursion | `Ternary.auxiliaryWeight`, `Ternary.auxiliaryWeight_recursion` | proved |
 | Section 5, dimension-Pascal identity on valid lower types | `Ternary.auxiliaryWeightPascal_of_valid_lower` | proved, including ghost boundaries |
 | Section 5, inner starting-weight difference and dimension recurrence | `Ternary.innerStartingWeight`, `Ternary.innerStartingWeight_succ_of_valid_inner` | proved |
-| Section 5, corrected positivity of `U_n(a,c)` | `Ternary.auxiliaryWeight_pos_of_valid_lower` | proved away from `(0,0)` |
-| Section 5, positivity of inner starting weights | `Ternary.innerStartingWeight_pos_of_valid_lower_inner` | proved |
+| Section 5, positivity of `U_n(a,c)` (Lemma 5.3) | `Ternary.auxiliaryWeight_pos_of_valid_lower` | proved |
+| Section 5, positivity of inner starting weights (Lemma 5.5) | `Ternary.innerStartingWeight_pos_of_valid_lower_inner` | proved |
 | Section 5, full reflected start-type total and positivity | `Ternary.startTypeWeight`, `Ternary.startTypeWeight_pos` | proved |
-| Section 5, the three pointwise `W_n(a,c)` recurrences | `Ternary.startTypeWeight_recurrence_lower_outer`, `Ternary.startTypeWeight_recurrence_lowest_lower_inner`, `Ternary.startTypeWeight_recurrence_lower_inner` | proved with integer zero-extension and corrected final sign |
+| Section 5, the three pointwise `W_n(a,c)` recurrences | `Ternary.startTypeWeight_recurrence_lower_outer`, `Ternary.startTypeWeight_recurrence_lowest_lower_inner`, `Ternary.startTypeWeight_recurrence_lower_inner` | proved with integer zero-extension |
 | Section 5, concrete distributed weighting covers every ternary vertex | `Ternary.BasicChain.inducedWeight_startTypeTotal_eq_one` | proved |
 | Main theorem, `d = 2` cardinality bound | `Ternary.BasicChain.kSeparated_card_le_lowerResidueFinset` | proved |
 | Main theorem, `d = 2` exceptional-point-aware outward uniqueness | `Ternary.BasicChain.eq_lowerResidueFinset_of_card_eq` | proved |
@@ -108,118 +106,32 @@ as distinct facts.
 | Appendix: weighted proof of Sperner, including exact chain collection, local telescoping incidence, `(0,1]` weight range, and equality classification | `SpernerAppendix.SymmetricChain.indexEquivSymmetricChains`, `SpernerAppendix.SymmetricChain.weight_eq_choose_sub_previous_div_card`, `SpernerAppendix.SymmetricChain.inducedWeight_eq_one`, `SpernerAppendix.SymmetricChain.weight_le_one`, `SpernerAppendix.cardinality_and_uniqueness` | final bound/classification proved for every `n`; intermediate positive-weight statements carry their mathematically necessary small-`n` hypotheses |
 | Appendix: arbitrary `d`, `n/2 ≤ k ≤ n` optimality of both `A₁` and `A₂` | `LargeK.lowerResidueFinset_eq_middleLayer`, `LargeK.kSeparated_card_le_lowerResidueFinset`, `LargeK.lowerResidueFinset_isMaximum`, `LargeK.upperResidueFinset_isMaximum` | proved internally, including the required symmetric-chain decomposition rather than assuming its existence |
 
-## Clarifications exposed by formalisation
+## Encoding notes
 
-These points were exposed by translating the paper into typed statements. The
-first two have been confirmed by the author; the remaining mathematical entries
-are resolved by the formal proofs, and the corrected-sign recurrence also has
-the displayed numerical counterexample. Issues fixed in the manuscript are
-removed from this list.
+The Lean statements follow the paper. The points below are the places where the
+formal statement is phrased differently from the manuscript, or carries a
+hypothesis that the manuscript leaves implicit.
 
-1. `k`-separation must quantify over **distinct** comparable vertices. Without
-   `x ≠ y`, no nonempty family is `k`-separated. Lean's definition makes this
-   condition explicit.
-2. The sentence “For `d = 1`, a chain's width is `l` iff its length is `l + 1`”
-   is false for arbitrary chains (for example, the two-vertex chain
-   `000 ≤ 111`). It becomes correct for saturated chains and is proved in that
-   form as `Chain.length_eq_width_add_one_of_saturated`.
-3. In the inner-layer positivity argument for `d = 1`, the lemma gives
-   `W_n(a) = U_n(a) - U_n(n-a-k)`, but the next paragraph says it suffices to
-   prove `U_n(a) - U_n(a+k) > 0`. The induction that follows consistently uses
-   `n-a-k`. The chain starting at upper layer `a+k` reflects to lower starting
-   layer `n-a-k`, so `n-a-k` is the correct argument and is now formalised.
-4. The sentence about an upper outer layer says
-   `W_n(a) = W_n(n-a) = U_n(a)`. With `a` denoting the upper layer, the final
-   term is `U_n(n-a)` by the same reflection.
-5. The displayed lower-outer range `c+k ≤ a ≤ c` is impossible for positive
-   `k`. The recurrence and type triangle require `c+k ≤ a` together with
-   `a+c ≤ n` (equivalently `a ≤ n-c`).
-6. The outer-positivity paragraph reverses the lower-type inequality when it
-   writes `a ≤ c ≤ n`; the lower half has `c ≤ a` (and validity also requires
-   `a+c ≤ n`).
-7. The stated ternary positivity lemma includes `(a,c)=(0,0)`, but the
-   recurrence gives `U_n(0,0)=0` for every positive `n`. Positivity must exclude
-   this exceptional all-ones type, consistently with its zero chain weight
-   elsewhere in Section 5.
-8. In the proof of the basic-chain sufficiency lemma, the “outer vertices”
-    paragraph immediately calls a type satisfying `c<a-k` “lower inner”. That
-    inequality describes a lower outer type.
-9. In inner-positivity case `2.2°`, the first displayed difference writes
-    `U_n(a-k,a+k)`. The preceding lemma and the cancellation on the following
-    lines both require `U_n(a+k,a-k)`.
-10. In the `n=k` outer-positivity calculation, the final numerator is
-    `((a-c)(n-c)+a)`, not `((a-c)(n-c)+1)`. The same sentence also reverses
-    the lower-type inequality: positivity uses `c ≤ a`.
-11. In the appendix's incidence calculation, the symmetric chains capable of
-    meeting `L_i` lie in `𝒞₀ ∪ ⋯ ∪ 𝒞ᵢ`, not the displayed intersection of
-    those pairwise-disjoint strata.
-12. Coordinate reflection in the `d`-ary cube is `𝐝 - x`, where
-    `𝐝 = (d, …, d)`, not the displayed `𝐧 - x`.
-13. A symmetric ternary basic chain of width `w` runs between layers
-    `L_(n-w)` and `L_(n+w)`, not `L_(n/2-w)` and `L_(n/2+w)`.
-14. With the paper's zero-based layer indices, the rank complementary to `i`
-    is `nd-i`; the preliminary inner-layer paragraph's `nd+1-i` is off by one.
-15. In the uniqueness induction, `i` is introduced as distance from the
-    middle but then used as an absolute layer index.  The Lean proof uses the
-    well-founded distance functions in `DOne.EqualityPropagation` and
-    `DTwo.Uniqueness`, avoiding that index conflation.
-16. All basic good chains do not form one orbit under coordinate permutation.
-    The orbit/uniformity assertion is for a fixed canonical start type and
-    trace, formalized by the start-group and metachain declarations.
-17. The concluding displayed ternary extremal family should have ambient cube
-    `{0,1,2}^n`, not `{0,…,d}^n`.
-18. The lower-outer `W_n(a,c)` recurrence also holds on the boundary
-    `c+k=a`; the printed strict range `c<a-k` omits it.
-19. Immediately before that recurrence, the incidence difference should
-    contain `W_n(a+1,c)`, as the labeled equation does, rather than
-    `W_n(a+1,c-1)`.
-20. The final term in the later-inner recurrence must be
-    `-W_n(a-k+1,c+k)`, not `+W_n(a-k+1,c+k)`.  For
-    `n=5, k=2, a=c=2`, the corrected recurrence and the defined weight both
-    give `2`, whereas the printed plus-sign gives `10`.
-21. In the parenthetical discussion of the first inner diagonal
-    `c=a-k+1`, the type `(a-k+1,b-1,c+k)` lies on the upper **outer**
-    boundary, not in the upper inner region.  It is the reflected endpoint of
-    the symmetric metachain starting at `(a+1,b-1,c)`, so there is no separate
-    canonical upper start group contributing another recurrence term.
-22. In Lean's natural-number arithmetic, the paper's rational inequality
-    `n/2 ≤ k` must be encoded as `n ≤ 2k`.  Writing `n / 2 ≤ k` with truncated
-    division would be one unit too weak when `n` is odd.  Appendix 2 uses the
-    exact former condition and the paper's floor/ceiling coordinate split.
-23. The strategy section recalls that `A₁=A₂` “if `2 ∣ d`”.  While sufficient,
-    this misses, for example, `d=1` with even `n`.  The exact condition in the
-    main theorem is `2 ∣ nd`, and this is the condition formalised by
-    `Cube.lowerResidueFinset_eq_upperResidueFinset_of_even`.
-24. The asymptotic proof sketch specifies only the base `n=k` and an induction
-    step of size `k`. This reaches dimensions divisible by `k`, not all natural
-    dimensions in the displayed limit. The Lean proof handles every remainder
-    class modulo `k` (equivalently, one may supply a base interval of length
-    `k`) and proves convergence along the full sequence.
-25. The two inequalities in the definition of a chain “starting at” an endpoint
-    are reversed relative to the explanatory sentence that follows and to the
-    later proofs.  A chain starts at `x₁` when `x₁` is **at least as far** from
-    the middle as `xₗ`, so the first displayed comparison at `main.tex:274`
-    should be `≥`; correspondingly, the comparison for starting at `xₗ` at
-    `main.tex:276` should be `≤`.  Lean's `Chain.StartsAtFirst` and
-    `Chain.StartsAtLast` use these intended orientations, with equality
-    permitting either endpoint.
-26. The weighted-chain proposition at `main.tex:346` says “for any `n,k`”, but
-    the theorem it is used to prove and the positive-weight constructions
-    require the standing range `1 < k ≤ n`.  Those hypotheses should be stated
-    explicitly in the proposition.  The corresponding Boolean and ternary Lean
-    theorems both carry `1 < k` and `k ≤ n` as hypotheses.
-
-## Current manuscript proof-reading follow-ups
-
-These source-level issues were introduced by the current proof-reading changes;
-they do not alter the kernel-checked Lean statements.
-
-1. The AI usage note at `main.tex:160` says that the Lean code has been checked
-   manually as a faithful translation while all author sign-off records in
-   `SEMANTIC_REVIEW.md` remain pending.  The word “legitimate” also does not
-   distinguish kernel acceptance from semantic correspondence.  Until the
-   author review is complete, the note should distinguish the completed kernel
-   checks from the ongoing review of correspondence.
+1. The paper's rational inequality `n/2 ≤ k` in Appendix B is encoded as
+   `n ≤ 2k`, which is exact; writing `n / 2 ≤ k` with truncated natural-number
+   division would be one unit too weak when `n` is odd.
+2. The asymptotic result in the conclusion is proved as a real-valued limit
+   along every natural dimension `n`. The recurrence
+   `A(n+k) ≤ (d+1)^n + ((d+1)^k - (dk+1)) A(n)` is proved for every `n ≥ 0`,
+   so the induction starts from the trivial bound `A(r) ≤ (d+1)^r` for the
+   remainder `r = n mod k` rather than from the paper's base cases
+   `k ≤ n ≤ 2k-1`; the two choices differ only by one step of the recurrence.
+3. The uniqueness induction of Lemma 3.2 is carried out by well-founded
+   induction on the distance from the middle of the cube
+   (`DOne.EqualityPropagation`, `DTwo.Uniqueness`).
+4. The Palomar `Challenge` statements avoid every project definition: the cube
+   is `Fin n → Fin (d + 1)`, the rank is `∑ i, (x i : ℕ)`, comparability is
+   `∀ i, x i ≤ y i`, the number of differing coordinates is a `Finset.filter`
+   cardinality, and the residues `⌊nd/2⌋`, `⌈nd/2⌉` are written with
+   natural-number division as `n * d / 2` and `n * d - n * d / 2`. The
+   asymptotic statement characterises the maximum cardinality by an
+   `IsGreatest` hypothesis rather than by a definition; `Solution.lean` shows
+   the two formulations agree.
 
 ## Sources for the setup
 

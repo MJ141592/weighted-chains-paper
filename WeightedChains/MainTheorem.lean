@@ -10,8 +10,8 @@ covers into the paper's single statement for `d ∈ {1,2}`.
 
 namespace WeightedChains
 
-/-- The paper's main cardinality and equality-classification theorem.  Every
-`k`-separated family in dimension `d = 1` or `d = 2` is bounded by the lower
+/-- The paper's main cardinality and equality-classification theorem.  If `k > 1`,
+every `k`-separated family in dimension `d = 1` or `d = 2` is bounded by the lower
 rank-residue family, and equality gives one of the two reflected residue
 families.  When `d = 2` those two families coincide. -/
 theorem main_cardinality_and_uniqueness

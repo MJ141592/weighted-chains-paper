@@ -1,0 +1,14 @@
+{
+  "challenge_module": "WeightedChainsPalomar.Challenge",
+  "solution_module": "WeightedChainsPalomar.Solution",
+  "theorem_names": [
+    "WeightedChains.residue_families_kSeparated",
+    "WeightedChains.residue_families_card_eq",
+    "WeightedChains.main_theorem",
+    "WeightedChains.large_k_bound",
+    "WeightedChains.cuboid_large_k_bound",
+    "WeightedChains.sperner_theorem",
+    "WeightedChains.asymptotic_density"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]
+}

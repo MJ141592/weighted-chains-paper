@@ -6,8 +6,8 @@ on:
       - "v[0-9]*.[0-9]*.[0-9]*"
 
 # This workflow deliberately does not create or modify a GitHub release. It
-# produces reviewable files from an intentional version tag; a human publishes
-# them only after following RELEASING.md.
+# produces reviewable files from an intentional version tag; a human reviews
+# and publishes them.
 permissions:
   contents: read
 
