@@ -869,7 +869,7 @@ The three types $(a-1, b, c)$, $(a, b-1, c)$ and $(a, b, c-1)$ are all lower pro
     \item $0 \leqslant a-1, b-1, c-1$. Otherwise, if $a$, $b$ or $c$ is $0$ then respectively $a-1$, $b-1$ or $c-1$ equals $-1$, and so $(a-1, b, c)$, $(a, b-1, c)$ or $(a, b, c-1)$ is empty (and then $\uno$ of this type is $0$).
     \item $a, b, c \leqslant n$. Otherwise, similarly to above, we get an empty type.
     \item $1 < a+c$. Otherwise, if $a+c=1$, either $(a-1, b, c)$ or $(a, b, c-1)$ is the improper type $(0, n-1, 0)$.
-    \item $c \leqslant a-1$. Otherwise, if $c=a$, the type $(a-1, b, c)$ is be an upper type.
+    \item $c \leqslant a-1$. Otherwise, if $c=a$, the type $(a-1, b, c)$ is an upper type.
 \end{itemize}
 Hence, we will need to consider the cases when one of the above conditions doesn't hold. For $(a, b, c)$ a proper lower type, this can happen in the following cases: $c=0$, $a=0$, $b=0$ or $a=c$. These are the special cases considered separately in the proof of Lemma \ref{wc:lem:ternary-auxiliary-positive}, where $U_n$ is also (more directly) shown to be positive.
 
@@ -1024,9 +1024,9 @@ We notice that for a proper lower inner type $(a, b, c)$ (i.e. satisfying all th
         $2.2:$ We recall that if one of $(a-1, n-a-c, c),$ $(a, n-a-c-1, c)$ and $(a, n-a-c, c-1)$ is not a proper lower inner type, then we must have: $a=c$, $a=c+k-1$, $a=0$, $b=0$ or $c=0$. We now consider these case by case.
         \begin{caseindent}
         $2.2.1:$ $a=c$. From the recursive definition of $U_n$ we have:
-            \begin{equation*}
-                U_{n-1}(a-1, a)=\binom{n-1}{a-1, a}-\binom{n-1}{a, a-1}-\uno(a, a) + \uno(a+k, a-k-1)+\uno(a+k, a-k).
-            \end{equation*}
+            \begin{multline*}
+                U_{n-1}(a-1, a)=\binom{n-1}{a-1, a}-\binom{n-1}{a, a-1}-\uno(a, a)\\ + \uno(a+k, a-k-1)+\uno(a+k, a-k).
+            \end{multline*}
             Hence
             \begin{multline*}
                 \un(a, a)
